@@ -19,6 +19,8 @@ Action.load_actions(user)
 
 # creating tkinter window
 root = Tk()
+root.title('Property Python')
+root.iconbitmap('icon.ico')
 
 # setting the minimun size of the root window
 root.minsize(950, 150)
