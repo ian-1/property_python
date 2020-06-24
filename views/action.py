@@ -3,6 +3,7 @@ from tkinter import Toplevel,\
                     Label,\
                     Entry,\
                     Button
+from lib.action import Action
 
 class ActionViews:
     # view items used in add action window
@@ -11,6 +12,7 @@ class ActionViews:
         user.add_action(property, message)
         confirm_window.destroy()
         window.destroy()
+        Action.save_actions(user)
 
 
     def confirm_window(window, user, property, message):
