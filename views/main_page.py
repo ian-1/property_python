@@ -10,7 +10,7 @@ class MainPage:
     def donothing():
         print('do nothing')
 
-    def standard_menubar(window):
+    def standard_menubar(window, user):
         menubar = Menu(window)
         window.config(menu=menubar)
         # file menu
@@ -40,10 +40,10 @@ class MainPage:
         menubar.add_cascade(label="Template", menu=template_menu)
         # action menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=MainPage.donothing)
+        action_menu.add_command(label="View Actions", command=lambda: print(user.actions[0].message))
         action_menu.add_separator()
         action_menu.add_command(label="Open Action", command=MainPage.donothing)
-        action_menu.add_command(label="Add Action", command=MainPage.donothing)
+        action_menu.add_command(label="Add Action", command=lambda: user.add_action('5 skdhfjksd', 'yweiou ufhuihf sdjk'))
         menubar.add_cascade(label="Action", menu=action_menu)
         # tenant menu
         tenant_menu = Menu(menubar, tearoff=0)
