@@ -10,6 +10,13 @@ font = 'Helvetica'
 
 # ~~~~~~~~~~~~~~~~~~~~~~ main programme ~~~~~~~~~~~~~~~~~~~~~~
 
+# creating tkinter window
 root = Tk()
+
+# setting the minimun size of the root window
+root.minsize(950, 150)
+
+# adding menu bar to the roof window
 MainPage.standard_menubar(root)
+
 root.mainloop()
