@@ -16,13 +16,13 @@ class Action:
 
         lable_property = Label(add_action_window, text='Property:')
         lable_property.pack()
-        entry_property = Entry(add_action_window, bd = 5)
+        entry_property = Entry(add_action_window, bd = 3)
         entry_property.pack()
 
         lable_message = Label(add_action_window, text='Message:')
         lable_message.pack()
-        entry_message = Entry(add_action_window, bd = 5)
+        entry_message = Entry(add_action_window, bd = 3)
         entry_message.pack()
 
-        button = Button(add_action_window, text='ADD ACTION', command=lambda: Action.add_action(add_action_window, user, '5 skdhfjksd', 'yweiou ufhuihf sdjk'))
+        button = Button(add_action_window, text='ADD ACTION', command=lambda: Action.add_action(add_action_window, user, entry_property.get(), entry_message.get()))
         button.pack()
