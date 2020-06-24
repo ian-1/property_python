@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Menu
+from views.action import Action
 
 # ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -43,7 +44,7 @@ class MainPage:
         action_menu.add_command(label="View Actions", command=lambda: print(user.actions[0].message))
         action_menu.add_separator()
         action_menu.add_command(label="Open Action", command=MainPage.donothing)
-        action_menu.add_command(label="Add Action", command=lambda: user.add_action('5 skdhfjksd', 'yweiou ufhuihf sdjk'))
+        action_menu.add_command(label="Add Action", command=lambda: Action.add_window(window, user))
         menubar.add_cascade(label="Action", menu=action_menu)
         # tenant menu
         tenant_menu = Menu(menubar, tearoff=0)
