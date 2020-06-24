@@ -17,6 +17,8 @@ class ActionViews:
 
     def confirm_window(window, user, property, message):
         confirm_action_window = Toplevel(window)
+        confirm_action_window.title('Property Python - Confirm Action')
+        confirm_action_window.iconbitmap('icon.ico')
 
         action_summary = property + ' - ' + message
 
@@ -31,6 +33,8 @@ class ActionViews:
 
     def add_window(window, user):
         add_action_window = Toplevel(window)
+        add_action_window.title('Property Python - Add Action')
+        add_action_window.iconbitmap('icon.ico')
 
         title = 'Add action as ' + user.name
         lable_title = Label(add_action_window, text=title)
@@ -52,6 +56,8 @@ class ActionViews:
 
     def show_window(window, user):
         show_actions_window = Toplevel(window)
+        show_actions_window.title('Property Python - Show Actions')
+        show_actions_window.iconbitmap('icon.ico')
 
         title = 'Actions for ' + user.name + ':'
         lable_title = Label(show_actions_window, text=title)
