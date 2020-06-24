@@ -7,6 +7,11 @@ class Action():
         self.property = property
         self.message = message
 
+    def update_action(self, type, value):
+        if type == 'date': self.date = value
+        if type == 'property': self.property = value
+        if type == 'message': self.message = value
+
     def save_actions(user):
         file = '.\\data\\actions\\' + user.name + '.llama'
         with open(file, 'wb') as config_dictionary_file:

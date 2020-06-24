@@ -5,6 +5,7 @@ from tkinter import Toplevel,\
                     Button,\
                     PhotoImage
 from lib.action import Action
+from lib.custom import Custom
 
 class ActionViews:
     # view items used in add action window
@@ -16,6 +17,44 @@ class ActionViews:
         Action.save_actions(user)
 
 
+    def see_window(window, user, number):
+        see_action_window = Toplevel(window)
+        see_action_window.title('Property Python - See Action')
+        see_action_window.iconbitmap('icon.ico')
+        see_action_window.configure(bg=user.window_bg_colour)
+        see_action_window.minsize(user.medium_window_width, user.medium_window_height)
+
+        label_date = Label(see_action_window, text='Date:', font=user.large_font, bg=user.window_bg_colour)
+        label_date.grid(row=0, column=0, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_date = Entry(see_action_window, bd = 3, font=user.standard_font)
+        entry_date.grid(row=0, column=1, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_date.insert(0, user.actions[number].date)
+        button_date = Button(see_action_window, text='update', font=user.standard_font, command=lambda: user.actions[number].update_action('date', entry_date.get()))
+        button_date.grid(row=0, column=2, rowspan=2, padx=user.padx, pady=user.pady)
+
+        label_property = Label(see_action_window, text='Property:', font=user.large_font, bg=user.window_bg_colour)
+        label_property.grid(row=2, column=0, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_property = Entry(see_action_window, bd = 3, font=user.standard_font)
+        entry_property.grid(row=2, column=1, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_property.insert(0, user.actions[number].property)
+        button_property = Button(see_action_window, text='update', font=user.standard_font, command=lambda:  user.actions[number].update_action('property', entry_property.get()))
+        button_property.grid(row=2, column=2, rowspan=2, padx=user.padx, pady=user.pady)
+
+        label_message = Label(see_action_window, text='Message:', font=user.large_font, bg=user.window_bg_colour)
+        label_message.grid(row=4, column=0, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_message = Entry(see_action_window, bd = 3, font=user.standard_font)
+        entry_message.grid(row=4, column=1, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_message.insert(0, user.actions[number].message)
+        button_message = Button(see_action_window, text='update', font=user.standard_font, command=lambda:  user.actions[number].update_action('message', entry_message.get()))
+        button_message.grid(row=4, column=2, rowspan=2, padx=user.padx, pady=user.pady)
+
+        message_array = Custom.split_to_array(user.actions[number].message, 70)
+        row = 0
+        for line in message_array:
+            label_message_line = Label(see_action_window, text=line, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
+            label_message_line.grid(row=row, column=4, padx=20, sticky='nsew')
+            row+=1
+
     def confirm_window(window, user, property, message):
         confirm_action_window = Toplevel(window)
         confirm_action_window.title('Property Python - Confirm Action')
@@ -23,13 +62,13 @@ class ActionViews:
         confirm_action_window.configure(bg=user.window_bg_colour)
         confirm_action_window.minsize(user.small_window_width, user.small_window_height)
 
-        lable_title = Label(confirm_action_window, text='Check and confirm action:', font=user.large_font, anchor='w', bg=user.window_bg_colour)
-        lable_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+        label_title = Label(confirm_action_window, text='Check and confirm action:', font=user.large_font, anchor='w', bg=user.window_bg_colour)
+        label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
 
         action_summary = property + ' - ' + message
         lable_property = Label(confirm_action_window, text=action_summary, font=user.standard_font, bg=user.window_bg_colour)
-        lable_property.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+        label_property.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
         button_text = 'CONFIRM (as ' + user.name + ')'
         button = Button(confirm_action_window, text=button_text, font=user.large_font, bg=user.button_bg_colour, command=lambda: ActionViews.add_action(window, confirm_action_window, user, property, message))
@@ -45,16 +84,16 @@ class ActionViews:
         add_action_window.minsize(user.small_window_width, user.small_window_height)
 
         title = 'Add action as ' + user.name
-        lable_title = Label(add_action_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
-        lable_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+        label_title = Label(add_action_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
+        label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
-        lable_property = Label(add_action_window, text='Property:', font=user.standard_font, bg=user.window_bg_colour)
-        lable_property.grid(row=1, column=0, padx=user.padx, pady=user.pady)
+        label_property = Label(add_action_window, text='Property:', font=user.standard_font, bg=user.window_bg_colour)
+        label_property.grid(row=1, column=0, padx=user.padx, pady=user.pady)
         entry_property = Entry(add_action_window, bd = 3, font=user.standard_font)
         entry_property.grid(row=1, column=1, padx=user.padx, pady=user.pady)
 
-        lable_message = Label(add_action_window, text='Message:', font=user.standard_font, bg=user.window_bg_colour)
-        lable_message.grid(row=2, column=0, padx=user.padx, pady=user.pady)
+        label_message = Label(add_action_window, text='Message:', font=user.standard_font, bg=user.window_bg_colour)
+        label_message.grid(row=2, column=0, padx=user.padx, pady=user.pady)
         entry_message = Entry(add_action_window, bd = 3, font=user.standard_font)
         entry_message.grid(row=2, column=1, padx=user.padx, pady=user.pady)
 
@@ -71,14 +110,14 @@ class ActionViews:
 
 
         title = 'Actions for ' + user.name + ':'
-        lable_title = Label(show_actions_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
-        lable_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+        label_title = Label(show_actions_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
+        label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
         row = 1
         width = int(user.medium_window_width/4)
         for action in user.actions:
             action_summary = action.date + ' - ' + action.property + ' - ' + action.message
-            button_action = Button(show_actions_window, text=action_summary[:width], font=user.standard_font, anchor='w')
+            button_action = Button(show_actions_window, text=action_summary[:width], font=user.standard_font, anchor='w', command=lambda number=row - 1: ActionViews.see_window(window, user, number))
             button_action.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx)
             row += 1
 
