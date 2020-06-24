@@ -21,11 +21,10 @@ Action.load_actions(user)
 root = Tk()
 root.title('Property Python')
 root.iconbitmap('icon.ico')
+root.configure(bg=user.window_bg_colour)
+root.minsize(user.root_window_width, user.root_window_height)
 
-# setting the minimun size of the root window
-root.minsize(950, 150)
-
-# adding menu bar to the roof window
+# adding menu bar to the root window
 MainPage.standard_menubar(root, user)
 
 root.mainloop()
