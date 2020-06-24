@@ -41,18 +41,24 @@ class MainPage:
         menubar.add_cascade(label="Template", menu=template_menu)
         # action menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=lambda: print(user.actions[0].message))
+        action_menu.add_command(label="View Actions", command=lambda: Action.show_window(window, user))
         action_menu.add_separator()
-        action_menu.add_command(label="Open Action", command=MainPage.donothing)
         action_menu.add_command(label="Add Action", command=lambda: Action.add_window(window, user))
         menubar.add_cascade(label="Action", menu=action_menu)
+        # landlord menu
+        landlord_menu = Menu(menubar, tearoff=0)
+        landlord_menu.add_command(label="View Landlords", command=MainPage.donothing)
+        landlord_menu.add_separator()
+        landlord_menu.add_command(label="Open Landlord", command=MainPage.donothing)
+        landlord_menu.add_command(label="Add Landlord", command=MainPage.donothing)
+        menubar.add_cascade(label="Landlords", menu=landlord_menu)
         # tenant menu
         tenant_menu = Menu(menubar, tearoff=0)
         tenant_menu.add_command(label="View Tenants", command=MainPage.donothing)
         tenant_menu.add_separator()
         tenant_menu.add_command(label="Open Tenant", command=MainPage.donothing)
         tenant_menu.add_command(label="Add Tenant", command=MainPage.donothing)
-        menubar.add_cascade(label="Tenant", menu=tenant_menu)
+        menubar.add_cascade(label="Tenants", menu=tenant_menu)
         # contractor menu
         contractor_menu = Menu(menubar, tearoff=0)
         contractor_menu.add_command(label="View Contractors", command=MainPage.donothing)

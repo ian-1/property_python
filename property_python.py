@@ -13,7 +13,7 @@ font = 'Helvetica'
 
 # TEMP SETTING THE User
 
-user = User()
+user = User('User')
 
 # creating tkinter window
 root = Tk()

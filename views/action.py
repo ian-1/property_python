@@ -20,13 +20,18 @@ class Action:
         lable_property = Label(confirm_action_window, text=action_summary)
         lable_property.pack()
 
-        button = Button(confirm_action_window, text='CONFIRM ADD ACTION', command=lambda: Action.add_action(window, confirm_action_window, user, property, message))
+        button_text = 'CONFIRM (as ' + user.name + ')'
+        button = Button(confirm_action_window, text=button_text, command=lambda: Action.add_action(window, confirm_action_window, user, property, message))
         button.pack()
         cancel_button = Button(confirm_action_window, text="cancel (don't confirm)", command=lambda: confirm_action_window.destroy())
         cancel_button.pack()
 
     def add_window(window, user):
         add_action_window = Toplevel(window)
+
+        title = 'Add action as ' + user.name
+        lable_title = Label(add_action_window, text=title)
+        lable_title.pack()
 
         lable_property = Label(add_action_window, text='Property:')
         lable_property.pack()
@@ -38,5 +43,24 @@ class Action:
         entry_message = Entry(add_action_window, bd = 3)
         entry_message.pack()
 
-        button = Button(add_action_window, text='ADD ACTION', command=lambda: Action.confirm_window(add_action_window, user, entry_property.get(), entry_message.get()))
+        button_text = 'SUBMIT (as ' + user.name + ')'
+        button = Button(add_action_window, text=button_text, command=lambda: Action.confirm_window(add_action_window, user, entry_property.get(), entry_message.get()))
         button.pack()
+
+    def show_window(window, user):
+        show_actions_window = Toplevel(window)
+
+        title = 'Actions for ' + user.name + ':'
+        lable_title = Label(show_actions_window, text=title)
+        lable_title.pack()
+
+        for action in user.actions:
+            action_summary = str(action.date) + ' - ' + action.property + ' - ' + action.message
+            lable_action = Label(show_actions_window, text=action_summary)
+            lable_action.pack()
+
+        add_button = Button(show_actions_window, text='add action', command=lambda: Action.add_window(window, user))
+        add_button.pack()
+
+        close_button = Button(show_actions_window, text='close window', command=lambda: show_actions_window.destroy())
+        close_button.pack()
