@@ -1,7 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Menu
-from views.action import Action
+from views.action import ActionViews
 
 # ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -41,9 +41,9 @@ class MainPage:
         menubar.add_cascade(label="Template", menu=template_menu)
         # action menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=lambda: Action.show_window(window, user))
+        action_menu.add_command(label="View Actions", command=lambda: ActionViews.show_window(window, user))
         action_menu.add_separator()
-        action_menu.add_command(label="Add Action", command=lambda: Action.add_window(window, user))
+        action_menu.add_command(label="Add Action", command=lambda: ActionViews.add_window(window, user))
         menubar.add_cascade(label="Action", menu=action_menu)
         # landlord menu
         landlord_menu = Menu(menubar, tearoff=0)
