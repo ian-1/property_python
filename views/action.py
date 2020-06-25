@@ -3,7 +3,12 @@ from tkinter import Toplevel,\
                     Label,\
                     Entry,\
                     Button,\
-                    PhotoImage
+                    PhotoImage,\
+                    Frame,\
+                    Scrollbar,\
+                    Listbox,\
+                    LabelFrame
+from views.vertical_scrolled_frame import VerticalScrolledFrame
 from lib.action import Action
 from lib.custom import Custom
 
@@ -15,7 +20,6 @@ class ActionViews:
         confirm_window.destroy()
         window.destroy()
         Action.save_actions(user)
-
 
     def see_window(window, user, number):
         see_action_window = Toplevel(window)
@@ -67,7 +71,7 @@ class ActionViews:
 
 
         action_summary = property + ' - ' + message
-        lable_property = Label(confirm_action_window, text=action_summary, font=user.standard_font, bg=user.window_bg_colour)
+        label_property = Label(confirm_action_window, text=action_summary, font=user.standard_font, bg=user.window_bg_colour)
         label_property.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
         button_text = 'CONFIRM (as ' + user.name + ')'
@@ -108,20 +112,28 @@ class ActionViews:
         show_actions_window.configure(bg=user.window_bg_colour)
         show_actions_window.minsize(user.medium_window_width, user.medium_window_height)
 
+        top_frame = Frame(show_actions_window, bg=user.window_bg_colour)
+        top_frame.pack(side='top', fill='x', expand=0, anchor='n', padx=5, pady=5)
+        scroll_frame = VerticalScrolledFrame(show_actions_window, bg=user.window_bg_colour)
+        scroll_frame.pack(fill='both', expand=1, padx=10)
+        bottom_frame = Frame(show_actions_window, bg=user.window_bg_colour)
+        bottom_frame.pack(side='bottom', fill='x', expand=0, anchor='n', padx=5, pady=5)
 
         title = 'Actions for ' + user.name + ':'
-        label_title = Label(show_actions_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
+        label_title = Label(top_frame, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
         label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
-        row = 1
-        width = int(user.medium_window_width/4)
+        width = int(user.medium_window_width/7)
+        number = 0
         for action in user.actions:
             action_summary = action.date + ' - ' + action.property + ' - ' + action.message
-            button_action = Button(show_actions_window, text=action_summary[:width], font=user.standard_font, anchor='w', command=lambda number=row - 1: ActionViews.see_window(window, user, number))
-            button_action.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx)
-            row += 1
+            button_action = Button(scroll_frame.interior, relief='flat', bg="gray99",
+                font=user.standard_font, text=action_summary, width=width, anchor='w',
+                command=lambda number=number: ActionViews.see_window(window, user, number))
+            button_action.pack(padx=10, pady=5, side='top', fill='x')
+            number += 1
 
-        add_button = Button(show_actions_window, text='Add Action', font=user.large_font, bg=user.button_bg_colour, command=lambda: ActionViews.add_window(window, user))
-        add_button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
-        close_button = Button(show_actions_window, text='Close Window', font=user.large_font, bg=user.button_bg_colour, command=lambda: show_actions_window.destroy())
-        close_button.grid(row=row, column=1, sticky='nsew', padx=user.padx, pady=user.pady)
+        add_button = Button(bottom_frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour, command=lambda: ActionViews.add_window(window, user))
+        add_button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+        close_button = Button(bottom_frame, text='Close Window', font=user.large_font, bg=user.button_bg_colour, command=lambda: show_actions_window.destroy())
+        close_button.grid(row=0, column=1, sticky='nsew', padx=user.padx, pady=user.pady)

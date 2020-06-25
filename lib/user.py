@@ -17,7 +17,7 @@ class User():
         self.button_bg_colour = 'pale turquoise'
         # Fonts
         self.standard_font = 'Helvetica 10'
-        self.large_font = 'Helvetica 12 bold'
+        self.large_font = 'Helvetica 11 bold'
         # Padding
         self.padx = 5
         self.pady = 5
