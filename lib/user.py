@@ -4,6 +4,7 @@ class User():
     def __init__(self, name):
         self.name = name
         self.actions = []
+        self.properties = []
         # style attributes:
         # window sizes:
         self.root_window_width = 950

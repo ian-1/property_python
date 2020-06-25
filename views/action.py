@@ -156,7 +156,7 @@ class ActionViews:
             button_action.pack(padx=10, pady=5, side='top', fill='x')
             counter += 1
 
-        add_button = Button(bottom_frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour, command=lambda: ActionViews.add_window(window, user))
+        add_button = Button(bottom_frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour, command=lambda: ActionViews.add_window(root, user))
         add_button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
         close_button = Button(bottom_frame, text='Close Window', font=user.large_font, bg=user.button_bg_colour, command=lambda: show_actions_window.destroy())
         close_button.grid(row=0, column=1, sticky='nsew', padx=user.padx, pady=user.pady)

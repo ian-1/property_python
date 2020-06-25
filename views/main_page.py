@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Menu
+from views.property import PropertyViews
 from views.action import ActionViews
 
 # ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
@@ -22,9 +23,9 @@ class MainPage:
         menubar.add_cascade(label="File", menu=file_menu)
         # property menu
         property_menu = Menu(menubar, tearoff=0)
-        property_menu.add_command(label="View Property", command=MainPage.donothing)
-        property_menu.add_command(label="Add Property", command=MainPage.donothing)
-        property_menu.add_command(label="Remove property", command=MainPage.donothing)
+        property_menu.add_command(label="View Properties", command=lambda: PropertyViews.show_window(window, user, False))
+        property_menu.add_separator()
+        property_menu.add_command(label="Add Property", command=lambda: PropertyViews.add_window(window, user))
         menubar.add_cascade(label="Property", menu=property_menu)
         # maintenace menu
         maintenance_menu = Menu(menubar, tearoff=0)
