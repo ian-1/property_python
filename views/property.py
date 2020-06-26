@@ -15,8 +15,8 @@ from lib.custom import Custom
 class PropertyViews:
     # view items used in add property window
 
-    def add_property(window, confirm_window, user, action, message):
-        user.add_property(action, message)
+    def add_property(window, confirm_window, user, code, address):
+        user.add_property(code, address)
         confirm_window.destroy()
         window.destroy()
         Property.save_properties(user)
@@ -35,50 +35,35 @@ class PropertyViews:
         see_property_window.configure(bg=user.window_bg_colour)
         see_property_window.minsize(user.medium_window_width, user.medium_window_height)
 
-        label_date = Label(see_property_window, text='Date:', font=user.large_font, bg=user.window_bg_colour)
-        label_date.grid(row=0, column=0, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_date = Entry(see_property_window, bd = 3, font=user.standard_font)
-        entry_date.grid(row=0, column=1, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_date.insert(0, user.properties[number].date)
-        button_date = Button(see_property_window, text='update', font=user.standard_font, command=lambda: PropertyViews.update_property(root, window, user, number, 'date', entry_date.get()))
-        button_date.grid(row=0, column=2, rowspan=2, padx=user.padx, pady=user.pady)
+        label_code = Label(see_property_window, text='code:', font=user.large_font, bg=user.window_bg_colour)
+        label_code.grid(row=0, column=0, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_code = Entry(see_property_window, bd = 3, font=user.standard_font)
+        entry_code.grid(row=0, column=1, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_code.insert(0, user.properties[number].code)
+        button_code = Button(see_property_window, text='update', font=user.standard_font, command=lambda: PropertyViews.update_property(root, window, user, number, 'code', entry_code.get()))
+        button_code.grid(row=0, column=2, rowspan=2, padx=user.padx, pady=user.pady)
 
-        date = 'Date: ' + user.properties[number].date
-        label_date_line = Label(see_property_window, text=date, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
-        label_date_line.grid(row=0, column=4, padx=20, sticky='nsew')
-        label_date_break = Label(see_property_window, text='------------------------------', font=user.standard_font, bg=user.window_bg_colour, anchor='w')
-        label_date_break.grid(row=1, column=4, padx=20, sticky='nsew')
+        code = 'Code: ' + user.properties[number].code
+        label_code_line = Label(see_property_window, text=code, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
+        label_code_line.grid(row=0, column=4, padx=20, sticky='nsew')
+        label_code_break = Label(see_property_window, text='------------------------------', font=user.standard_font, bg=user.window_bg_colour, anchor='w')
+        label_code_break.grid(row=1, column=4, padx=20, sticky='nsew')
 
-        label_action = Label(see_property_window, text='action:', font=user.large_font, bg=user.window_bg_colour)
-        label_action.grid(row=2, column=0, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_action = Entry(see_property_window, bd = 3, font=user.standard_font)
-        entry_action.grid(row=2, column=1, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_action.insert(0, user.properties[number].action)
-        button_action = Button(see_property_window, text='update', font=user.standard_font, command=lambda: PropertyViews.update_property(root, window, user, number, 'action', entry_action.get()))
-        button_action.grid(row=2, column=2, rowspan=2, padx=user.padx, pady=user.pady)
+        label_address = Label(see_property_window, text='address:', font=user.large_font, bg=user.window_bg_colour)
+        label_address.grid(row=2, column=0, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_address = Entry(see_property_window, bd = 3, font=user.standard_font)
+        entry_address.grid(row=2, column=1, rowspan=2, padx=user.padx, pady=user.pady)
+        entry_address.insert(0, user.properties[number].address)
+        button_address = Button(see_property_window, text='update', font=user.standard_font, command=lambda:  PropertyViews.update_property(root, window, user, number, 'address', entry_address.get()))
+        button_address.grid(row=2, column=2, rowspan=2, padx=user.padx, pady=user.pady)
 
-        action = 'action: ' + user.properties[number].action
-        label_action_line = Label(see_property_window, text=action, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
-        label_action_line.grid(row=2, column=4, padx=20, sticky='nsew')
-        label_action_break = Label(see_property_window, text='------------------------------', font=user.standard_font, bg=user.window_bg_colour, anchor='w')
-        label_action_break.grid(row=3, column=4, padx=20, sticky='nsew')
+        address = 'Address: ' + user.properties[number].address
+        label_address_line = Label(see_property_window, text=address, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
+        label_address_line.grid(row=2, column=4, padx=20, sticky='nsew')
+        label_address_break = Label(see_property_window, text='------------------------------', font=user.standard_font, bg=user.window_bg_colour, anchor='w')
+        label_address_break.grid(row=3, column=4, padx=20, sticky='nsew')
 
-        label_message = Label(see_property_window, text='Message:', font=user.large_font, bg=user.window_bg_colour)
-        label_message.grid(row=4, column=0, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_message = Entry(see_property_window, bd = 3, font=user.standard_font)
-        entry_message.grid(row=4, column=1, rowspan=2, padx=user.padx, pady=user.pady)
-        entry_message.insert(0, user.properties[number].message)
-        button_message = Button(see_property_window, text='update', font=user.standard_font, command=lambda:  PropertyViews.update_property(root, window, user, number, 'message', entry_message.get()))
-        button_message.grid(row=4, column=2, rowspan=2, padx=user.padx, pady=user.pady)
-
-        message_array = Custom.split_to_array(user.properties[number].message, 70)
-        row = 5
-        for line in message_array:
-            label_message_line = Label(see_property_window, text=line, font=user.standard_font, bg=user.window_bg_colour, anchor='w')
-            label_message_line.grid(row=row, column=4, padx=20, sticky='nsew')
-            row+=1
-
-    def confirm_window(window, user, action, message):
+    def confirm_window(window, user, code, address):
         confirm_property_window = Toplevel(window)
         confirm_property_window.title('Property Python - Confirm Property')
         confirm_property_window.iconbitmap('icon.ico')
@@ -89,12 +74,12 @@ class PropertyViews:
         label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
 
-        property_summary = action + ' - ' + message
-        label_action = Label(confirm_property_window, text=property_summary, font=user.standard_font, bg=user.window_bg_colour)
-        label_action.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+        property_summary = code + ' - ' + address
+        label_code = Label(confirm_property_window, text=property_summary, font=user.standard_font, bg=user.window_bg_colour)
+        label_code.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
         button_text = 'CONFIRM (as ' + user.name + ')'
-        button = Button(confirm_property_window, text=button_text, font=user.large_font, bg=user.button_bg_colour, command=lambda: PropertyViews.add_property(window, confirm_property_window, user, action, message))
+        button = Button(confirm_property_window, text=button_text, font=user.large_font, bg=user.button_bg_colour, command=lambda: PropertyViews.add_property(window, confirm_property_window, user, code, address))
         button.grid(row=2, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
         cancel_button = Button(confirm_property_window, text="Cancel (don't confirm)", font=user.large_font, bg=user.button_bg_colour, command=lambda: confirm_property_window.destroy())
         cancel_button.grid(row=2, column=1, sticky='nsew', padx=user.padx, pady=user.pady)
@@ -110,18 +95,18 @@ class PropertyViews:
         label_title = Label(add_property_window, text=title, font=user.large_font, anchor='w', bg=user.window_bg_colour)
         label_title.grid(row=0, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
-        label_action = Label(add_property_window, text='action:', font=user.standard_font, bg=user.window_bg_colour)
-        label_action.grid(row=1, column=0, padx=user.padx, pady=user.pady)
-        entry_action = Entry(add_property_window, bd = 3, font=user.standard_font)
-        entry_action.grid(row=1, column=1, padx=user.padx, pady=user.pady)
+        label_code = Label(add_property_window, text='code:', font=user.standard_font, bg=user.window_bg_colour)
+        label_code.grid(row=1, column=0, padx=user.padx, pady=user.pady)
+        entry_code = Entry(add_property_window, bd = 3, font=user.standard_font)
+        entry_code.grid(row=1, column=1, padx=user.padx, pady=user.pady)
 
-        label_message = Label(add_property_window, text='Message:', font=user.standard_font, bg=user.window_bg_colour)
-        label_message.grid(row=2, column=0, padx=user.padx, pady=user.pady)
-        entry_message = Entry(add_property_window, bd = 3, font=user.standard_font)
-        entry_message.grid(row=2, column=1, padx=user.padx, pady=user.pady)
+        label_address = Label(add_property_window, text='address:', font=user.standard_font, bg=user.window_bg_colour)
+        label_address.grid(row=2, column=0, padx=user.padx, pady=user.pady)
+        entry_address = Entry(add_property_window, bd = 3, font=user.standard_font)
+        entry_address.grid(row=2, column=1, padx=user.padx, pady=user.pady)
 
         button_text = 'SUBMIT (as ' + user.name + ')'
-        button = Button(add_property_window, text=button_text, font=user.large_font, bg=user.button_bg_colour, command=lambda: PropertyViews.confirm_window(add_property_window, user, entry_action.get(), entry_message.get()))
+        button = Button(add_property_window, text=button_text, font=user.large_font, bg=user.button_bg_colour, command=lambda: PropertyViews.confirm_window(add_property_window, user, entry_code.get(), entry_address.get()))
         button.grid(row=3, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def show_window(root, user, number):     # number is for where a see_window is being auto-launched, otherwise False
@@ -149,7 +134,7 @@ class PropertyViews:
         width = int(user.medium_window_width/7)
         counter = 0
         for property in user.properties:
-            property_summary = Property.date + ' - ' + Property.action + ' - ' + Property.message
+            property_summary = property.code + ' - ' + property.address
             button_property = Button(scroll_frame.interior, relief='flat', bg="gray99",
                 font=user.standard_font, text=property_summary, width=width, anchor='w',
                 command=lambda number=counter: PropertyViews.see_window(root, show_properties_window, user, number))

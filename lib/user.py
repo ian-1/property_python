@@ -1,10 +1,14 @@
 from lib.action import Action
+from lib.property import Property
 
 class User():
     def __init__(self, name):
         self.name = name
         self.actions = []
         self.properties = []
+        # Load in data from files for above
+        Action.load_actions(self)
+        Property.load_properties(self)
         # style attributes:
         # window sizes:
         self.root_window_width = 950
@@ -25,3 +29,6 @@ class User():
 
     def add_action(self, property, message):
         self.actions.append(Action(property, message))
+
+    def add_property(self, code, address):
+        self.properties.append(Property(code, address))

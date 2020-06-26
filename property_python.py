@@ -3,7 +3,6 @@
 from tkinter import Tk
 from views.main_page import MainPage
 from lib.user import User
-from lib.action import Action # used only to set up user
 
 # ~~~~~~~~~~~~~~~~~~~~~~ globsl variables ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -15,7 +14,6 @@ font = 'Helvetica'
 # TEMP SETTING UP THE User
 
 user = User('User')
-Action.load_actions(user)
 
 # creating tkinter window
 root = Tk()

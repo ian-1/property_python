@@ -2,15 +2,15 @@ from datetime import date
 import pickle
 
 class Property():
-    def __init__(self, action, message):
+    def __init__(self, code, address):
         self.date = str(date.today())
-        self.action = action
-        self.message = message
+        self.code = code
+        self.address = address
 
     def update_property(self, type, value):
         if type == 'date': self.date = value
-        if type == 'action': self.action = value
-        if type == 'message': self.message = value
+        if type == 'code': self.code = value
+        if type == 'address': self.address = value
 
     def save_properties(user):
         file = '.\\data\\properties\\' + user.name + '.llama'
