@@ -1,7 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Tk
-from views.main_page import MainPage
+from win.main_page import MainPage
 from lib.user import User
 
 # ~~~~~~~~~~~~~~~~~~~~~~ globsl variables ~~~~~~~~~~~~~~~~~~~~~~

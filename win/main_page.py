@@ -1,8 +1,8 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Menu
-from views.property import PropertyViews
-from views.action import ActionViews
+from win.property import PropertyWin
+from win.action import ActionWin
 
 # ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -23,9 +23,9 @@ class MainPage:
         menubar.add_cascade(label="File", menu=file_menu)
         # property menu
         property_menu = Menu(menubar, tearoff=0)
-        property_menu.add_command(label="View Properties", command=lambda: PropertyViews.show_window(window, user, False))
+        property_menu.add_command(label="View Properties", command=lambda: PropertyWin.show_window(window, user, False)) # False indicates not to launch a see window
         property_menu.add_separator()
-        property_menu.add_command(label="Add Property", command=lambda: PropertyViews.add_window(window, user))
+        property_menu.add_command(label="Add Property", command=lambda: PropertyWin.add_window(window, False, user)) # False indicates that there is no show window associated with this window
         menubar.add_cascade(label="Property", menu=property_menu)
         # maintenace menu
         maintenance_menu = Menu(menubar, tearoff=0)
@@ -42,9 +42,10 @@ class MainPage:
         menubar.add_cascade(label="Template", menu=template_menu)
         # action menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=lambda: ActionViews.show_window(window, user, False))
+        action_menu.add_command(label="View Actions", command=lambda: ActionWin.show_window(window, user, False, False))
+        # 1st False indicates not to launch a see window, second False indicates to show all property's actions
         action_menu.add_separator()
-        action_menu.add_command(label="Add Action", command=lambda: ActionViews.add_window(window, user))
+        action_menu.add_command(label="Add Action", command=lambda: ActionWin.add_window(window, False, user)) # False indicates that there is no show window associated with this window
         menubar.add_cascade(label="Action", menu=action_menu)
         # landlord menu
         landlord_menu = Menu(menubar, tearoff=0)

@@ -19,6 +19,7 @@ class User():
         self.small_window_height = 100
         # colours:
         self.window_bg_colour = 'light goldenrod'
+        self.window_bg_colour_alert = 'orange red2'
         self.button_bg_colour = 'pale turquoise'
         # Fonts
         self.standard_font = 'Helvetica 10'
