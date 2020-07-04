@@ -1,14 +1,26 @@
 from lib.action import Action
 from lib.property import Property
+from lib.landlord import Landlord
+import win.action
+import win.property
+import win.landlord
 
 class User():
     def __init__(self, name):
         self.name = name
+        self.root = False
         self.actions = []
+        self.action_win = win.action.ActionWin()
         self.properties = []
+        self.property_win = win.property.PropertyWin()
+        self.landlords = []
+        self.landlord_win = win.landlord.LandlordWin()
         # Load in data from files for above
         Action.load_actions(self)
         Property.load_properties(self)
+        # company attributes:
+        self.company_name = 'Property Python'
+        self.company_icon = 'icon.ico'
         # style attributes:
         # window sizes:
         self.root_window_width = 950
@@ -33,3 +45,6 @@ class User():
 
     def add_property(self, code, address):
         self.properties.append(Property(code, address))
+
+    def add_landlord(self, property, message):
+        self.landlords.append(Landlord(property, message))

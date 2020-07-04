@@ -17,12 +17,15 @@ user = User('User')
 
 # creating tkinter window
 root = Tk()
-root.title('Property Python')
-root.iconbitmap('icon.ico')
+root.title(user.company_name)
+root.iconbitmap(user.company_icon)
 root.configure(bg=user.window_bg_colour)
 root.minsize(user.root_window_width, user.root_window_height)
 
+# add root to windows
+user.root = root
+
 # adding menu bar to the root window
-MainPage.standard_menubar(root, user)
+MainPage.standard_menubar(user)
 
 root.mainloop()

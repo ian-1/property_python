@@ -3,6 +3,7 @@
 from tkinter import Menu
 from win.property import PropertyWin
 from win.action import ActionWin
+from win.landlord import LandlordWin
 
 # ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -12,20 +13,20 @@ class MainPage:
     def donothing():
         print('do nothing')
 
-    def standard_menubar(window, user):
-        menubar = Menu(window)
-        window.config(menu=menubar)
+    def standard_menubar(user):
+        menubar = Menu(user.root)
+        user.root.config(menu=menubar)
         # file menu
         file_menu = Menu(menubar, tearoff=0)
         file_menu.add_command(label="Change User", command=MainPage.donothing)
         file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=window.quit)
+        file_menu.add_command(label="Exit", command=user.root.quit)
         menubar.add_cascade(label="File", menu=file_menu)
         # property menu
         property_menu = Menu(menubar, tearoff=0)
-        property_menu.add_command(label="View Properties", command=lambda: PropertyWin.show_window(window, user, False)) # False indicates not to launch a see window
+        property_menu.add_command(label="View Properties", command=lambda: PropertyWin.show_window(user))
         property_menu.add_separator()
-        property_menu.add_command(label="Add Property", command=lambda: PropertyWin.add_window(window, False, user)) # False indicates that there is no show window associated with this window
+        property_menu.add_command(label="Add Property", command=lambda: PropertyWin.add_window(user))
         menubar.add_cascade(label="Property", menu=property_menu)
         # maintenace menu
         maintenance_menu = Menu(menubar, tearoff=0)
@@ -42,17 +43,15 @@ class MainPage:
         menubar.add_cascade(label="Template", menu=template_menu)
         # action menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=lambda: ActionWin.show_window(window, user, False, False))
-        # 1st False indicates not to launch a see window, second False indicates to show all property's actions
+        action_menu.add_command(label="View Actions", command=lambda: ActionWin.show_window(user))
         action_menu.add_separator()
-        action_menu.add_command(label="Add Action", command=lambda: ActionWin.add_window(window, False, user)) # False indicates that there is no show window associated with this window
+        action_menu.add_command(label="Add Action", command=lambda: ActionWin.add_window(user))
         menubar.add_cascade(label="Action", menu=action_menu)
         # landlord menu
         landlord_menu = Menu(menubar, tearoff=0)
-        landlord_menu.add_command(label="View Landlords", command=MainPage.donothing)
+        landlord_menu.add_command(label="View Landlords", command=lambda: LandlordWin.show_window(user))
         landlord_menu.add_separator()
-        landlord_menu.add_command(label="Open Landlord", command=MainPage.donothing)
-        landlord_menu.add_command(label="Add Landlord", command=MainPage.donothing)
+        landlord_menu.add_command(label="Add Landlord", command=lambda: LandlordWin.add_window(user))
         menubar.add_cascade(label="Landlords", menu=landlord_menu)
         # tenant menu
         tenant_menu = Menu(menubar, tearoff=0)
