@@ -77,8 +77,8 @@ class ActionWin:
         window =  WinConGeneral.window(add_window, user, 'Confirm Action', 'small')
         row = 0
 
-        title = 'Check and confirm action:'
-        WinConGeneral.title(window, user, title)
+        text = 'Check and confirm action:'
+        WinConGeneral.title(window, user, text)
         row += 1
 
         text = property + ' - ' + message
@@ -95,8 +95,8 @@ class ActionWin:
         window =  WinConGeneral.window(user.root, user, 'Add Action', 'small')
         row = 0
 
-        title = 'Add action as ' + user.name
-        WinConGeneral.title(window, user, title)
+        text = 'Add action as ' + user.name
+        WinConGeneral.title(window, user, text)
         row += 1
 
         entry_property = WinConGeneral.entry(window, user, 'Property:', row)
@@ -121,8 +121,8 @@ class ActionWin:
         bottom_frame = WinConGeneral.side_frame(window, user, 'bottom')
 
         # Top Frame
-        title = 'Actions for ' + user.name + ':'
-        WinConGeneral.title(top_frame, user, title)
+        text = 'Actions for ' + user.name + ':'
+        WinConGeneral.title(top_frame, user, text)
 
         # Scroll Frame
         WinCon.scroll_button_list(window, scroll_frame, user, code)

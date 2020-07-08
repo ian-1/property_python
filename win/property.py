@@ -22,6 +22,10 @@ class PropertyWin:
         WinCon.update_button(window, user, number, 'address', entry_address, row, 2)
         row += 2
 
+        entry_landlord = WinConGeneral.entry(window, user, 'Landlord:', row, 2)
+        WinCon.add_landlord_button(window, user, number, entry_landlord, row, 2)
+        row += 2
+
         return row
 
     def see_window_right(window, user, number):
@@ -40,6 +44,16 @@ class PropertyWin:
 
         line2 = 'Address: ' + user.properties[number].address
         WinConGeneral.title(window, user, line2, row, column)
+        row += 1
+        WinConGeneral.line(window, user, break_line, row, column)
+        row += 1
+
+        number, list = user.properties[number].landlord_list(user)
+        header = str(number) + ' Landlords: '
+        if number == 0: header = 'No Landlord'
+        if number == 1: header = 'Landlord: '
+        line3 = header + list
+        WinConGeneral.line(window, user, line3, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
@@ -70,8 +84,8 @@ class PropertyWin:
         window =  WinConGeneral.window(add_window, user, 'Confirm Property', 'small', alert)
         row = 0
 
-        title = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
-        WinConGeneral.title(window, user, title, row, 0, alert)
+        text = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
+        WinConGeneral.title(window, user, text, row, 0, alert)
         row += 1
 
         text = code + ' - ' + address
@@ -88,8 +102,8 @@ class PropertyWin:
         window =  WinConGeneral.window(user.root, user, 'Add property', 'small')
         row = 0
 
-        title = 'Add property as ' + user.name
-        WinConGeneral.title(window, user, title)
+        text = 'Add property as ' + user.name
+        WinConGeneral.title(window, user, text)
         row += 1
 
         entry_code = WinConGeneral.entry(window, user, 'Code:', row)
@@ -110,8 +124,8 @@ class PropertyWin:
         bottom_frame = WinConGeneral.side_frame(window, user, 'bottom')
 
         # Top Frame
-        title = 'Properties:'
-        WinConGeneral.title(top_frame, user, title)
+        text = 'Properties:'
+        WinConGeneral.title(top_frame, user, text)
 
         # Scroll Frame
         WinCon.scroll_button_list(window, scroll_frame,

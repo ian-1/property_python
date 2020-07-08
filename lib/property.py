@@ -6,6 +6,7 @@ class Property():
         self.date = str(date.today())
         self.code = code
         self.address = address
+        self.landlords = []
 
     # Class methods:
 
@@ -40,3 +41,27 @@ class Property():
         if type == 'date': self.date = value
         if type == 'code': self.code = value
         if type == 'address': self.address = value
+
+    def add_landlord(self, user, code):
+        landlord_code = False
+        # save code if matches a landlord
+        for landlord in user.landlords:
+            if code == landlord.code:
+                landlord_code = landlord.code
+        # wipe code if already added to property
+        for code in self.landlords:
+            if landlord_code == code:
+                landlord_code = False
+        if landlord_code != False:
+            self.landlords.append(landlord_code)
+
+    def landlord_list(self, user):
+        list = ''
+        number = 0
+        for landlord_code in self.landlords:
+            for landlord in user.landlords:
+                if landlord_code == landlord.code:
+                    if number > 0 : list += ', '
+                    list += landlord.title + ' ' + landlord.first_names + ' ' + landlord.surname
+                    number += 1
+        return number, list

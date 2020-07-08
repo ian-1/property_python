@@ -18,6 +18,7 @@ class User():
         # Load in data from files for above
         Action.load_actions(self)
         Property.load_properties(self)
+        Landlord.load_landlords(self)
         # company attributes:
         self.company_name = 'Property Python'
         self.company_icon = 'icon.ico'
@@ -46,5 +47,5 @@ class User():
     def add_property(self, code, address):
         self.properties.append(Property(code, address))
 
-    def add_landlord(self, property, message):
-        self.landlords.append(Landlord(property, message))
+    def add_landlord(self, user, title, first_names, surname, note):
+        self.landlords.append(Landlord(user, title, first_names, surname, note))

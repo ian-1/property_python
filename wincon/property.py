@@ -10,9 +10,16 @@ class WinConProperty():
         add_window.destroy()
         Property.save_properties(user)
         WinConProperty.refresh(user)
+        number = Property.number_from_code(user, code)
+        win.property.PropertyWin.see_window(user, number)
 
     def update(user, number, type, new):
         user.properties[number].update_property(type, new)
+        Property.save_properties(user)
+        WinConProperty.refresh(user)
+
+    def add_landlord(user, number, landlord_code):
+        user.properties[number].add_landlord(user, landlord_code)
         Property.save_properties(user)
         WinConProperty.refresh(user)
 
@@ -49,6 +56,11 @@ class WinConProperty():
     def update_button(frame, user, number, type, entry, row, rowspan=1):
         button_date = Button(frame, text='update', font=user.standard_font,
                              command=lambda: WinConProperty.update(user, number, type, entry.get()))
+        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+
+    def add_landlord_button(frame, user, number, entry, row, rowspan=1):
+        button_date = Button(frame, text='add', font=user.standard_font,
+                             command=lambda: WinConProperty.add_landlord(user, number, entry.get()))
         button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Window Buttons
