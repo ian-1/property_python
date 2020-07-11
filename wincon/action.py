@@ -7,12 +7,12 @@ class WinConAction():
     def add(add_window, user, property, message):
         user.add_action(property, message)
         add_window.destroy()
-        Action.save_actions(user)
+        Action.save(user)
         WinConAction.refresh(user)
 
     def update(user, number, type, new):
-        user.actions[number].update_action(type, new)
-        Action.save_actions(user)
+        user.actions[number].update(type, new)
+        Action.save(user)
         WinConAction.refresh(user)
 
     # Window refresh management
@@ -93,6 +93,6 @@ class WinConAction():
 
     def confirm_window_button(window, user, text, entry_property, entry_message, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: win.action.ActionWin.confirm_window(window, user, entry_property.get(), entry_message.get()))
-        button.bind('<Return>', lambda e: win.action.ActionWin.confirm_window(window, user, entry_property.get(), entry_message.get()))
+                        command=lambda: win.action.ActionWin.confirm_window(window, user, entry_property.get()[0:6], entry_message.get()))
+        button.bind('<Return>', lambda e: win.action.ActionWin.confirm_window(window, user, entry_property.get()[0:6], entry_message.get()))
         button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)

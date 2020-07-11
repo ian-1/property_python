@@ -1,9 +1,11 @@
 from lib.action import Action
 from lib.property import Property
 from lib.landlord import Landlord
+from lib.contact import Contact
 import win.action
 import win.property
 import win.landlord
+import win.contact
 
 class User():
     def __init__(self, name):
@@ -15,10 +17,13 @@ class User():
         self.property_win = win.property.PropertyWin()
         self.landlords = []
         self.landlord_win = win.landlord.LandlordWin()
+        self.contacts = []
+        self.contact_win = win.contact.ContactWin()
         # Load in data from files for above
-        Action.load_actions(self)
-        Property.load_properties(self)
-        Landlord.load_landlords(self)
+        Action.load(self)
+        Property.load(self)
+        Landlord.load(self)
+        Contact.load(self)
         # company attributes:
         self.company_name = 'Property Python'
         self.company_icon = 'icon.ico'
@@ -49,3 +54,6 @@ class User():
 
     def add_landlord(self, user, title, first_names, surname, note):
         self.landlords.append(Landlord(user, title, first_names, surname, note))
+
+    def add_contact(self, user, type, address, note, number):
+        self.contacts.append(Contact(user, type, address, note, number))

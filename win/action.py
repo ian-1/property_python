@@ -78,11 +78,16 @@ class ActionWin:
         row = 0
 
         text = 'Check and confirm action:'
-        WinConGeneral.title(window, user, text)
+        WinConGeneral.line(window, user, text)
         row += 1
 
-        text = property + ' - ' + message
-        WinConGeneral.content(window, user, text)
+        address = Property.address_from_code(user, property)
+        text = 'Address: ' + address
+        WinConGeneral.title(window, user, text, row)
+        row += 1
+
+        text = message
+        WinConGeneral.content(window, user, text, row)
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
@@ -99,7 +104,11 @@ class ActionWin:
         WinConGeneral.title(window, user, text)
         row += 1
 
-        entry_property = WinConGeneral.entry(window, user, 'Property:', row)
+        options = []
+        for property in user.properties:
+            text = property.code + ' - ' + property.address
+            options.append(text)
+        entry_property = WinConGeneral.drop_down(window, user, 'Property:', options, row)
         row += 1
         entry_message = WinConGeneral.entry(window, user, 'Message:', row)
         row += 1
@@ -107,6 +116,7 @@ class ActionWin:
         text = 'SUBMIT (as ' + user.name + ')'
         WinCon.confirm_window_button(window, user, text, entry_property, entry_message, row)
         WinConGeneral.close_button(window, window, user, row, 2)
+
 
     def print_temp():
         print('closed')

@@ -1,6 +1,7 @@
 from tkinter import Button
 import win.landlord
 import win.property
+import win.contact
 from lib.landlord import Landlord
 
 class WinConLandlord():
@@ -8,12 +9,12 @@ class WinConLandlord():
     def add(add_window, user, title, first_names, surname, note):
         user.add_landlord(user, title, first_names, surname, note)
         add_window.destroy()
-        Landlord.save_landlords(user)
+        Landlord.save(user)
         WinConLandlord.refresh(user)
 
     def update(user, number, type, new):
-        user.landlords[number].update_landlord(type, new)
-        Landlord.save_landlords(user)
+        user.landlords[number].update(type, new)
+        Landlord.save(user)
         WinConLandlord.refresh(user)
 
     # Window refresh management
@@ -98,3 +99,8 @@ class WinConLandlord():
                         command=lambda: win.landlord.LandlordWin.confirm_window(window, user, entry_title.get(), entry_first_names.get(), entry_surname.get(), entry_note.get()))
         button.bind('<Return>', lambda e: win.landlord.LandlordWin.confirm_window(window, user, entry_title.get(), entry_first_names.get(), entry_surname.get(), entry_note.get()))
         button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+
+    def add_contact_window_button(frame, user, number=False, row=0, column=0):
+        add_button = Button(frame, text='Add Contact', font=user.large_font, bg=user.button_bg_colour,
+                            command=lambda: win.contact.ContactWin.add_window(user, number))
+        add_button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)

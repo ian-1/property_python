@@ -2,6 +2,10 @@ from wincon.general import WinConGeneral
 from wincon.landlord import WinConLandlord as WinCon
 from lib.landlord import Landlord
 
+import win.contact
+import win.property
+from tkinter import Button
+
 class LandlordWin:
     def __init__(self):
         self.see_windows = []
@@ -40,20 +44,66 @@ class LandlordWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        line1 = 'Landlord code: ' + user.landlords[number].code
-        WinConGeneral.line(window, user, line1, row, column)
+        line = 'Landlord code: ' + user.landlords[number].code
+        WinConGeneral.line(window, user, line, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line2 = 'Name: ' + user.landlords[number].title + ' ' + user.landlords[number].first_names + ' ' + user.landlords[number].surname
-        WinConGeneral.title(window, user, line2, row, column)
-        row += 1
-        WinConGeneral.line(window, user, break_line, row, column)
+        line = 'Name: ' + user.landlords[number].title + ' ' + user.landlords[number].first_names + ' ' + user.landlords[number].surname
+        WinConGeneral.title(window, user, line, row, column)
         row += 1
 
+        line = 'Properties: '
+        WinConGeneral.line(window, user, line, row, column)
+        row += 1
+        counter = 0
+        for property in user.properties:
+            for code in property.landlords:
+                if code == user.landlords[number].code:
+                    text =  property.address
+                    pp_number = 0
+                    for pp in user.properties:
+                        if property == pp: break
+                        pp_number += 1
+                    button = Button(window, relief='flat', bg="gray99",
+                                    font=user.standard_font, text=text, anchor='w',
+                                    command=lambda pp_number=pp_number: win.property.PropertyWin.see_window(user, pp_number))
+                    button.grid(row=row, column=column,  columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+                    row += 1
+                counter += 1
+
+        line = 'Notes: '
+        WinConGeneral.line(window, user, line, row, column)
+        row += 1
         text = user.landlords[number].note
         WinConGeneral.content(window, user, text, row, column)
+        row += 1
+
+        line = 'Contact details: '
+        WinConGeneral.line(window, user, line, row, column)
+        row += 1
+        for code in user.landlords[number].contacts:
+            counter = 0
+            for contact in user.contacts:
+                if code == contact.code:
+                    note = ' (' + contact.note + ')'
+                    if len(contact.note) > 38:
+                        note = ' (' + contact.note[0:35] + '...)'
+                    text =  contact.type + ' - ' + contact.address + note
+                    button = Button(window, relief='flat', bg="gray99",
+                                    font=user.standard_font, text=text, anchor='w',
+                                    command=lambda number=counter: win.contact.ContactWin.see_window(user, number))
+                    button.grid(row=row, column=column,  columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+                    row += 1
+                counter += 1
+
+        # Buttons
+        WinCon.add_contact_window_button(window, user, number, row, column)
+        column += 1
+        WinCon.close_see_window_button(window, window, user, row, column)
+
+
 
     def see_window(user, number):
         # Set up window
@@ -61,9 +111,6 @@ class LandlordWin:
 
         # Left side entries/update
         row = LandlordWin.see_window_left(window, user, number)
-
-        # Left Side Buttons
-        WinCon.close_see_window_button(window, window, user, row, 2)
 
         # Right Side
         LandlordWin.see_window_right(window, user, number)

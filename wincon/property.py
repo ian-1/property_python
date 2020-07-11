@@ -8,19 +8,19 @@ class WinConProperty():
     def add(add_window, user, code, address):
         user.add_property(code, address)
         add_window.destroy()
-        Property.save_properties(user)
+        Property.save(user)
         WinConProperty.refresh(user)
         number = Property.number_from_code(user, code)
         win.property.PropertyWin.see_window(user, number)
 
     def update(user, number, type, new):
-        user.properties[number].update_property(type, new)
-        Property.save_properties(user)
+        user.properties[number].update(type, new)
+        Property.save(user)
         WinConProperty.refresh(user)
 
     def add_landlord(user, number, landlord_code):
         user.properties[number].add_landlord(user, landlord_code)
-        Property.save_properties(user)
+        Property.save(user)
         WinConProperty.refresh(user)
 
     # Window refresh management

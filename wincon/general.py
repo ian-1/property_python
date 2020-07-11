@@ -3,7 +3,9 @@ from tkinter import Toplevel,\
                     Text,\
                     Label,\
                     Entry,\
-                    Button
+                    OptionMenu,\
+                    Button,\
+                    StringVar
 from wincon.vertical_scrolled_frame import VerticalScrolledFrame
 
 class WinConGeneral():
@@ -50,7 +52,7 @@ class WinConGeneral():
     def line(frame, user, text, row=0, column=0, alert = False):
         bg = WinConGeneral.bg_set(user, alert)
         label = Label(frame, text=text, font=user.standard_font, anchor='w', bg=bg)
-        label.grid(row=row, column=column, sticky='nsew', padx=user.padx)
+        label.grid(row=row, column=column, columnspan=2, sticky='nsew', padx=user.padx)
 
     def content(frame, user, text, row=1, column=0, alert = False):
                 width = int(user.small_window_width / 5)
@@ -67,9 +69,20 @@ class WinConGeneral():
                 label = Label(window, text=text, font=user.standard_font, bg=user.window_bg_colour)
                 label.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
                 entry = Entry(window, bd = 3, font=user.standard_font)
-                entry.grid(row=row, column=1, rowspan=rowspan, columnspan=2, padx=user.padx, pady=user.pady)
+                entry.grid(row=row, column=1, rowspan=rowspan, sticky='ew', columnspan=2, padx=user.padx, pady=user.pady)
                 if insert != False:
                     entry.insert(0, insert)
+                return entry
+
+    def drop_down(window, user, text, options, row, rowspan=1, insert=False):
+                label = Label(window, text=text, font=user.standard_font, bg=user.window_bg_colour)
+                label.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
+                entry = StringVar()
+                drop_down = OptionMenu(window, entry, *options)
+                drop_down.config(font=user.standard_font, anchor='w')
+                drop_down.grid(row=row, column=1, rowspan=rowspan, sticky='ew', columnspan=2, padx=user.padx, pady=user.pady)
+                if insert != False:
+                    entry.set(insert)
                 return entry
 
     # Standard Buttons

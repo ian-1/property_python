@@ -10,12 +10,12 @@ class Property():
 
     # Class methods:
 
-    def save_properties(user):
+    def save(user):
         file = '.\\data\\properties\\' + user.name + '.llama'
         with open(file, 'wb') as config_dictionary_file:
             pickle.dump(user.properties, config_dictionary_file)
 
-    def load_properties(user):
+    def load(user):
         file = '.\\data\\properties\\' + user.name + '.llama'
         with open(file, 'rb') as config_dictionary_file:
             user.properties = pickle.load(config_dictionary_file)
@@ -37,7 +37,7 @@ class Property():
 
     # Instance methods:
 
-    def update_property(self, type, value):
+    def update(self, type, value):
         if type == 'date': self.date = value
         if type == 'code': self.code = value
         if type == 'address': self.address = value

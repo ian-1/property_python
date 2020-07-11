@@ -13,8 +13,8 @@ font = 'Helvetica'
 
 # TEMP SETTING UP THE User
 
-user = User('Portmoor')
-#user = User('Test')
+#user = User('Portmoor')
+user = User('Test')
 
 # creating tkinter window
 root = Tk()

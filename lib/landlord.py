@@ -8,16 +8,17 @@ class Landlord():
         self.title = title
         self.first_names = first_names
         self.surname = surname
+        self.contacts = []
         self.note = note
 
     # Class methods:
 
-    def save_landlords(user):
+    def save(user):
         file = '.\\data\\landlords\\' + user.name + '.llama'
         with open(file, 'wb') as config_dictionary_file:
             pickle.dump(user.landlords, config_dictionary_file)
 
-    def load_landlords(user):
+    def load(user):
         file = '.\\data\\landlords\\' + user.name + '.llama'
         with open(file, 'rb') as config_dictionary_file:
             user.landlords = pickle.load(config_dictionary_file)
@@ -40,7 +41,7 @@ class Landlord():
 
     # Instance methods:
 
-    def update_landlord(self, type, value):
+    def update(self, type, value):
         if type == 'date': self.date = value
         if type == 'title': self.title = value
         if type == 'first_names': self.first_names = value
