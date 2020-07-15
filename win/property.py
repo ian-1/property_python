@@ -59,6 +59,7 @@ class PropertyWin:
         row += 1
 
     def see_window(user, number):
+        import wincon.task
         # Set up window
         window =  WinConGeneral.window(user.root, user, 'See Property', 'medium')
 
@@ -68,6 +69,8 @@ class PropertyWin:
         # Left Side Buttons
         code = user.properties[number].code
         WinConAction.show_window_button(window, user, code, row)
+        wincon.task.WinConTask.show_window_button(window, user, code, row, 2)
+        row += 1
         WinCon.close_see_window_button(window, window, user, row, 2)
 
         # Right Side

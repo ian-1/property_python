@@ -54,9 +54,9 @@ class WinConProperty():
         button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def update_button(frame, user, number, type, entry, row, rowspan=1):
-        button_date = Button(frame, text='update', font=user.standard_font,
+        button = Button(frame, text='update', font=user.standard_font,
                              command=lambda: WinConProperty.update(user, number, type, entry.get()))
-        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     def add_landlord_button(frame, user, number, entry, row, rowspan=1):
         button_date = Button(frame, text='add', font=user.standard_font,

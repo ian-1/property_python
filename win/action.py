@@ -43,7 +43,7 @@ class ActionWin:
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line2 = 'Address: ' + Property.address_from_code(user, user.actions[number].property)
+        line2 = Property.address_from_code(user, user.actions[number].property)
         WinConGeneral.title(window, user, line2, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)

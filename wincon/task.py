@@ -1,6 +1,7 @@
 from tkinter import Button
 import win.task
 from lib.task import Task
+from datetime import date
 
 class WinConTask():
 
@@ -46,9 +47,9 @@ class WinConTask():
         bg = 'white'
         if entry.get() != insert:
             bg = 'red'
-        button_date = Button(frame, text='update', font=user.standard_font, bg=bg,
+        button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConTask.update(user, number, type, entry.get()))
-        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Window Buttons
 
@@ -58,10 +59,15 @@ class WinConTask():
         width = int(user.medium_window_width/7)
         counter = 0
         for task in user.tasks:
-            text = task.date + ' - ' + task.property + ' - ' + task.message
+            till_due = Task.date_length(str(date.today()), task.due)
+            text = task.due + ' (' + str(till_due) + ') - ' + task.property + ' - ' + task.message
+            bg="gray99"
+            if till_due > 30: bg = 'light grey'
+            if till_due < 1: bg = 'orange'
+            if till_due < -5: bg = 'firebrick'
             # if show all or property code matches
             if code in (False, task.property):
-                button = Button(frame.interior, relief='flat', bg="gray99",
+                button = Button(frame.interior, relief='flat', bg=bg,
                     font=user.standard_font, text=text, width=width, anchor='w',
                     command=lambda number=counter: win.task.TaskWin.see_window(user, number))
                 button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
@@ -74,10 +80,10 @@ class WinConTask():
 
     # Show Window
 
-    def show_window_button(window, user, code, row, rowspan=1):
+    def show_window_button(window, user, code, row, column=0, rowspan=1):
         tasks_button = Button(window, text='View Tasks', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.task.TaskWin.show_window(user, code))
-        tasks_button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+        tasks_button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,

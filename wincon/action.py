@@ -46,9 +46,9 @@ class WinConAction():
         bg = 'white'
         if entry.get() != insert:
             bg = 'red'
-        button_date = Button(frame, text='update', font=user.standard_font, bg=bg,
+        button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConAction.update(user, number, type, entry.get()))
-        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Window Buttons
 
@@ -74,10 +74,10 @@ class WinConAction():
 
     # Show Window
 
-    def show_window_button(window, user, code, row, rowspan=1):
+    def show_window_button(window, user, code, row, column=0, rowspan=1):
         actions_button = Button(window, text='View Actions', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.action.ActionWin.show_window(user, code))
-        actions_button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+        actions_button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,

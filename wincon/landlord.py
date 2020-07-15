@@ -51,9 +51,9 @@ class WinConLandlord():
         bg = 'white'
         if entry.get() != insert:
             bg = 'red'
-        button_date = Button(frame, text='update', font=user.standard_font, bg=bg,
+        button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConLandlord.update(user, number, type, entry.get()))
-        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Window Buttons
 

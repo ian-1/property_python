@@ -3,6 +3,7 @@ from wincon.task import WinConTask as WinCon
 from wincon.property import WinConProperty
 from lib.task import Task
 from lib.property import Property
+from datetime import date
 
 class TaskWin:
     def __init__(self):
@@ -13,13 +14,18 @@ class TaskWin:
         row = 0
 
         insert = user.tasks[number].date
-        entry_date = WinConGeneral.entry(window, user, 'Date:', row, 2, insert)
+        entry_date = WinConGeneral.entry(window, user, 'Start date:', row, 2, insert)
         WinCon.update_button(window, user, number, 'date', entry_date, row, 2, insert)
         row += 2
 
         insert = user.tasks[number].property
         entry_property = WinConGeneral.entry(window, user, 'Property:', row, 2, insert)
         WinCon.update_button(window, user, number, 'property', entry_property, row, 2, insert)
+        row += 2
+
+        insert = user.tasks[number].due
+        entry_due = WinConGeneral.entry(window, user, 'Due date:', row, 2, insert)
+        WinCon.update_button(window, user, number, 'due', entry_due, row, 2, insert)
         row += 2
 
         insert = user.tasks[number].message
@@ -37,16 +43,23 @@ class TaskWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        line1 = 'Date: ' + user.tasks[number].date + '                         ¦     Code: ' + user.tasks[number].property
-        WinConGeneral.title(window, user, line1, row, column)
+        length = Task.date_length(user.tasks[number].date, str(date.today()))
+        line = 'Days running: ' + str(length)
+        WinConGeneral.line(window, user, line, row, column)
         row += 1
+
+        till_due = Task.date_length(str(date.today()), user.tasks[number].due)
+        alert = False
+        if till_due < 1: alert = True
+        line = 'Days till due: ' + str(till_due)
+        WinConGeneral.title(window, user, line, row, column, alert)
+        row += 1
+
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line2 = 'Address: ' + Property.address_from_code(user, user.tasks[number].property)
-        WinConGeneral.title(window, user, line2, row, column)
-        row += 1
-        WinConGeneral.line(window, user, break_line, row, column)
+        line = Property.address_from_code(user, user.tasks[number].property)
+        WinConGeneral.title(window, user, line, row, column)
         row += 1
 
         text = user.tasks[number].message
