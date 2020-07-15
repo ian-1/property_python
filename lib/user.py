@@ -24,10 +24,11 @@ class User():
         self.actions = []
         self.action_win = win.action.ActionWin()
         # Load in data from files for above
-        Action.load(self)
         Property.load(self)
         Landlord.load(self)
         Contact.load(self)
+        Task.load(self)
+        Action.load(self)
         # company attributes:
         self.company_name = 'Property Python'
         self.company_icon = 'icon.ico'
