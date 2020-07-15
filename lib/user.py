@@ -1,24 +1,28 @@
-from lib.action import Action
 from lib.property import Property
 from lib.landlord import Landlord
 from lib.contact import Contact
-import win.action
+from lib.task import Task
+from lib.action import Action
 import win.property
 import win.landlord
 import win.contact
+import win.task
+import win.action
 
 class User():
     def __init__(self, name):
         self.name = name
         self.root = False
-        self.actions = []
-        self.action_win = win.action.ActionWin()
         self.properties = []
         self.property_win = win.property.PropertyWin()
         self.landlords = []
         self.landlord_win = win.landlord.LandlordWin()
         self.contacts = []
         self.contact_win = win.contact.ContactWin()
+        self.tasks = []
+        self.task_win = win.task.TaskWin()
+        self.actions = []
+        self.action_win = win.action.ActionWin()
         # Load in data from files for above
         Action.load(self)
         Property.load(self)
@@ -46,9 +50,6 @@ class User():
         self.padx = 5
         self.pady = 5
 
-    def add_action(self, property, message):
-        self.actions.append(Action(property, message))
-
     def add_property(self, code, address):
         self.properties.append(Property(code, address))
 
@@ -57,3 +58,9 @@ class User():
 
     def add_contact(self, user, type, address, note, number):
         self.contacts.append(Contact(user, type, address, note, number))
+
+    def add_task(self, property, message):
+        self.tasks.append(Task(property, message))
+
+    def add_action(self, property, message):
+        self.actions.append(Action(property, message))

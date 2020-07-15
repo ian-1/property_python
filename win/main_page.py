@@ -2,8 +2,9 @@
 
 from tkinter import Menu
 from win.property import PropertyWin
-from win.action import ActionWin
 from win.landlord import LandlordWin
+from win.task import TaskWin
+from win.action import ActionWin
 # Test
 from win.contact import ContactWin
 
@@ -56,7 +57,8 @@ class MainPage:
         menubar.add_cascade(label="Objects", menu=object_menu)
         # Tasks menu
         task_menu = Menu(menubar, tearoff=0)
-        task_menu.add_command(label="View All Tasks", command=MainPage.donothing)
+        task_menu.add_command(label="View All Tasks", command=lambda: TaskWin.show_window(user))
+        task_menu.add_command(label="Add General Task", command=lambda: TaskWin.add_window(user))
         task_menu.add_separator()
         task_menu.add_command(label="View Maintenance Jobs", command=MainPage.donothing)
         task_menu.add_command(label="Add Maintenance Job", command=MainPage.donothing)
