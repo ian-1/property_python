@@ -13,22 +13,22 @@ class TaskWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.tasks[number].date
+        insert = user.task_list[number].date
         entry_date = WinConGeneral.entry(window, user, 'Start date:', row, 2, insert)
         WinCon.update_button(window, user, number, 'date', entry_date, row, 2, insert)
         row += 2
 
-        insert = user.tasks[number].property
+        insert = user.task_list[number].property
         entry_property = WinConGeneral.entry(window, user, 'Property:', row, 2, insert)
         WinCon.update_button(window, user, number, 'property', entry_property, row, 2, insert)
         row += 2
 
-        insert = user.tasks[number].due
+        insert = user.task_list[number].due
         entry_due = WinConGeneral.entry(window, user, 'Due date:', row, 2, insert)
         WinCon.update_button(window, user, number, 'due', entry_due, row, 2, insert)
         row += 2
 
-        insert = user.tasks[number].message
+        insert = user.task_list[number].message
         entry_message = WinConGeneral.entry(window, user, 'Message:', row, 2, insert)
         WinCon.update_button(window, user, number, 'message', entry_message, row, 2, insert)
         row += 2
@@ -43,12 +43,12 @@ class TaskWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        length = Task.date_length(user.tasks[number].date, str(date.today()))
+        length = Task.date_length(user.task_list[number].date, str(date.today()))
         line = 'Days running: ' + str(length)
         WinConGeneral.line(window, user, line, row, column)
         row += 1
 
-        till_due = Task.date_length(str(date.today()), user.tasks[number].due)
+        till_due = Task.date_length(str(date.today()), user.task_list[number].due)
         alert = False
         if till_due < 1: alert = True
         line = 'Days till due: ' + str(till_due)
@@ -58,11 +58,11 @@ class TaskWin:
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line = Property.address_from_code(user, user.tasks[number].property)
+        line = Property.address_from_code(user, user.task_list[number].property)
         WinConGeneral.title(window, user, line, row, column)
         row += 1
 
-        text = user.tasks[number].message
+        text = user.task_list[number].message
         WinConGeneral.content(window, user, text, row, column)
 
     def see_window(user, number):
@@ -73,7 +73,7 @@ class TaskWin:
         row = TaskWin.see_window_left(window, user, number)
 
         # Left Side Buttons
-        code = user.tasks[number].property
+        code = user.task_list[number].property
         WinConProperty.see_window_button(window, user, code, row, 2)
         WinCon.close_see_window_button(window, window, user, row, 2)
 
@@ -118,7 +118,7 @@ class TaskWin:
         row += 1
 
         options = []
-        for property in user.properties:
+        for property in user.property_list:
             text = property.code + ' - ' + property.address
             options.append(text)
         entry_property = WinConGeneral.drop_down(window, user, 'Property:', options, row)

@@ -12,17 +12,17 @@ class ActionWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.actions[number].date
+        insert = user.action_list[number].date
         entry_date = WinConGeneral.entry(window, user, 'Date:', row, 2, insert)
         WinCon.update_button(window, user, number, 'date', entry_date, row, 2, insert)
         row += 2
 
-        insert = user.actions[number].property
+        insert = user.action_list[number].property
         entry_property = WinConGeneral.entry(window, user, 'Property:', row, 2, insert)
         WinCon.update_button(window, user, number, 'property', entry_property, row, 2, insert)
         row += 2
 
-        insert = user.actions[number].message
+        insert = user.action_list[number].message
         entry_message = WinConGeneral.entry(window, user, 'Message:', row, 2, insert)
         WinCon.update_button(window, user, number, 'message', entry_message, row, 2, insert)
         row += 2
@@ -37,19 +37,19 @@ class ActionWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        line1 = 'Date: ' + user.actions[number].date + '                         ¦     Code: ' + user.actions[number].property
+        line1 = 'Date: ' + user.action_list[number].date + '                         ¦     Code: ' + user.action_list[number].property
         WinConGeneral.title(window, user, line1, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line2 = Property.address_from_code(user, user.actions[number].property)
+        line2 = Property.address_from_code(user, user.action_list[number].property)
         WinConGeneral.title(window, user, line2, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        text = user.actions[number].message
+        text = user.action_list[number].message
         WinConGeneral.content(window, user, text, row, column)
 
     def see_window(user, number):
@@ -60,7 +60,7 @@ class ActionWin:
         row = ActionWin.see_window_left(window, user, number)
 
         # Left Side Buttons
-        code = user.actions[number].property
+        code = user.action_list[number].property
         WinConProperty.see_window_button(window, user, code, row, 2)
         WinCon.close_see_window_button(window, window, user, row, 2)
 
@@ -105,7 +105,7 @@ class ActionWin:
         row += 1
 
         options = []
-        for property in user.properties:
+        for property in user.property_list:
             text = property.code + ' - ' + property.address
             options.append(text)
         entry_property = WinConGeneral.drop_down(window, user, 'Property:', options, row)

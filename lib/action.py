@@ -1,23 +1,39 @@
 from datetime import date
-import pickle
 
 class Action():
-    def __init__(self, property, message):
+    def __init__(self, user=False, property='', message=''):
         self.date = str(date.today())
+        # For dummy generation without user
+        if user == False:
+            self.code = ''
+        # For non-dummy generation
+        else:
+            self.code = Action.code(user)
         self.property = property
         self.message = message
 
     # Class methods:
 
-    def save(user):
-        file = '.\\data\\actions\\' + user.name + '.llama'
-        with open(file, 'wb') as config_dictionary_file:
-            pickle.dump(user.actions, config_dictionary_file)
-
-    def load(user):
-        file = '.\\data\\actions\\' + user.name + '.llama'
-        with open(file, 'rb') as config_dictionary_file:
-            user.actions = pickle.load(config_dictionary_file)
+    def code(user):
+        number = len(user.action_list) + 1
+        post_code = ''
+        if number < 10:
+            post_code += '0'
+        if number < 100:
+            post_code += '0'
+        if number < 1000:
+            post_code += '0'
+        if number < 10000:
+            post_code += '0'
+        if number < 100000:
+            post_code += '0'
+        if number < 1000000:
+            post_code += '0'
+        if number < 10000000:
+            post_code += '0'
+        post_code += str(number)
+        code = 'ACTION' + post_code
+        return code
 
     # Instance methods:
 

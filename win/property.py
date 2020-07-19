@@ -12,12 +12,12 @@ class PropertyWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.properties[number].code
+        insert = user.property_list[number].code
         entry_code = WinConGeneral.entry(window, user, 'Code:', row, 2, insert)
         WinCon.update_button(window, user, number, 'code', entry_code, row, 2)
         row += 2
 
-        insert = user.properties[number].address
+        insert = user.property_list[number].address
         entry_address = WinConGeneral.entry(window, user, 'Address:', row, 2, insert)
         WinCon.update_button(window, user, number, 'address', entry_address, row, 2)
         row += 2
@@ -36,19 +36,19 @@ class PropertyWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        line1 = 'Code: ' + user.properties[number].code
+        line1 = 'Code: ' + user.property_list[number].code
         WinConGeneral.title(window, user, line1, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line2 = 'Address: ' + user.properties[number].address
+        line2 = 'Address: ' + user.property_list[number].address
         WinConGeneral.title(window, user, line2, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        number, list = user.properties[number].landlord_list(user)
+        number, list = user.property_list[number].landlord_list(user)
         header = str(number) + ' Landlords: '
         if number == 0: header = 'No Landlord'
         if number == 1: header = 'Landlord: '
@@ -67,7 +67,7 @@ class PropertyWin:
         row = PropertyWin.see_window_left(window, user, number)
 
         # Left Side Buttons
-        code = user.properties[number].code
+        code = user.property_list[number].code
         WinConAction.show_window_button(window, user, code, row)
         wincon.task.WinConTask.show_window_button(window, user, code, row, 2)
         row += 1

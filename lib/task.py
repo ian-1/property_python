@@ -1,29 +1,43 @@
 from datetime import date
-import pickle
 
 class Task():
-    def __init__(self, property, message):
+    def __init__(self, user=False, property='', message=''):
         self.date = str(date.today())
+        # For dummy generation without user
+        if user == False:
+            self.code = ''
+        # For non-dummy generation
+        else:
+            self.code = Task.code(user)
         self.due = str(date.today())
         self.property = property
         self.message = message
 
     # Class methods:
 
-    def save(user):
-        file = '.\\data\\tasks\\' + user.name + '.llama'
-        with open(file, 'wb') as config_dictionary_file:
-            pickle.dump(user.tasks, config_dictionary_file)
-
-    def load(user):
-        file = '.\\data\\tasks\\' + user.name + '.llama'
-        with open(file, 'rb') as config_dictionary_file:
-            user.tasks = pickle.load(config_dictionary_file)
+    def code(user):
+        number = len(user.task_list) + 1
+        post_code = ''
+        if number < 10:
+            post_code += '0'
+        if number < 100:
+            post_code += '0'
+        if number < 1000:
+            post_code += '0'
+        if number < 10000:
+            post_code += '0'
+        if number < 100000:
+            post_code += '0'
+        if number < 1000000:
+            post_code += '0'
+        post_code += str(number)
+        code = 'TASK' + post_code
+        return code
 
     def date_in_days(date_str):
-        day = int(date_str[9:10])
+        day = int(date_str[8:10])
         months = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334]
-        month = int(date_str[6:7])
+        month = int(date_str[5:7])
         day += months[month - 1]
         year = int(date_str[0:4])
         day += year * 365

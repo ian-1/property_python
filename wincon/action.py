@@ -5,14 +5,14 @@ from lib.action import Action
 class WinConAction():
 
     def add(add_window, user, property, message):
-        user.add_action(property, message)
+        user.add_action(user, property, message)
         add_window.destroy()
-        Action.save(user)
+        user.save_group('action')
         WinConAction.refresh(user)
 
     def update(user, number, type, new):
-        user.actions[number].update(type, new)
-        Action.save(user)
+        user.action_list[number].update(type, new)
+        user.save_group('action')
         WinConAction.refresh(user)
 
     # Window refresh management
@@ -57,7 +57,7 @@ class WinConAction():
     def scroll_button_list(window, frame, user, code):
         width = int(user.medium_window_width/7)
         counter = 0
-        for action in user.actions:
+        for action in user.action_list:
             text = action.date + ' - ' + action.property + ' - ' + action.message
             # if show all or property code matches
             if code in (False, action.property):
@@ -75,9 +75,9 @@ class WinConAction():
     # Show Window
 
     def show_window_button(window, user, code, row, column=0, rowspan=1):
-        actions_button = Button(window, text='View Actions', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(window, text='View Actions', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.action.ActionWin.show_window(user, code))
-        actions_button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
@@ -87,9 +87,9 @@ class WinConAction():
     # Add & Confirm windows
 
     def add_window_button(frame, user):
-        add_button = Button(frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: win.action.ActionWin.add_window(user))
-        add_button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def confirm_window_button(window, user, text, entry_property, entry_message, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,

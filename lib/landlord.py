@@ -1,10 +1,14 @@
 from datetime import date
-import pickle
 
 class Landlord():
-    def __init__(self, user, title, first_names, surname, note):
+    def __init__(self, user=False, title='', first_names='', surname='', note=''):
         self.date = str(date.today())
-        self.code = Landlord.code(user, surname)
+        # For dummy generation without user
+        if user == False:
+            self.code = ''
+        # For non-dummy generation
+        else:
+            self.code = Landlord.code(user, surname)
         self.title = title
         self.first_names = first_names
         self.surname = surname
@@ -13,21 +17,11 @@ class Landlord():
 
     # Class methods:
 
-    def save(user):
-        file = '.\\data\\landlords\\' + user.name + '.llama'
-        with open(file, 'wb') as config_dictionary_file:
-            pickle.dump(user.landlords, config_dictionary_file)
-
-    def load(user):
-        file = '.\\data\\landlords\\' + user.name + '.llama'
-        with open(file, 'rb') as config_dictionary_file:
-            user.landlords = pickle.load(config_dictionary_file)
-
     def code(user, surname):
         surname = surname + 'xxxx'
         code = surname[0:4].upper()
         number = 0
-        for landlord in user.landlords:
+        for landlord in user.landlord_list:
             if code == landlord.code[0:4]:
                 number += 1
         post_code = ''

@@ -10,19 +10,19 @@ class ContactWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.contacts[number].type
+        insert = user.contact_list[number].type
         entry_type = WinConGeneral.drop_down(window, user, 'Type', ['Address', 'Phone Number', 'Email'], row, 2, insert)
         WinCon.update_button(window, user, number, 'type', entry_type, row, 2, insert)
         row += 2
 
-        insert = user.contacts[number].address
+        insert = user.contact_list[number].address
         text = 'Address'
-        if user.contacts[number].type == 'phone': text = 'Number'
+        if user.contact_list[number].type == 'phone': text = 'Number'
         entry_address = WinConGeneral.entry(window, user, text, row, 2, insert)
         WinCon.update_button(window, user, number, 'address', entry_address, row, 2, insert)
         row += 2
 
-        insert = user.contacts[number].note
+        insert = user.contact_list[number].note
         entry_note = WinConGeneral.entry(window, user, 'Note:', row, 2, insert)
         WinCon.update_button(window, user, number, 'note', entry_note, row, 2, insert)
         row += 2
@@ -38,15 +38,15 @@ class ContactWin:
         break_line = '------------------------------------------------------------------------------------------------------'
 
         text = 'Address: '
-        if user.contacts[number].type == 'Email': text = 'Email: '
-        if user.contacts[number].type == 'Phone Number': text = 'Number: '
-        line1 = text + user.contacts[number].address
+        if user.contact_list[number].type == 'Email': text = 'Email: '
+        if user.contact_list[number].type == 'Phone Number': text = 'Number: '
+        line1 = text + user.contact_list[number].address
         WinConGeneral.title(window, user, line1, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        text = user.contacts[number].note
+        text = user.contact_list[number].note
         WinConGeneral.content(window, user, text, row, column)
 
     def see_window(user, number):

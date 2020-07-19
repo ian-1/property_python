@@ -14,22 +14,22 @@ class LandlordWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.landlords[number].title
+        insert = user.landlord_list[number].title
         entry_title = WinConGeneral.entry(window, user, 'Title', row, 2, insert)
         WinCon.update_button(window, user, number, 'title', entry_title, row, 2, insert)
         row += 2
 
-        insert = user.landlords[number].first_names
+        insert = user.landlord_list[number].first_names
         entry_first_names = WinConGeneral.entry(window, user, 'First name(s)', row, 2, insert)
         WinCon.update_button(window, user, number, 'first_names', entry_first_names, row, 2, insert)
         row += 2
 
-        insert = user.landlords[number].surname
+        insert = user.landlord_list[number].surname
         entry_surname = WinConGeneral.entry(window, user, 'Surname', row, 2, insert)
         WinCon.update_button(window, user, number, 'surname', entry_surname, row, 2, insert)
         row += 2
 
-        insert = user.landlords[number].note
+        insert = user.landlord_list[number].note
         entry_note = WinConGeneral.entry(window, user, 'Note:', row, 2, insert)
         WinCon.update_button(window, user, number, 'note', entry_note, row, 2, insert)
         row += 2
@@ -44,13 +44,13 @@ class LandlordWin:
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
-        line = 'Landlord code: ' + user.landlords[number].code
+        line = 'Landlord code: ' + user.landlord_list[number].code
         WinConGeneral.line(window, user, line, row, column)
         row += 1
         WinConGeneral.line(window, user, break_line, row, column)
         row += 1
 
-        line = 'Name: ' + user.landlords[number].title + ' ' + user.landlords[number].first_names + ' ' + user.landlords[number].surname
+        line = 'Name: ' + user.landlord_list[number].title + ' ' + user.landlord_list[number].first_names + ' ' + user.landlord_list[number].surname
         WinConGeneral.title(window, user, line, row, column)
         row += 1
 
@@ -58,12 +58,12 @@ class LandlordWin:
         WinConGeneral.line(window, user, line, row, column)
         row += 1
         counter = 0
-        for property in user.properties:
+        for property in user.property_list:
             for code in property.landlords:
-                if code == user.landlords[number].code:
+                if code == user.landlord_list[number].code:
                     text =  property.address
                     pp_number = 0
-                    for pp in user.properties:
+                    for pp in user.property_list:
                         if property == pp: break
                         pp_number += 1
                     button = Button(window, relief='flat', bg="gray99",
@@ -76,16 +76,16 @@ class LandlordWin:
         line = 'Notes: '
         WinConGeneral.line(window, user, line, row, column)
         row += 1
-        text = user.landlords[number].note
+        text = user.landlord_list[number].note
         WinConGeneral.content(window, user, text, row, column)
         row += 1
 
         line = 'Contact details: '
         WinConGeneral.line(window, user, line, row, column)
         row += 1
-        for code in user.landlords[number].contacts:
+        for code in user.landlord_list[number].contacts:
             counter = 0
-            for contact in user.contacts:
+            for contact in user.contact_list:
                 if code == contact.code:
                     note = ' (' + contact.note + ')'
                     if len(contact.note) > 38:

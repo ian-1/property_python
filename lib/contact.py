@@ -2,28 +2,23 @@ from datetime import date
 import pickle
 
 class Contact():
-    def __init__(self, user, type, address, note, number):
+    def __init__(self, user=False, type='', address='', note='', number=''):
         self.date = str(date.today())
-        self.code = Contact.code(user)
+        # For dummy generation without user
+        if user == False:
+            self.code = ''
+        # For non-dummy generation
+        else:
+            self.code = Contact.code(user)
+            user.landlord_list[number].contacts.append(self.code)
         self.type = type
         self.address = address
         self.note = note
-        user.landlords[number].contacts.append(self.code)
 
     # Class methods:
 
-    def save(user):
-        file = '.\\data\\contacts\\' + user.name + '.llama'
-        with open(file, 'wb') as config_dictionary_file:
-            pickle.dump(user.contacts, config_dictionary_file)
-
-    def load(user):
-        file = '.\\data\\contacts\\' + user.name + '.llama'
-        with open(file, 'rb') as config_dictionary_file:
-            user.contacts = pickle.load(config_dictionary_file)
-
     def code(user):
-        number = len(user.contacts) + 1
+        number = len(user.contact_list) + 1
         post_code = ''
         if number < 10:
             post_code += '0'

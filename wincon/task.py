@@ -6,14 +6,14 @@ from datetime import date
 class WinConTask():
 
     def add(add_window, user, property, message):
-        user.add_task(property, message)
+        user.add_task(user, property, message)
         add_window.destroy()
-        Task.save(user)
+        user.save_group('task')
         WinConTask.refresh(user)
 
     def update(user, number, type, new):
-        user.tasks[number].update(type, new)
-        Task.save(user)
+        user.task_list[number].update(type, new)
+        user.save_group('task')
         WinConTask.refresh(user)
 
     # Window refresh management
@@ -58,12 +58,13 @@ class WinConTask():
     def scroll_button_list(window, frame, user, code):
         width = int(user.medium_window_width/7)
         counter = 0
-        for task in user.tasks:
+        for task in user.task_list:
             till_due = Task.date_length(str(date.today()), task.due)
             text = task.due + ' (' + str(till_due) + ') - ' + task.property + ' - ' + task.message
             bg="gray99"
-            if till_due > 30: bg = 'light grey'
+            if till_due > 30: bg = 'grey97'
             if till_due < 1: bg = 'orange'
+            if till_due < 0: bg = 'tomato'
             if till_due < -5: bg = 'firebrick'
             # if show all or property code matches
             if code in (False, task.property):
@@ -81,9 +82,9 @@ class WinConTask():
     # Show Window
 
     def show_window_button(window, user, code, row, column=0, rowspan=1):
-        tasks_button = Button(window, text='View Tasks', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(window, text='View Tasks', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.task.TaskWin.show_window(user, code))
-        tasks_button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
@@ -93,9 +94,9 @@ class WinConTask():
     # Add & Confirm windows
 
     def add_window_button(frame, user):
-        add_button = Button(frame, text='Add Task', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(frame, text='Add Task', font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: win.task.TaskWin.add_window(user))
-        add_button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def confirm_window_button(window, user, text, entry_property, entry_message, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,

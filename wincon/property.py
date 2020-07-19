@@ -8,19 +8,19 @@ class WinConProperty():
     def add(add_window, user, code, address):
         user.add_property(code, address)
         add_window.destroy()
-        Property.save(user)
+        user.save_group('property')
         WinConProperty.refresh(user)
         number = Property.number_from_code(user, code)
         win.property.PropertyWin.see_window(user, number)
 
     def update(user, number, type, new):
-        user.properties[number].update(type, new)
-        Property.save(user)
+        user.property_list[number].update(type, new)
+        user.save_group('property')
         WinConProperty.refresh(user)
 
     def add_landlord(user, number, landlord_code):
-        user.properties[number].add_landlord(user, landlord_code)
-        Property.save(user)
+        user.property_list[number].add_landlord(user, landlord_code)
+        user.save_group('property')
         WinConProperty.refresh(user)
 
     # Window refresh management
@@ -33,6 +33,10 @@ class WinConProperty():
         # Actions
         for win_frame in user.action_win.see_windows:
             win.action.ActionWin.see_window_right(win_frame[0], user, win_frame[1])
+        # Landlords
+        for win_frame in user.landlord_win.see_windows:
+            win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
+
 
     def close_see_window(window, user):
         for win_frame in user.property_win.see_windows[:]:
@@ -59,9 +63,9 @@ class WinConProperty():
         button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     def add_landlord_button(frame, user, number, entry, row, rowspan=1):
-        button_date = Button(frame, text='add', font=user.standard_font,
+        button = Button(frame, text='add', font=user.standard_font,
                              command=lambda: WinConProperty.add_landlord(user, number, entry.get()))
-        button_date.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Window Buttons
 
@@ -70,7 +74,7 @@ class WinConProperty():
     def scroll_button_list(window, frame, user):
         width = int(user.medium_window_width/7)
         counter = 0
-        for property in user.properties:
+        for property in user.property_list:
             text = property.code + ' - ' + property.address
             button = Button(frame.interior, relief='flat', bg="gray99",
                 font=user.standard_font, text=text, width=width, anchor='w',
@@ -100,9 +104,9 @@ class WinConProperty():
     # Add & Confirm windows
 
     def add_window_button(frame, user):
-        add_button = Button(frame, text='Add Property', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(frame, text='Add Property', font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: win.property.PropertyWin.add_window(user))
-        add_button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def confirm_window_button(window, user, text, entry_code, entry_address, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,

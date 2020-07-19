@@ -8,12 +8,12 @@ class WinConContact():
     def add(add_window, user, type, address, note, number):
         user.add_contact(user, type, address, note, number)
         add_window.destroy()
-        Contact.save(user)
+        user.save_group('contact')
         WinConContact.refresh(user)
 
     def update(user, number, type, new):
-        user.contacts[number].update(type, new)
-        Contact.save(user)
+        user.contact_list[number].update(type, new)
+        user.save_group('contact')
         WinConContact.refresh(user)
 
     # Window refresh management
@@ -61,7 +61,7 @@ class WinConContact():
     def scroll_button_list(window, frame, user):
         width = int(user.medium_window_width/7)
         counter = 0
-        for contact in user.contacts:
+        for contact in user.contact_list:
             text =  contact.type + ' - ' + contact.address + ' (' + contact.note + ')'
             button = Button(frame.interior, relief='flat', bg="gray99",
                             font=user.standard_font, text=text, width=width, anchor='w',
@@ -77,9 +77,9 @@ class WinConContact():
     # Show Window
 
     def show_window_button(window, user, row, rowspan=1):
-        contacts_button = Button(window, text='View Contacts', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(window, text='View Contacts', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.contact.ContactWin.show_window(user))
-        contacts_button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
@@ -89,9 +89,9 @@ class WinConContact():
     # Add & Confirm windows
 
     def add_window_button(frame, user, code=False, row=0, column=0):
-        add_button = Button(frame, text='Add Contact', font=user.large_font, bg=user.button_bg_colour,
+        button = Button(frame, text='Add Contact', font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: win.contact.ContactWin.add_window(user, code))
-        add_button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
+        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def confirm_window_button(window, user, text,entry_type, entry_address, entry_note, number, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
