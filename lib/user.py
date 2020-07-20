@@ -26,6 +26,12 @@ class User():
         # Load in data from files for above
         self.load_group('property')
         self.load_group('landlord')
+        n = 1
+        zero = '0'
+        for landlord in self.landlord_list:
+            landlord.code = 'LANDLORD00' + zero + str(n)
+            n += 1
+            if n == 10: zero = ''
         self.load_group('contact')
         self.load_group('task')
         self.load_group('action')
@@ -125,6 +131,18 @@ class User():
                 n += 1
             object_list.append(object)
         setattr(self, group + '_list', object_list)
+
+    def generate_code(self, group, zeros):
+        number = len(getattr(self, group + '_list')) + 1
+        code_number = ''
+        n = 10
+        count = 0
+        while count < zeros:
+            if number < n: code_number += '0'
+            n *= 10
+            count += 1
+        code_number += str(number)
+        return group.upper() + code_number
 
     def add_property(self, code, address):
         self.property_list.append(Property(code, address))

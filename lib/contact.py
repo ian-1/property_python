@@ -35,6 +35,4 @@ class Contact():
     # Instance methods:
 
     def update(self, data_type, value):
-        if data_type == 'type': self.type = value
-        if data_type == 'address': self.address = value
-        if data_type == 'note': self.note = value
+        setattr(self, type, value)

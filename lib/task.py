@@ -8,31 +8,12 @@ class Task():
             self.code = ''
         # For non-dummy generation
         else:
-            self.code = Task.code(user)
+            self.code = user.generate_code('task', 6)
         self.due = str(date.today())
         self.property = property
         self.message = message
 
     # Class methods:
-
-    def code(user):
-        number = len(user.task_list) + 1
-        post_code = ''
-        if number < 10:
-            post_code += '0'
-        if number < 100:
-            post_code += '0'
-        if number < 1000:
-            post_code += '0'
-        if number < 10000:
-            post_code += '0'
-        if number < 100000:
-            post_code += '0'
-        if number < 1000000:
-            post_code += '0'
-        post_code += str(number)
-        code = 'TASK' + post_code
-        return code
 
     def date_in_days(date_str):
         day = int(date_str[8:10])
@@ -51,7 +32,4 @@ class Task():
     # Instance methods:
 
     def update(self, type, value):
-        if type == 'date': self.date = value
-        if type == 'due': self.due = value
-        if type == 'property': self.property = value
-        if type == 'message': self.message = value
+        setattr(self, type, value)

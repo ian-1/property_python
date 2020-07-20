@@ -27,9 +27,7 @@ class Property():
     # Instance methods:
 
     def update(self, type, value):
-        if type == 'date': self.date = value
-        if type == 'code': self.code = value
-        if type == 'address': self.address = value
+        setattr(self, type, value)
 
     def add_landlord(self, user, code):
         landlord_code = False
