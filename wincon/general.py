@@ -10,6 +10,13 @@ from wincon.vertical_scrolled_frame import VerticalScrolledFrame
 
 class WinConGeneral():
 
+    def import_GroupWin(group):
+        from importlib import import_module
+        # warning import_module takes arguments in backwards order ie a.b is (.b, a)
+        win_dot_group = import_module('.' + group, 'win')
+        # returns GroupWin class
+        return getattr(win_dot_group, group.title() + 'Win')
+
     def bg_set(user, alert):
         if alert == True:
             return user.window_bg_colour_alert
@@ -92,12 +99,18 @@ class WinConGeneral():
                         command=lambda: window.destroy())
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
+    # Add & Confirm window buttons
+
     def add_window_button(frame, user, group):
-        from importlib import import_module
-        # warning import_module takes arguments in backwards order ie a.b is (.b, a)
-        win_dot_group = import_module('.' + group, 'win')
-        GroupWin = getattr(win_dot_group, group.title() + 'Win')
+        GroupWin = WinConGeneral.import_GroupWin(group)
         text = 'Add ' + group.title()
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: GroupWin.add_window(user))
         button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+
+    def confirm_window_button(window, user, group, text, entries, row):
+        GroupWin = WinConGeneral.import_GroupWin(group)
+        button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
+                        command=lambda: GroupWin.confirm_window(window, user, entries))
+        button.bind('<Return>', lambda e: GroupWin.confirm_window(window, user, entries))
+        button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)

@@ -81,11 +81,15 @@ class PropertyWin:
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_see_window(window, user))
 
-    def confirm_window(add_window, user, code, address):
+    def confirm_window(add_window, user, entries):
         # Set up window
         alert = True
         window =  WinConGeneral.window(add_window, user, 'Confirm Property', 'small', alert)
         row = 0
+
+        # open entries array
+        code = entries[0].get()
+        address = entries[1].get()
 
         text = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
         WinConGeneral.title(window, user, text, row, 0, alert)
@@ -115,7 +119,8 @@ class PropertyWin:
         row += 1
 
         text = 'SUBMIT (as ' + user.name + ')'
-        WinCon.confirm_window_button(window, user, text, entry_code, entry_address, row)
+        entries = [entry_code, entry_address]
+        WinConGeneral.confirm_window_button(window, user, 'property', text, entries, row)
         WinConGeneral.close_button(window, window, user, row, 2)
 
     def show_window(user):

@@ -67,10 +67,16 @@ class ContactWin:
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_see_window(window, user))
 
-    def confirm_window(add_window, user, type, address, note, number):
+    def confirm_window(add_window, user, entries):
         # Set up window
         window =  WinConGeneral.window(add_window, user, 'Confirm Contact', 'small')
         row = 0
+
+        # open entries array
+        type = entries[0].get()
+        address = entries[1].get()
+        note = entries[2].get()
+        number = entries[3]
 
         text = 'Check and confirm contact:'
         WinConGeneral.title(window, user, text)
@@ -106,7 +112,9 @@ class ContactWin:
         row += 1
 
         text = 'SUBMIT (as ' + user.name + ')'
-        WinCon.confirm_window_button(window, user, text, entry_type, entry_address, entry_note, number, row)
+
+        entries = [entry_type, entry_address, entry_note, number]
+        WinConGeneral.confirm_window_button(window, user, 'contact', text, entries, row)
         WinConGeneral.close_button(window, window, user, row, 2)
 
     def print_temp():

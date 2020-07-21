@@ -100,11 +100,3 @@ class WinConProperty():
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: WinConProperty.close_show_window(window, user))
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
-
-    # Add & Confirm windows
-
-    def confirm_window_button(window, user, text, entry_code, entry_address, row):
-        button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: win.property.PropertyWin.confirm_window(window, user, entry_code.get(), entry_address.get()))
-        button.bind('<Return>', lambda e: win.property.PropertyWin.confirm_window(window, user, entry_code.get(), entry_address.get()))
-        button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)

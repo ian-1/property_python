@@ -72,16 +72,21 @@ class ActionWin:
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_see_window(window, user))
 
-    def confirm_window(add_window, user, property, message):
+    def confirm_window(add_window, user, entries):
         # Set up window
         window =  WinConGeneral.window(add_window, user, 'Confirm Action', 'small')
         row = 0
+
+        # open entries array
+        property_code_address = entries[0].get()
+        property_code = property_code_address[0:6]
+        message = entries[1].get()
 
         text = 'Check and confirm action:'
         WinConGeneral.line(window, user, text)
         row += 1
 
-        address = Property.address_from_code(user, property)
+        address = Property.address_from_code(user, property_code)
         text = 'Address: ' + address
         WinConGeneral.title(window, user, text, row)
         row += 1
@@ -91,7 +96,7 @@ class ActionWin:
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
-        WinCon.add_button(add_window, window, user, text, property, message, row)
+        WinCon.add_button(add_window, window, user, text, property_code, message, row)
         text = "Cancel (don't confirm)"
         WinConGeneral.close_button(window, window, user, row, 1, text)
 
@@ -114,7 +119,8 @@ class ActionWin:
         row += 1
 
         text = 'SUBMIT (as ' + user.name + ')'
-        WinCon.confirm_window_button(window, user, text, entry_property, entry_message, row)
+        entries = [entry_property, entry_message]
+        WinConGeneral.confirm_window_button(window, user, 'action', text, entries, row)
         WinConGeneral.close_button(window, window, user, row, 2)
 
 

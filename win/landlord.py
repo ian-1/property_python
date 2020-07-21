@@ -120,10 +120,16 @@ class LandlordWin:
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_see_window(window, user))
 
-    def confirm_window(add_window, user, title, first_names, surname, note):
+    def confirm_window(add_window, user, entries):
         # Set up window
         window =  WinConGeneral.window(add_window, user, 'Confirm Landlord', 'small')
         row = 0
+
+        # open entries array
+        title = entries[0].get()
+        first_names = entries[1].get()
+        surname = entries[2].get()
+        note = entries[3].get()
 
         text = 'Check and confirm landlord:'
         WinConGeneral.title(window, user, text)
@@ -157,7 +163,9 @@ class LandlordWin:
         row += 1
 
         text = 'SUBMIT (as ' + user.name + ')'
-        WinCon.confirm_window_button(window, user, text, entry_title, entry_first_names, entry_surname, entry_note, row)
+
+        entries = [entry_title, entry_first_names, entry_surname, entry_note]
+        WinConGeneral.confirm_window_button(window, user, 'landlord', text, entries, row)
         WinConGeneral.close_button(window, window, user, row, 2)
 
     def print_temp():
