@@ -91,3 +91,13 @@ class WinConGeneral():
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: window.destroy())
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
+
+    def add_window_button(frame, user, group):
+        from importlib import import_module
+        # warning import_module takes arguments in backwards order ie a.b is (.b, a)
+        win_dot_group = import_module('.' + group, 'win')
+        GroupWin = getattr(win_dot_group, group.title() + 'Win')
+        text = 'Add ' + group.title()
+        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
+                            command=lambda: GroupWin.add_window(user))
+        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)

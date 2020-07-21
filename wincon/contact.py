@@ -88,11 +88,6 @@ class WinConContact():
 
     # Add & Confirm windows
 
-    def add_window_button(frame, user, code=False, row=0, column=0):
-        button = Button(frame, text='Add Contact', font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: win.contact.ContactWin.add_window(user, code))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
-
     def confirm_window_button(window, user, text,entry_type, entry_address, entry_note, number, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: win.contact.ContactWin.confirm_window(window, user, entry_type.get(), entry_address.get(), entry_note.get(), number))

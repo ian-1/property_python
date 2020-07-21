@@ -135,7 +135,7 @@ class PropertyWin:
                                          user)
 
         # Bottom Frame
-        WinCon.add_window_button(bottom_frame, user)
+        WinConGeneral.add_window_button(bottom_frame, user, 'property')
         WinCon.close_show_window_button(window, bottom_frame, user)
 
         # Add window and scroll frame to user so can be refreshed from outside of method

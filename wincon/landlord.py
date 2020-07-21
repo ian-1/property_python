@@ -89,11 +89,6 @@ class WinConLandlord():
 
     # Add & Confirm windows
 
-    def add_window_button(frame, user):
-        button = Button(frame, text='Add Landlord', font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: win.landlord.LandlordWin.add_window(user))
-        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
-
     def confirm_window_button(window, user, text, entry_title, entry_first_names, entry_surname, entry_note, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: win.landlord.LandlordWin.confirm_window(window, user, entry_title.get(), entry_first_names.get(), entry_surname.get(), entry_note.get()))

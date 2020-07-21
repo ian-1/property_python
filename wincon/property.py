@@ -103,11 +103,6 @@ class WinConProperty():
 
     # Add & Confirm windows
 
-    def add_window_button(frame, user):
-        button = Button(frame, text='Add Property', font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: win.property.PropertyWin.add_window(user))
-        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
-
     def confirm_window_button(window, user, text, entry_code, entry_address, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: win.property.PropertyWin.confirm_window(window, user, entry_code.get(), entry_address.get()))

@@ -129,7 +129,7 @@ class ContactWin:
         WinCon.scroll_button_list(window, scroll_frame, user)
 
         # Bottom Frame
-        WinCon.add_window_button(bottom_frame, user)
+        WinConGeneral.add_window_button(bottom_frame, user, 'contact')
         WinCon.close_show_window_button(window, bottom_frame, user)
 
         # Add window and scroll frame to user so can be refreshed from outside of method

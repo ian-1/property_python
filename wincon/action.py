@@ -86,11 +86,6 @@ class WinConAction():
 
     # Add & Confirm windows
 
-    def add_window_button(frame, user):
-        button = Button(frame, text='Add Action', font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: win.action.ActionWin.add_window(user))
-        button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
-
     def confirm_window_button(window, user, text, entry_property, entry_message, row):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: win.action.ActionWin.confirm_window(window, user, entry_property.get()[0:6], entry_message.get()))
