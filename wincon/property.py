@@ -37,19 +37,6 @@ class WinConProperty():
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
 
-
-    def close_see_window(window, user):
-        for win_frame in user.property_win.see_windows[:]:
-            if win_frame[0] == window:
-                user.property_win.see_windows.remove(win_frame)
-        window.destroy()
-
-    def close_show_window(window, user):
-        for win_frame in user.property_win.show_windows[:]:
-            if win_frame[0] == window:
-                user.property_win.show_windows.remove(win_frame)
-        window.destroy()
-
     # Action Buttons
 
     def add_button(add_window, confirm_window, user, text, code, address, row):
@@ -88,15 +75,3 @@ class WinConProperty():
             property_button = Button(window, text='Open Property', font=user.large_font, bg=user.button_bg_colour,
                                      command=lambda: win.property.PropertyWin.see_window(user, property_number))
             property_button.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
-    def close_see_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConProperty.close_see_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
-
-    # Show Window
-
-    def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConProperty.close_show_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)

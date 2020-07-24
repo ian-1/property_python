@@ -37,6 +37,13 @@ class WinConGeneral():
             window.minsize(user.medium_window_width, user.medium_window_height)
         return window
 
+    def close_window(window, window_type, user, group):
+        group_win = getattr(user, group + '_win')
+        for win_frame in getattr(group_win, window_type + '_windows')[:]:
+            if win_frame[0] == window:
+                getattr(group_win, window_type + '_windows').remove(win_frame)
+        window.destroy()
+
     # Standard Frames
 
     def side_frame(window, user, side):
@@ -94,9 +101,15 @@ class WinConGeneral():
 
     # Standard Buttons
 
-    def close_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: window.destroy())
+    def close_button(window, window_type, frame, user, group, row=0, column=1, text='Close Window'):
+        # To remove window from refresh list: window_type = see/show_window
+        if window_type:
+            button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
+                            command=lambda: WinConGeneral.close_window(window, window_type, user, group))
+        # To simply shut window: window_type = False
+        else:
+            button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
+                            command=lambda: window.destroy())
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
     # Add & Confirm window buttons

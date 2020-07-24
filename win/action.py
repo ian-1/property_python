@@ -62,7 +62,7 @@ class ActionWin:
         # Left Side Buttons
         code = user.action_list[number].property
         WinConProperty.see_window_button(window, user, code, row, 2)
-        WinCon.close_see_window_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, 'see', window, user, 'action', row, 2)
 
         # Right Side
         ActionWin.see_window_right(window, user, number)
@@ -98,7 +98,7 @@ class ActionWin:
         text = 'CONFIRM (as ' + user.name + ')'
         WinCon.add_button(add_window, window, user, text, property_code, message, row)
         text = "Cancel (don't confirm)"
-        WinConGeneral.close_button(window, window, user, row, 1, text)
+        WinConGeneral.close_button(window, False, window, user, False, row, 1, text)
 
     def add_window(user):
         # Set up window
@@ -121,7 +121,7 @@ class ActionWin:
         text = 'SUBMIT (as ' + user.name + ')'
         entries = [entry_property, entry_message]
         WinConGeneral.confirm_window_button(window, user, 'action', text, entries, row)
-        WinConGeneral.close_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, False, window, user, False, row, 2)
 
 
     def print_temp():
@@ -145,7 +145,7 @@ class ActionWin:
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'action')
-        WinCon.close_show_window_button(window, bottom_frame, user)
+        WinConGeneral.close_button(window, 'show', bottom_frame, user, 'action')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.action_win.show_windows.insert(0, [window, scroll_frame, code])

@@ -71,7 +71,7 @@ class PropertyWin:
         WinConAction.show_window_button(window, user, code, row)
         wincon.task.WinConTask.show_window_button(window, user, code, row, 2)
         row += 1
-        WinCon.close_see_window_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, 'see', window, user, 'property', row, 2)
 
         # Right Side
         PropertyWin.see_window_right(window, user, number)
@@ -102,7 +102,7 @@ class PropertyWin:
         text = 'CONFIRM (as ' + user.name + ')'
         WinCon.add_button(add_window, window, user, text, code, address, row)
         text = "Cancel (don't confirm)"
-        WinConGeneral.close_button(window, window, user, row, 1, text)
+        WinConGeneral.close_button(window, False, window, user, False, row, 1, text)
 
     def add_window(user):
         # Set up window
@@ -121,7 +121,7 @@ class PropertyWin:
         text = 'SUBMIT (as ' + user.name + ')'
         entries = [entry_code, entry_address]
         WinConGeneral.confirm_window_button(window, user, 'property', text, entries, row)
-        WinConGeneral.close_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, False, window, user, False, row, 2)
 
     def show_window(user):
         window =  WinConGeneral.window(user.root, user, 'Show Properties', 'medium')
@@ -141,7 +141,7 @@ class PropertyWin:
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'property')
-        WinCon.close_show_window_button(window, bottom_frame, user)
+        WinConGeneral.close_button(window, 'show', bottom_frame, user, 'property')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.property_win.show_windows.insert(0, [window, scroll_frame])

@@ -101,9 +101,7 @@ class LandlordWin:
         # Buttons
         WinCon.add_contact_window_button(window, user, number, row, column)
         column += 1
-        WinCon.close_see_window_button(window, window, user, row, column)
-
-
+        WinConGeneral.close_button(window, 'see', window, user, 'property', row, column)
 
     def see_window(user, number):
         # Set up window
@@ -142,7 +140,7 @@ class LandlordWin:
         text = 'CONFIRM (as ' + user.name + ')'
         WinCon.add_button(add_window, window, user, text, title, first_names, surname, note, row)
         text = "Cancel (don't confirm)"
-        WinConGeneral.close_button(window, window, user, row, 1, text)
+        WinConGeneral.close_button(window, False, window, user, False, row, 1, text)
 
     def add_window(user):
         # Set up window
@@ -166,7 +164,7 @@ class LandlordWin:
 
         entries = [entry_title, entry_first_names, entry_surname, entry_note]
         WinConGeneral.confirm_window_button(window, user, 'landlord', text, entries, row)
-        WinConGeneral.close_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, False, window, user, False, row, 2)
 
     def print_temp():
         print('closed')
@@ -189,7 +187,7 @@ class LandlordWin:
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'landlord')
-        WinCon.close_show_window_button(window, bottom_frame, user)
+        WinConGeneral.close_button(window, 'show', bottom_frame, user, 'landlord')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.landlord_win.show_windows.insert(0, [window, scroll_frame])

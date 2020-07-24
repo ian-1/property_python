@@ -23,18 +23,6 @@ class WinConAction():
         for win_frame in user.action_win.show_windows:
             WinConAction.scroll_button_list(win_frame[0], win_frame[1], user, win_frame[2])
 
-    def close_see_window(window, user):
-        for win_frame in user.action_win.see_windows[:]:
-            if win_frame[0] == window:
-                user.action_win.see_windows.remove(win_frame)
-        window.destroy()
-
-    def close_show_window(window, user):
-        for win_frame in user.action_win.show_windows[:]:
-            if win_frame[0] == window:
-                user.action_win.show_windows.remove(win_frame)
-        window.destroy()
-
     # Action Buttons
 
     def add_button(add_window, confirm_window, user, text, property, message, row):
@@ -67,19 +55,9 @@ class WinConAction():
                 button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1
 
-    def close_see_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConAction.close_see_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
-
     # Show Window
 
     def show_window_button(window, user, code, row, column=0, rowspan=1):
         button = Button(window, text='View Actions', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.action.ActionWin.show_window(user, code))
         button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
-
-    def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConAction.close_show_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)

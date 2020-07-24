@@ -27,18 +27,6 @@ class WinConContact():
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
 
-    def close_see_window(window, user):
-        for win_frame in user.contact_win.see_windows[:]:
-            if win_frame[0] == window:
-                user.contact_win.see_windows.remove(win_frame)
-        window.destroy()
-
-    def close_show_window(window, user):
-        for win_frame in user.contact_win.show_windows[:]:
-            if win_frame[0] == window:
-                user.contact_win.show_windows.remove(win_frame)
-        window.destroy()
-
     # Action Buttons
 
     def add_button(add_window, confirm_window, user, text, type, address, note, number, row):
@@ -69,22 +57,12 @@ class WinConContact():
             button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1
 
-    def close_see_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConContact.close_see_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
-
     # Show Window
 
     def show_window_button(window, user, row, rowspan=1):
         button = Button(window, text='View Contacts', font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: win.contact.ContactWin.show_window(user))
         button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
-
-    def close_show_window_button(window, frame, user, row=0, column=1, text='Close Window'):
-        button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConContact.close_show_window(window, user))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
     # Add & Confirm windows
 

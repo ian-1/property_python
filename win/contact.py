@@ -57,7 +57,7 @@ class ContactWin:
         row = ContactWin.see_window_left(window, user, number)
 
         # Left Side Buttons
-        WinCon.close_see_window_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, 'see', window, user, 'contact', row, 2)
 
         # Right Side
         ContactWin.see_window_right(window, user, number)
@@ -93,7 +93,7 @@ class ContactWin:
         text = 'CONFIRM (as ' + user.name + ')'
         WinCon.add_button(add_window, window, user, text, type, address, note, number, row)
         text = "Cancel (don't confirm)"
-        WinConGeneral.close_button(window, window, user, row, 1, text)
+        WinConGeneral.close_button(window, False, window, user, False, row, 1, text)
 
     def add_window(user, number):
         # Set up window
@@ -115,7 +115,7 @@ class ContactWin:
 
         entries = [entry_type, entry_address, entry_note, number]
         WinConGeneral.confirm_window_button(window, user, 'contact', text, entries, row)
-        WinConGeneral.close_button(window, window, user, row, 2)
+        WinConGeneral.close_button(window, False, window, user, False, row, 2)
 
     def print_temp():
         print('closed')
@@ -138,7 +138,7 @@ class ContactWin:
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'contact')
-        WinCon.close_show_window_button(window, bottom_frame, user)
+        WinConGeneral.close_button(window, 'show', bottom_frame, user, 'contact')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.contact_win.show_windows.insert(0, [window, scroll_frame])
