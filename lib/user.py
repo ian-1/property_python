@@ -117,6 +117,8 @@ class User():
         for code in codes:
             variables = []
             for item in items:
+                # Useful line for debugging if there ia a file load error:
+                # print('.\\data\\' + self.name + '\\' + group + '\\' + code + '_' + item[0] + '.llama', 'r')
                 file = open('.\\data\\' + self.name + '\\' + group + '\\' + code + '_' + item[0] + '.llama', 'r')
                 variable = file.read()
                 if item[1]:

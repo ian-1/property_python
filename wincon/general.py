@@ -18,20 +18,20 @@ class WinConGeneral():
         return getattr(win_dot_group, group.title() + 'Win')
 
     def bg_set(user, alert):
-        if alert == True:
+        if alert:
             return user.window_bg_colour_alert
         else:
             return user.window_bg_colour
 
     # Windows
 
-    def window(toplevel, user, name, type, alert=False):
+    def window(toplevel, user, name, size, alert=False):
         window = Toplevel(toplevel)
         window.title(user.company_name + ' - ' + name)
         window.iconbitmap(user.company_icon)
         bg = WinConGeneral.bg_set(user, alert)
         window.configure(bg=bg)
-        if type == 'small':
+        if size == 'small':
             window.minsize(user.small_window_width, user.small_window_height)
         else:
             window.minsize(user.medium_window_width, user.medium_window_height)
@@ -102,7 +102,7 @@ class WinConGeneral():
     # Standard Buttons
 
     def close_button(window, window_type, frame, user, group, row=0, column=1, text='Close Window'):
-        # To remove window from refresh list: window_type = see/show_window
+        # To remove window from refresh list: window_type = 'see'/'show'
         if window_type:
             button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: WinConGeneral.close_window(window, window_type, user, group))
@@ -112,7 +112,7 @@ class WinConGeneral():
                             command=lambda: window.destroy())
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
-    # Add & Confirm window buttons
+    # window buttons
 
     def add_window_button(frame, user, group):
         GroupWin = WinConGeneral.import_GroupWin(group)
@@ -127,3 +127,11 @@ class WinConGeneral():
                         command=lambda: GroupWin.confirm_window(window, user, entries))
         button.bind('<Return>', lambda e: GroupWin.confirm_window(window, user, entries))
         button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
+
+    def show_window_button(window, user, group, code, row, column=0, rowspan=1):
+        # Directs to tasks/actions etc with a particular property code
+        GroupWin = WinConGeneral.import_GroupWin(group)
+        text = 'View ' + group.title() + 's'
+        button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
+                                command=lambda: GroupWin.show_window(user, code))
+        button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)

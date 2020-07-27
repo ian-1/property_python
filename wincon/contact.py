@@ -57,13 +57,6 @@ class WinConContact():
             button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1
 
-    # Show Window
-
-    def show_window_button(window, user, row, rowspan=1):
-        button = Button(window, text='View Contacts', font=user.large_font, bg=user.button_bg_colour,
-                                command=lambda: win.contact.ContactWin.show_window(user))
-        button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
-
     # Add & Confirm windows
 
     def confirm_window_button(window, user, text,entry_type, entry_address, entry_note, number, row):

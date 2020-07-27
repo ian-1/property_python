@@ -70,7 +70,7 @@ class ActionWin:
         # Add window and number to user so see_window_right can be called from outside of method
         user.action_win.see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
-        window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_see_window(window, user))
+        window.protocol("WM_DELETE_WINDOW", lambda: WinConGeneral.close_window(window, 'see', user, 'action'))
 
     def confirm_window(add_window, user, entries):
         # Set up window
@@ -150,4 +150,4 @@ class ActionWin:
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.action_win.show_windows.insert(0, [window, scroll_frame, code])
         # Close window sent through method so can be removed from user
-        window.protocol("WM_DELETE_WINDOW", lambda: WinCon.close_show_window(window, user))
+        window.protocol("WM_DELETE_WINDOW", lambda: WinConGeneral.close_window(window, 'show', user, 'action'))

@@ -58,13 +58,6 @@ class WinConLandlord():
             button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1
 
-    # Show Window
-
-    def show_window_button(window, user, row, rowspan=1):
-        landlords_button = Button(window, text='View Landlords', font=user.large_font, bg=user.button_bg_colour,
-                                command=lambda: win.landlord.LandlordWin.show_window(user))
-        landlords_button.grid(row=row, column=0, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
-
     # Add & Confirm windows
 
     def add_contact_window_button(frame, user, number=False, row=0, column=0):

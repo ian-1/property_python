@@ -61,10 +61,3 @@ class WinConTask():
                     command=lambda number=counter: win.task.TaskWin.see_window(user, number))
                 button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1
-
-    # Show Window
-
-    def show_window_button(window, user, code, row, column=0, rowspan=1):
-        button = Button(window, text='View Tasks', font=user.large_font, bg=user.button_bg_colour,
-                                command=lambda: win.task.TaskWin.show_window(user, code))
-        button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
