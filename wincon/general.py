@@ -141,32 +141,36 @@ class WinConGeneral():
                                 command=lambda: GroupWin.show_window(user, code))
         button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
+    def scroll_button_display(object, group):
+        text = 'NOT SET UP FOR CLASS TYPE'
+        bg="gray99"
+        if group == 'task':
+            from datetime import date
+            from lib.task import Task
+            till_due = Task.date_length(str(date.today()), object.due)
+            text = object.due + ' (' + str(till_due) + ') - ' + object.property + ' - ' + object.message
+            if till_due > 30: bg = 'grey97'
+            if till_due < 1: bg = 'orange'
+            if till_due < 0: bg = 'tomato'
+            if till_due < -5: bg = 'firebrick'
+        if group == 'action':
+            text = object.date + ' - ' + object.property + ' - ' + object.message
+        if group == 'property':
+            text = object.code + ' - ' + object.address
+        if group == 'landlord':
+            text =  object.code + ' - ' + object.surname + ', ' + object.first_names + ' (' + object.title + ') - ' + object.note
+        if group == 'contact':
+            text =  object.type + ' - ' + object.address + ' (' + object.note + ')'
+        return text, bg
+
     def scroll_button_list(window, frame, user, group, code=False):
         GroupWin = WinConGeneral.import_GroupWin(group)
         width = int(user.medium_window_width/7)
         counter = 0
         for object in getattr(user, group + '_list'):
-            bg="gray99"
-            text = 'NOT SET UP FOR CLASS TYPE'
-            if group == 'task':
-                from datetime import date
-                from lib.task import Task
-                till_due = Task.date_length(str(date.today()), object.due)
-                text = object.due + ' (' + str(till_due) + ') - ' + object.property + ' - ' + object.message
-                if till_due > 30: bg = 'grey97'
-                if till_due < 1: bg = 'orange'
-                if till_due < 0: bg = 'tomato'
-                if till_due < -5: bg = 'firebrick'
-            if group == 'action':
-                text = object.date + ' - ' + object.property + ' - ' + object.message
-            if group == 'property':
-                text = object.code + ' - ' + object.address
-            if group == 'landlord':
-                text =  object.code + ' - ' + object.surname + ', ' + object.first_names + ' (' + object.title + ') - ' + object.note
-            if group == 'contact':
-                text =  object.type + ' - ' + object.address + ' (' + object.note + ')'
-            # if show all or property code matches
+            # if show all (ie code = False) or if property code matches code
             if code in (False, getattr(object, 'property', False)):
+                text, bg = WinConGeneral.scroll_button_display(object, group)
                 button = Button(frame.interior, relief='flat', bg=bg,
                     font=user.standard_font, text=text, width=width, anchor='w',
                     command=lambda number=counter: GroupWin.see_window(user, number))
