@@ -1,7 +1,6 @@
 from tkinter import Button
 import win.task
 from lib.task import Task
-from datetime import date
 
 class WinConTask():
 
@@ -38,26 +37,3 @@ class WinConTask():
         button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConTask.update(user, number, type, entry.get()))
         button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
-    # Window Buttons
-
-    # See Window
-
-    def scroll_button_list(window, frame, user, code):
-        width = int(user.medium_window_width/7)
-        counter = 0
-        for task in user.task_list:
-            till_due = Task.date_length(str(date.today()), task.due)
-            text = task.due + ' (' + str(till_due) + ') - ' + task.property + ' - ' + task.message
-            bg="gray99"
-            if till_due > 30: bg = 'grey97'
-            if till_due < 1: bg = 'orange'
-            if till_due < 0: bg = 'tomato'
-            if till_due < -5: bg = 'firebrick'
-            # if show all or property code matches
-            if code in (False, task.property):
-                button = Button(frame.interior, relief='flat', bg=bg,
-                    font=user.standard_font, text=text, width=width, anchor='w',
-                    command=lambda number=counter: win.task.TaskWin.see_window(user, number))
-                button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
-            counter += 1

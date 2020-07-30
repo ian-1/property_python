@@ -134,7 +134,7 @@ class ContactWin:
         WinConGeneral.title(top_frame, user, text)
 
         # Scroll Frame
-        WinCon.scroll_button_list(window, scroll_frame, user)
+        WinConGeneral.scroll_button_list(window, scroll_frame, user, 'contact', code)
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'contact')

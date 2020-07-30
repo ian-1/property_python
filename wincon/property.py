@@ -58,17 +58,6 @@ class WinConProperty():
 
     # See Window
 
-    def scroll_button_list(window, frame, user):
-        width = int(user.medium_window_width/7)
-        counter = 0
-        for property in user.property_list:
-            text = property.code + ' - ' + property.address
-            button = Button(frame.interior, relief='flat', bg="gray99",
-                font=user.standard_font, text=text, width=width, anchor='w',
-                command=lambda number=counter: win.property.PropertyWin.see_window(user, number))
-            button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
-            counter += 1
-
     def see_window_button(window, user, code, row=0, rowspan=1):
         property_number = Property.number_from_code(user, code)
         if property_number != False:

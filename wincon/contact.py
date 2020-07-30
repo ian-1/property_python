@@ -44,19 +44,6 @@ class WinConContact():
 
     # Window Buttons
 
-    # See Window
-
-    def scroll_button_list(window, frame, user):
-        width = int(user.medium_window_width/7)
-        counter = 0
-        for contact in user.contact_list:
-            text =  contact.type + ' - ' + contact.address + ' (' + contact.note + ')'
-            button = Button(frame.interior, relief='flat', bg="gray99",
-                            font=user.standard_font, text=text, width=width, anchor='w',
-                            command=lambda number=counter: win.contact.ContactWin.see_window(user, number))
-            button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
-            counter += 1
-
     # Add & Confirm windows
 
     def confirm_window_button(window, user, text,entry_type, entry_address, entry_note, number, row):

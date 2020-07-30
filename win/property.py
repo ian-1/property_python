@@ -136,8 +136,7 @@ class PropertyWin:
         WinConGeneral.title(top_frame, user, text)
 
         # Scroll Frame
-        WinCon.scroll_button_list(window, scroll_frame,
-                                         user)
+        WinConGeneral.scroll_button_list(window, scroll_frame, user, 'property')
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'property')

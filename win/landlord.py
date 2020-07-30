@@ -183,7 +183,7 @@ class LandlordWin:
         WinConGeneral.title(top_frame, user, text)
 
         # Scroll Frame
-        WinCon.scroll_button_list(window, scroll_frame, user)
+        WinConGeneral.scroll_button_list(window, scroll_frame, user, 'landlord')
 
         # Bottom Frame
         WinConGeneral.add_window_button(bottom_frame, user, 'landlord')

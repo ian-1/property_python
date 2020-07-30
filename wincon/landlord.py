@@ -45,19 +45,6 @@ class WinConLandlord():
 
     # Window Buttons
 
-    # See Window
-
-    def scroll_button_list(window, frame, user):
-        width = int(user.medium_window_width/7)
-        counter = 0
-        for landlord in user.landlord_list:
-            text =  landlord.code + ' - ' + landlord.surname + ', ' + landlord.first_names + ' (' + landlord.title + ') - ' + landlord.note
-            button = Button(frame.interior, relief='flat', bg="gray99",
-                            font=user.standard_font, text=text, width=width, anchor='w',
-                            command=lambda number=counter: win.landlord.LandlordWin.see_window(user, number))
-            button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
-            counter += 1
-
     # Add & Confirm windows
 
     def add_contact_window_button(frame, user, number=False, row=0, column=0):
