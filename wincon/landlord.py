@@ -9,21 +9,22 @@ class WinConLandlord():
     def add(add_window, user, title, first_names, surname, note):
         user.add_landlord(user, title, first_names, surname, note)
         add_window.destroy()
-        user.save_group('landlord')
+        user.save_all_class_type('landlord')
         WinConLandlord.refresh(user)
 
     def update(user, number, type, new):
         user.landlord_list[number].update(type, new)
-        user.save_group('landlord')
+        user.save_all_class_type('landlord')
         WinConLandlord.refresh(user)
 
     # Window refresh management
 
     def refresh(user):
+        from win.widget import Widget
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.landlord_win.show_windows:
-            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'landlord')
+            Widget.scroll_button_list(win_frame[0], win_frame[1], user, 'landlord')
         # properties
         for win_frame in user.property_win.see_windows:
             win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])

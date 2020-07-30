@@ -24,17 +24,17 @@ class User():
         self.action_list = []
         self.action_win = win.action.ActionWin()
         # Load in data from files for above
-        self.load_group('property')
-        self.load_group('landlord')
+        self.load_class_type('property')
+        self.load_class_type('landlord')
         n = 1
         zero = '0'
         for landlord in self.landlord_list:
             landlord.code = 'LANDLORD00' + zero + str(n)
             n += 1
             if n == 10: zero = ''
-        self.load_group('contact')
-        self.load_group('task')
-        self.load_group('action')
+        self.load_class_type('contact')
+        self.load_class_type('task')
+        self.load_class_type('action')
         # company attributes:
         self.company_name = 'Property Python'
         self.company_icon = 'icon.ico'
@@ -76,13 +76,13 @@ class User():
     # Instance methods:
 
     # Should only save whole class for tests/restore etc as will cause data overwrites
-    def save_group(self, group):
+    def save_all_class_type(self, class_type):
         print('Warning you are saving a whole class!')
-        class_name = group.title()
+        class_name = class_type.title()
         items = User.variables_list(class_name)
-        for object in getattr(self, group + '_list'):
+        for object in getattr(self, class_type + '_list'):
             for item in items:
-                file = open('.\\data\\' + self.name + '\\' + group + '\\' + object.code + '_' + item[0] + '.llama', 'w')
+                file = open('.\\data\\' + self.name + '\\' + class_type + '\\' + object.code + '_' + item[0] + '.llama', 'w')
                 # Check if an array
                 if item[1]:
                     comma = ''
@@ -94,10 +94,10 @@ class User():
                     file.write(getattr(object, item[0]))
                 file.close()
 
-    def codes_from_data_directory(self, group):
+    def codes_from_data_directory(self, class_type):
         import os
         codes = []
-        for root, dirs, file_names in os.walk('.\\data\\' + self.name + '\\' + group + '\\'):
+        for root, dirs, file_names in os.walk('.\\data\\' + self.name + '\\' + class_type + '\\'):
             # Check how many characters code is
             n = 0
             for character in file_names[0]:
@@ -108,18 +108,18 @@ class User():
                 codes.append(file_name[0:n])
         return list(dict.fromkeys(codes))
 
-    def load_group(self, group):
+    def load_class_type(self, class_type):
         # Build ist of [variable_name, is_list?]
-        class_name = group.title()
+        class_name = class_type.title()
         items = User.variables_list(class_name)
-        codes = self.codes_from_data_directory(group)
+        codes = self.codes_from_data_directory(class_type)
         object_list = []
         for code in codes:
             variables = []
             for item in items:
                 # Useful line for debugging if there ia a file load error:
-                # print('.\\data\\' + self.name + '\\' + group + '\\' + code + '_' + item[0] + '.llama', 'r')
-                file = open('.\\data\\' + self.name + '\\' + group + '\\' + code + '_' + item[0] + '.llama', 'r')
+                # print('.\\data\\' + self.name + '\\' + class_type + '\\' + code + '_' + item[0] + '.llama', 'r')
+                file = open('.\\data\\' + self.name + '\\' + class_type + '\\' + code + '_' + item[0] + '.llama', 'r')
                 variable = file.read()
                 if item[1]:
                     variable = variable.split(',')
@@ -132,10 +132,10 @@ class User():
                 setattr(object, item[0], variables[n])
                 n += 1
             object_list.append(object)
-        setattr(self, group + '_list', object_list)
+        setattr(self, class_type + '_list', object_list)
 
-    def generate_code(self, group, zeros):
-        number = len(getattr(self, group + '_list')) + 1
+    def generate_code(self, class_type, zeros):
+        number = len(getattr(self, class_type + '_list')) + 1
         code_number = ''
         n = 10
         count = 0
@@ -144,7 +144,7 @@ class User():
             n *= 10
             count += 1
         code_number += str(number)
-        return group.upper() + code_number
+        return class_type.upper() + code_number
 
     def add_property(self, code, address):
         self.property_list.append(Property(code, address))

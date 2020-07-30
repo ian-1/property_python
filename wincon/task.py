@@ -7,21 +7,22 @@ class WinConTask():
     def add(add_window, user, property, message):
         user.add_task(user, property, message)
         add_window.destroy()
-        user.save_group('task')
+        user.save_all_class_type('task')
         WinConTask.refresh(user)
 
     def update(user, number, type, new):
         user.task_list[number].update(type, new)
-        user.save_group('task')
+        user.save_all_class_type('task')
         WinConTask.refresh(user)
 
     # Window refresh management
 
     def refresh(user):
+        from win.widget import Widget
         for win_frame in user.task_win.see_windows:
             win.task.TaskWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.task_win.show_windows:
-            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'task', win_frame[2])
+            Widget.scroll_button_list(win_frame[0], win_frame[1], user, 'task', win_frame[2])
 
     # Action Buttons
 

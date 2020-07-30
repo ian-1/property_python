@@ -6,25 +6,25 @@ from tkinter import Toplevel,\
                     OptionMenu,\
                     Button,\
                     StringVar
-from wincon.vertical_scrolled_frame import VerticalScrolledFrame
+from win.vertical_scrolled_frame import VerticalScrolledFrame
 
-class WinConGeneral():
+class Widget():
 
-    def import_GroupLib(group):
+    def import_ClassTypeLib(class_type):
         # Method imports relevant class module for object class type
         from importlib import import_module
         # warning import_module takes arguments in backwards order ie a.b is (.b, a)
-        lib_dot_group = import_module('.' + group, 'lib')
-        # returns Group class
-        return getattr(lib_dot_group, group.title())
+        lib_dot_class_type = import_module('.' + class_type, 'lib')
+        # returns class_type class
+        return getattr(lib_dot_class_type, class_type.title())
 
-    def import_GroupWin(group):
+    def import_ClassTypeWin(class_type):
         # Method imports relevant 'Win' module for object class type
         from importlib import import_module
         # warning import_module takes arguments in backwards order ie a.b is (.b, a)
-        win_dot_group = import_module('.' + group, 'win')
-        # returns GroupWin class
-        return getattr(win_dot_group, group.title() + 'Win')
+        win_dot_class_type = import_module('.' + class_type, 'win')
+        # returns ClassTypeWin class
+        return getattr(win_dot_class_type, class_type.title() + 'Win')
 
     # Windows
 
@@ -40,7 +40,7 @@ class WinConGeneral():
         window = Toplevel(toplevel)
         window.title(user.company_name + ' - ' + name)
         window.iconbitmap(user.company_icon)
-        bg = WinConGeneral.bg_set(user, alert)
+        bg = Widget.bg_set(user, alert)
         window.configure(bg=bg)
         if size == 'small':
             window.minsize(user.small_window_width, user.small_window_height)
@@ -48,12 +48,12 @@ class WinConGeneral():
             window.minsize(user.medium_window_width, user.medium_window_height)
         return window
 
-    def close_window(window, window_type, user, group):
+    def close_window(window, window_type, user, class_type):
         # Closes window and removes window from refresh list
-        group_win = getattr(user, group + '_win')
-        for win_frame in getattr(group_win, window_type + '_windows')[:]:
+        class_type_win = getattr(user, class_type + '_win')
+        for win_frame in getattr(class_type_win, window_type + '_windows')[:]:
             if win_frame[0] == window:
-                getattr(group_win, window_type + '_windows').remove(win_frame)
+                getattr(class_type_win, window_type + '_windows').remove(win_frame)
         window.destroy()
 
     # Frames
@@ -71,19 +71,19 @@ class WinConGeneral():
     # Labels/Text
 
     def title(frame, user, text, row=0, column=0, alert = False):
-        bg = WinConGeneral.bg_set(user, alert)
+        bg = Widget.bg_set(user, alert)
         label = Label(frame, text=text, font=user.large_font, anchor='w', bg=bg)
         label.grid(row=row, column=column, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def line(frame, user, text, row=0, column=0, alert = False):
-        bg = WinConGeneral.bg_set(user, alert)
+        bg = Widget.bg_set(user, alert)
         label = Label(frame, text=text, font=user.standard_font, anchor='w', bg=bg)
         label.grid(row=row, column=column, columnspan=2, sticky='nsew', padx=user.padx)
 
     def content(frame, user, text, row=1, column=0, alert = False):
         width = int(user.small_window_width / 5)
         height = int(len(text) / (width * 1)) + 1
-        bg = WinConGeneral.bg_set(user, alert)
+        bg = Widget.bg_set(user, alert)
         text_box = Text(frame, font=user.standard_font, wrap='word', bg=bg, height=height, width=width)
         text_box.grid(row=row, column=column, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
         text_box.insert('end', text)
@@ -113,58 +113,58 @@ class WinConGeneral():
 
     # Window Buttons
 
-    def close_button(window, window_type, frame, user, group, row=0, column=1, text='Close Window'):
+    def close_button(window, window_type, frame, user, class_type, row=0, column=1, text='Close Window'):
         # Closes different types of windows
         # From 'see'/'show' windows (also removes window from refresh list)
         if window_type:
             button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: WinConGeneral.close_window(window, window_type, user, group))
+                            command=lambda: Widget.close_window(window, window_type, user, class_type))
         # From other windows (where there is no associated refresh list)
         else:
             button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
                             command=lambda: window.destroy())
         button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
-    def add_window_button(frame, user, group):
+    def add_window_button(frame, user, class_type):
         # Directs to the add object window
-        GroupWin = WinConGeneral.import_GroupWin(group)
-        text = 'Add ' + group.title()
+        ClassTypeWin = Widget.import_ClassTypeWin(class_type)
+        text = 'Add ' + class_type.title()
         button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: GroupWin.add_window(user))
+                            command=lambda: ClassTypeWin.add_window(user))
         button.grid(row=0, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
-    def confirm_window_button(window, user, group, text, entries, row):
-        GroupWin = WinConGeneral.import_GroupWin(group)
+    def confirm_window_button(window, user, class_type, text, entries, row):
+        ClassTypeWin = Widget.import_ClassTypeWin(class_type)
         # Directs from the add object window to the confirm add object window
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: GroupWin.confirm_window(window, user, entries))
-        button.bind('<Return>', lambda e: GroupWin.confirm_window(window, user, entries))
+                        command=lambda: ClassTypeWin.confirm_window(window, user, entries))
+        button.bind('<Return>', lambda e: ClassTypeWin.confirm_window(window, user, entries))
         button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
-    def show_window_button(window, user, group, code, row, column=0, rowspan=1):
+    def show_window_button(window, user, class_type, code, row, column=0, rowspan=1):
         # Directs from the see property window to tasks/actions with that property code
-        GroupWin = WinConGeneral.import_GroupWin(group)
-        text = 'View ' + group.title() + 's'
+        ClassTypeWin = Widget.import_ClassTypeWin(class_type)
+        text = 'View ' + class_type.title() + 's'
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                                command=lambda: GroupWin.show_window(user, code))
+                                command=lambda: ClassTypeWin.show_window(user, code))
         button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
-    def see_window_button(window, user, group, code, row=0, rowspan=1):
-        GroupLib = WinConGeneral.import_GroupLib(group)
-        GroupWin = WinConGeneral.import_GroupWin(group)
-        object_number = GroupLib.number_from_code(user, code)
+    def see_window_button(window, user, class_type, code, row=0, rowspan=1):
+        ClassTypeLib = Widget.import_ClassTypeLib(class_type)
+        ClassTypeWin = Widget.import_ClassTypeWin(class_type)
+        object_number = ClassTypeLib.number_from_code(user, code)
         if object_number != False:
-            text = 'Open ' + group.title()
+            text = 'Open ' + class_type.title()
             button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                                     command=lambda: GroupWin.see_window(user, object_number))
+                                     command=lambda: ClassTypeWin.see_window(user, object_number))
             button.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
     # Scroll Buttons
 
-    def scroll_button_display(object, group):
+    def scroll_button_display(object, class_type):
         text = 'NOT SET UP FOR CLASS TYPE'
         bg="gray99"
-        if group == 'task':
+        if class_type == 'task':
             from datetime import date
             from lib.task import Task
             till_due = Task.date_length(str(date.today()), object.due)
@@ -173,26 +173,26 @@ class WinConGeneral():
             if till_due < 1: bg = 'orange'
             if till_due < 0: bg = 'tomato'
             if till_due < -5: bg = 'firebrick'
-        if group == 'action':
+        if class_type == 'action':
             text = object.date + ' - ' + object.property + ' - ' + object.message
-        if group == 'property':
+        if class_type == 'property':
             text = object.code + ' - ' + object.address
-        if group == 'landlord':
+        if class_type == 'landlord':
             text =  object.code + ' - ' + object.surname + ', ' + object.first_names + ' (' + object.title + ') - ' + object.note
-        if group == 'contact':
+        if class_type == 'contact':
             text =  object.type + ' - ' + object.address + ' (' + object.note + ')'
         return text, bg
 
-    def scroll_button_list(window, frame, user, group, code=False):
-        GroupWin = WinConGeneral.import_GroupWin(group)
+    def scroll_button_list(window, frame, user, class_type, code=False):
+        ClassTypeWin = Widget.import_ClassTypeWin(class_type)
         width = int(user.medium_window_width/7)
         counter = 0
-        for object in getattr(user, group + '_list'):
+        for object in getattr(user, class_type + '_list'):
             # if show all (ie code = False) or if property code matches code
             if code in (False, getattr(object, 'property', False)):
-                text, bg = WinConGeneral.scroll_button_display(object, group)
+                text, bg = Widget.scroll_button_display(object, class_type)
                 button = Button(frame.interior, relief='flat', bg=bg,
                     font=user.standard_font, text=text, width=width, anchor='w',
-                    command=lambda number=counter: GroupWin.see_window(user, number))
+                    command=lambda number=counter: ClassTypeWin.see_window(user, number))
                 button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
             counter += 1

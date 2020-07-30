@@ -1,4 +1,4 @@
-from wincon.general import WinConGeneral
+from win.widget import Widget
 from wincon.landlord import WinConLandlord as WinCon
 from lib.landlord import Landlord
 
@@ -15,22 +15,22 @@ class LandlordWin:
         row = 0
 
         insert = user.landlord_list[number].title
-        entry_title = WinConGeneral.entry(window, user, 'Title', row, 2, insert)
+        entry_title = Widget.entry(window, user, 'Title', row, 2, insert)
         WinCon.update_button(window, user, number, 'title', entry_title, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].first_names
-        entry_first_names = WinConGeneral.entry(window, user, 'First name(s)', row, 2, insert)
+        entry_first_names = Widget.entry(window, user, 'First name(s)', row, 2, insert)
         WinCon.update_button(window, user, number, 'first_names', entry_first_names, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].surname
-        entry_surname = WinConGeneral.entry(window, user, 'Surname', row, 2, insert)
+        entry_surname = Widget.entry(window, user, 'Surname', row, 2, insert)
         WinCon.update_button(window, user, number, 'surname', entry_surname, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].note
-        entry_note = WinConGeneral.entry(window, user, 'Note:', row, 2, insert)
+        entry_note = Widget.entry(window, user, 'Note:', row, 2, insert)
         WinCon.update_button(window, user, number, 'note', entry_note, row, 2, insert)
         row += 2
 
@@ -39,23 +39,23 @@ class LandlordWin:
     def see_window_right(window, user, number):
         row = 0
         column = 5
-        WinConGeneral.line(window, user, '', row, column)
+        Widget.line(window, user, '', row, column)
         column += 1
 
         break_line = '------------------------------------------------------------------------------------------------------'
 
         line = 'Landlord code: ' + user.landlord_list[number].code
-        WinConGeneral.line(window, user, line, row, column)
+        Widget.line(window, user, line, row, column)
         row += 1
-        WinConGeneral.line(window, user, break_line, row, column)
+        Widget.line(window, user, break_line, row, column)
         row += 1
 
         line = 'Name: ' + user.landlord_list[number].title + ' ' + user.landlord_list[number].first_names + ' ' + user.landlord_list[number].surname
-        WinConGeneral.title(window, user, line, row, column)
+        Widget.title(window, user, line, row, column)
         row += 1
 
         line = 'Properties: '
-        WinConGeneral.line(window, user, line, row, column)
+        Widget.line(window, user, line, row, column)
         row += 1
         counter = 0
         for property in user.property_list:
@@ -74,14 +74,14 @@ class LandlordWin:
                 counter += 1
 
         line = 'Notes: '
-        WinConGeneral.line(window, user, line, row, column)
+        Widget.line(window, user, line, row, column)
         row += 1
         text = user.landlord_list[number].note
-        WinConGeneral.content(window, user, text, row, column)
+        Widget.content(window, user, text, row, column)
         row += 1
 
         line = 'Contact details: '
-        WinConGeneral.line(window, user, line, row, column)
+        Widget.line(window, user, line, row, column)
         row += 1
         for code in user.landlord_list[number].contacts:
             counter = 0
@@ -101,11 +101,11 @@ class LandlordWin:
         # Buttons
         WinCon.add_contact_window_button(window, user, number, row, column)
         column += 1
-        WinConGeneral.close_button(window, 'see', window, user, 'property', row, column)
+        Widget.close_button(window, 'see', window, user, 'property', row, column)
 
     def see_window(user, number):
         # Set up window
-        window =  WinConGeneral.window(user.root, user, 'See Landlord', 'medium')
+        window =  Widget.window(user.root, user, 'See Landlord', 'medium')
 
         # Left side entries/update
         row = LandlordWin.see_window_left(window, user, number)
@@ -116,11 +116,11 @@ class LandlordWin:
         # Add window and number to user so see_window_right can be called from outside of method
         user.landlord_win.see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
-        window.protocol("WM_DELETE_WINDOW", lambda: WinConGeneral.close_window(window, 'see', user, 'landlord'))
+        window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'landlord'))
 
     def confirm_window(add_window, user, entries):
         # Set up window
-        window =  WinConGeneral.window(add_window, user, 'Confirm Landlord', 'small')
+        window =  Widget.window(add_window, user, 'Confirm Landlord', 'small')
         row = 0
 
         # open entries array
@@ -130,66 +130,66 @@ class LandlordWin:
         note = entries[3].get()
 
         text = 'Check and confirm landlord:'
-        WinConGeneral.title(window, user, text)
+        Widget.title(window, user, text)
         row += 1
 
         text = title + ' ' + first_names + ' ' + surname + ' - ' + note
-        WinConGeneral.content(window, user, text)
+        Widget.content(window, user, text)
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
         WinCon.add_button(add_window, window, user, text, title, first_names, surname, note, row)
         text = "Cancel (don't confirm)"
-        WinConGeneral.close_button(window, False, window, user, False, row, 1, text)
+        Widget.close_button(window, False, window, user, False, row, 1, text)
 
     def add_window(user):
         # Set up window
-        window =  WinConGeneral.window(user.root, user, 'Add Landlord', 'small')
+        window =  Widget.window(user.root, user, 'Add Landlord', 'small')
         row = 0
 
         text = 'Add landlord as ' + user.name
-        WinConGeneral.title(window, user, text)
+        Widget.title(window, user, text)
         row += 1
 
-        entry_title = WinConGeneral.entry(window, user, 'Title:', row)
+        entry_title = Widget.entry(window, user, 'Title:', row)
         row += 1
-        entry_first_names = WinConGeneral.entry(window, user, 'First name(s):', row)
+        entry_first_names = Widget.entry(window, user, 'First name(s):', row)
         row += 1
-        entry_surname = WinConGeneral.entry(window, user, 'Surname:', row)
+        entry_surname = Widget.entry(window, user, 'Surname:', row)
         row += 1
-        entry_note = WinConGeneral.entry(window, user, 'Note:', row)
+        entry_note = Widget.entry(window, user, 'Note:', row)
         row += 1
 
         text = 'SUBMIT (as ' + user.name + ')'
 
         entries = [entry_title, entry_first_names, entry_surname, entry_note]
-        WinConGeneral.confirm_window_button(window, user, 'landlord', text, entries, row)
-        WinConGeneral.close_button(window, False, window, user, False, row, 2)
+        Widget.confirm_window_button(window, user, 'landlord', text, entries, row)
+        Widget.close_button(window, False, window, user, False, row, 2)
 
     def print_temp():
         print('closed')
 
     def show_window(user):
         # Set up window
-        window =  WinConGeneral.window(user.root, user, 'Show Landlords', 'medium')
+        window =  Widget.window(user.root, user, 'Show Landlords', 'medium')
 
         # Set up frames
-        top_frame = WinConGeneral.side_frame(window, user, 'top')
-        scroll_frame = WinConGeneral.scroll_frame(window, user)
-        bottom_frame = WinConGeneral.side_frame(window, user, 'bottom')
+        top_frame = Widget.side_frame(window, user, 'top')
+        scroll_frame = Widget.scroll_frame(window, user)
+        bottom_frame = Widget.side_frame(window, user, 'bottom')
 
         # Top Frame
         text = 'Landlords for ' + user.name + ':'
-        WinConGeneral.title(top_frame, user, text)
+        Widget.title(top_frame, user, text)
 
         # Scroll Frame
-        WinConGeneral.scroll_button_list(window, scroll_frame, user, 'landlord')
+        Widget.scroll_button_list(window, scroll_frame, user, 'landlord')
 
         # Bottom Frame
-        WinConGeneral.add_window_button(bottom_frame, user, 'landlord')
-        WinConGeneral.close_button(window, 'show', bottom_frame, user, 'landlord')
+        Widget.add_window_button(bottom_frame, user, 'landlord')
+        Widget.close_button(window, 'show', bottom_frame, user, 'landlord')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
         user.landlord_win.show_windows.insert(0, [window, scroll_frame])
         # Close window sent through method so can be removed from user
-        window.protocol("WM_DELETE_WINDOW", lambda: WinConGeneral.close_window(window, 'show', user, 'landlord'))
+        window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'show', user, 'landlord'))

@@ -7,28 +7,29 @@ class WinConProperty():
     def add(add_window, user, code, address):
         user.add_property(code, address)
         add_window.destroy()
-        user.save_group('property')
+        user.save_all_class_type('property')
         WinConProperty.refresh(user)
         number = Property.number_from_code(user, code)
         win.property.PropertyWin.see_window(user, number)
 
     def update(user, number, type, new):
         user.property_list[number].update(type, new)
-        user.save_group('property')
+        user.save_all_class_type('property')
         WinConProperty.refresh(user)
 
     def add_landlord(user, number, landlord_code):
         user.property_list[number].add_landlord(user, landlord_code)
-        user.save_group('property')
+        user.save_all_class_type('property')
         WinConProperty.refresh(user)
 
     # Window refresh management
 
     def refresh(user):
+        from win.widget import Widget
         for win_frame in user.property_win.see_windows:
             win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.property_win.show_windows:
-            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'property')
+            Widget.scroll_button_list(win_frame[0], win_frame[1], user, 'property')
         # Actions
         for win_frame in user.action_win.see_windows:
             win.action.ActionWin.see_window_right(win_frame[0], user, win_frame[1])

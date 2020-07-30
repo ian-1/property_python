@@ -8,21 +8,22 @@ class WinConContact():
     def add(add_window, user, type, address, note, number):
         user.add_contact(user, type, address, note, number)
         add_window.destroy()
-        user.save_group('contact')
+        user.save_all_class_type('contact')
         WinConContact.refresh(user)
 
     def update(user, number, type, new):
         user.contact_list[number].update(type, new)
-        user.save_group('contact')
+        user.save_all_class_type('contact')
         WinConContact.refresh(user)
 
     # Window refresh management
 
     def refresh(user):
+        from win.widget import Widget
         for win_frame in user.contact_win.see_windows:
             win.contact.ContactWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.contact_win.show_windows:
-            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'contact')
+            Widget.scroll_button_list(win_frame[0], win_frame[1], user, 'contact')
         # landlords
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
