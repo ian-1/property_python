@@ -21,7 +21,7 @@ class WinConTask():
         for win_frame in user.task_win.see_windows:
             win.task.TaskWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.task_win.show_windows:
-            WinConTask.scroll_button_list(win_frame[0], win_frame[1], user, win_frame[2])
+            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'task', win_frame[2])
 
     # Action Buttons
 

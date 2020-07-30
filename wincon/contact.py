@@ -22,7 +22,7 @@ class WinConContact():
         for win_frame in user.contact_win.see_windows:
             win.contact.ContactWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.contact_win.show_windows:
-            WinConContact.scroll_button_list(win_frame[0], win_frame[1], user)
+            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'contact')
         # landlords
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
@@ -41,13 +41,3 @@ class WinConContact():
         button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConContact.update(user, number, type, entry.get()))
         button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
-    # Window Buttons
-
-    # Add & Confirm windows
-
-    def confirm_window_button(window, user, text,entry_type, entry_address, entry_note, number, row):
-        button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: win.contact.ContactWin.confirm_window(window, user, entry_type.get(), entry_address.get(), entry_note.get(), number))
-        button.bind('<Return>', lambda e: win.contact.ContactWin.confirm_window(window, user, entry_type.get(), entry_address.get(), entry_note.get(), number))
-        button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)

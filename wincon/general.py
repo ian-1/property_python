@@ -10,8 +10,16 @@ from wincon.vertical_scrolled_frame import VerticalScrolledFrame
 
 class WinConGeneral():
 
+    def import_GroupLib(group):
+        # Method imports relevant class module for object class type
+        from importlib import import_module
+        # warning import_module takes arguments in backwards order ie a.b is (.b, a)
+        lib_dot_group = import_module('.' + group, 'lib')
+        # returns Group class
+        return getattr(lib_dot_group, group.title())
+
     def import_GroupWin(group):
-        # Imports relevant 'Win' module for object class type - used for button methods below
+        # Method imports relevant 'Win' module for object class type
         from importlib import import_module
         # warning import_module takes arguments in backwards order ie a.b is (.b, a)
         win_dot_group = import_module('.' + group, 'win')
@@ -103,7 +111,7 @@ class WinConGeneral():
             entry.set(insert)
         return entry
 
-    # Buttons
+    # Window Buttons
 
     def close_button(window, window_type, frame, user, group, row=0, column=1, text='Close Window'):
         # Closes different types of windows
@@ -140,6 +148,18 @@ class WinConGeneral():
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                                 command=lambda: GroupWin.show_window(user, code))
         button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
+
+    def see_window_button(window, user, group, code, row=0, rowspan=1):
+        GroupLib = WinConGeneral.import_GroupLib(group)
+        GroupWin = WinConGeneral.import_GroupWin(group)
+        object_number = GroupLib.number_from_code(user, code)
+        if object_number != False:
+            text = 'Open ' + group.title()
+            button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
+                                     command=lambda: GroupWin.see_window(user, object_number))
+            button.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
+
+    # Scroll Buttons
 
     def scroll_button_display(object, group):
         text = 'NOT SET UP FOR CLASS TYPE'

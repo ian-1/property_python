@@ -1,7 +1,6 @@
 from tkinter import Button
 import win.property
 import win.action
-from lib.property import Property
 
 class WinConProperty():
 
@@ -29,7 +28,7 @@ class WinConProperty():
         for win_frame in user.property_win.see_windows:
             win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.property_win.show_windows:
-            WinConProperty.scroll_button_list(win_frame[0], win_frame[1], user)
+            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'property')
         # Actions
         for win_frame in user.action_win.see_windows:
             win.action.ActionWin.see_window_right(win_frame[0], user, win_frame[1])
@@ -53,14 +52,3 @@ class WinConProperty():
         button = Button(frame, text='add', font=user.standard_font,
                              command=lambda: WinConProperty.add_landlord(user, number, entry.get()))
         button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
-    # Window Buttons
-
-    # See Window
-
-    def see_window_button(window, user, code, row=0, rowspan=1):
-        property_number = Property.number_from_code(user, code)
-        if property_number != False:
-            property_button = Button(window, text='Open Property', font=user.large_font, bg=user.button_bg_colour,
-                                     command=lambda: win.property.PropertyWin.see_window(user, property_number))
-            property_button.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)

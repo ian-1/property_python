@@ -21,7 +21,7 @@ class WinConAction():
         for win_frame in user.action_win.see_windows:
             win.action.ActionWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.action_win.show_windows:
-            WinConAction.scroll_button_list(win_frame[0], win_frame[1], user, win_frame[2])
+            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'action', win_frame[2])
 
     # Action Buttons
 

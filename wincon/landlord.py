@@ -23,7 +23,7 @@ class WinConLandlord():
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.landlord_win.show_windows:
-            WinConLandlord.scroll_button_list(win_frame[0], win_frame[1], user)
+            WinConGeneral.scroll_button_list(win_frame[0], win_frame[1], user, 'landlord')
         # properties
         for win_frame in user.property_win.see_windows:
             win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])

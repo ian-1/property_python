@@ -61,7 +61,7 @@ class ActionWin:
 
         # Left Side Buttons
         code = user.action_list[number].property
-        WinConProperty.see_window_button(window, user, code, row, 2)
+        WinConGeneral.see_window_button(window, user, 'property', code, row, 2)
         WinConGeneral.close_button(window, 'see', window, user, 'action', row, 2)
 
         # Right Side
