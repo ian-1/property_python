@@ -20,7 +20,7 @@ class WinConLandlord():
     # Window refresh management
 
     def refresh(user):
-        from win.widget import Widget
+        import win.widget as Widget
         for win_frame in user.landlord_win.see_windows:
             win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.landlord_win.show_windows:
@@ -43,12 +43,3 @@ class WinConLandlord():
         button = Button(frame, text='update', font=user.standard_font, bg=bg,
                              command=lambda: WinConLandlord.update(user, number, type, entry.get()))
         button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
-    # Window Buttons
-
-    # Add & Confirm windows
-
-    def add_contact_window_button(frame, user, number=False, row=0, column=0):
-        button = Button(frame, text='Add Contact', font=user.large_font, bg=user.button_bg_colour,
-                            command=lambda: win.contact.ContactWin.add_window(user, number))
-        button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)

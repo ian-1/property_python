@@ -1,4 +1,4 @@
-from win.widget import Widget
+import win.widget as Widget
 from wincon.landlord import WinConLandlord as WinCon
 from lib.landlord import Landlord
 
@@ -99,7 +99,7 @@ class LandlordWin:
                 counter += 1
 
         # Buttons
-        WinCon.add_contact_window_button(window, user, number, row, column)
+        Widget.add_window_button(window, user, 'contact', number, row, column)
         column += 1
         Widget.close_button(window, 'see', window, user, 'property', row, column)
 
@@ -142,7 +142,7 @@ class LandlordWin:
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 
-    def add_window(user):
+    def add_window(user, number):
         # Set up window
         window =  Widget.window(user.root, user, 'Add Landlord', 'small')
         row = 0

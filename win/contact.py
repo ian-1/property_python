@@ -1,4 +1,4 @@
-from win.widget import Widget
+import win.widget as Widget
 from wincon.contact import WinConContact as WinCon
 from lib.contact import Contact
 

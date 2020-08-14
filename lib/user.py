@@ -26,12 +26,6 @@ class User():
         # Load in data from files for above
         self.load_class_type('property')
         self.load_class_type('landlord')
-        n = 1
-        zero = '0'
-        for landlord in self.landlord_list:
-            landlord.code = 'LANDLORD00' + zero + str(n)
-            n += 1
-            if n == 10: zero = ''
         self.load_class_type('contact')
         self.load_class_type('task')
         self.load_class_type('action')

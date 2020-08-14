@@ -1,4 +1,4 @@
-from win.widget import Widget
+import win.widget as Widget
 from wincon.task import WinConTask as WinCon
 from wincon.property import WinConProperty
 from lib.task import Task
@@ -114,7 +114,7 @@ class TaskWin:
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 
-    def add_window(user):
+    def add_window(user, number):
         # Set up window
         window =  Widget.window(user.root, user, 'Add Task', 'small')
         row = 0

@@ -25,7 +25,7 @@ class WinConProperty():
     # Window refresh management
 
     def refresh(user):
-        from win.widget import Widget
+        import win.widget as Widget
         for win_frame in user.property_win.see_windows:
             win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.property_win.show_windows:

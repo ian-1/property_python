@@ -1,4 +1,4 @@
-from win.widget import Widget
+import win.widget as Widget
 from wincon.action import WinConAction as WinCon
 from wincon.property import WinConProperty
 from lib.action import Action
@@ -100,7 +100,7 @@ class ActionWin:
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 
-    def add_window(user):
+    def add_window(user, number):
         # Set up window
         window =  Widget.window(user.root, user, 'Add Action', 'small')
         row = 0

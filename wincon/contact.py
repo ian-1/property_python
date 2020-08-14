@@ -19,7 +19,7 @@ class WinConContact():
     # Window refresh management
 
     def refresh(user):
-        from win.widget import Widget
+        import win.widget as Widget
         for win_frame in user.contact_win.see_windows:
             win.contact.ContactWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.contact_win.show_windows:

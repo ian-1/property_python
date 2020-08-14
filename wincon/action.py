@@ -18,7 +18,7 @@ class WinConAction():
     # Window refresh management
 
     def refresh(user):
-        from win.widget import Widget
+        import win.widget as Widget
         for win_frame in user.action_win.see_windows:
             win.action.ActionWin.see_window_right(win_frame[0], user, win_frame[1])
         for win_frame in user.action_win.show_windows:
