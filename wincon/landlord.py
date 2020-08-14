@@ -3,6 +3,7 @@ import win.landlord
 import win.property
 import win.contact
 from lib.landlord import Landlord
+import win.widget as Widget
 
 class WinConLandlord():
 
@@ -10,24 +11,12 @@ class WinConLandlord():
         user.add_landlord(user, title, first_names, surname, note)
         add_window.destroy()
         user.save_all_class_type('landlord')
-        WinConLandlord.refresh(user)
+        Widget.refresh(user)
 
     def update(user, number, type, new):
         user.landlord_list[number].update(type, new)
         user.save_all_class_type('landlord')
-        WinConLandlord.refresh(user)
-
-    # Window refresh management
-
-    def refresh(user):
-        import win.widget as Widget
-        for win_frame in user.landlord_win.see_windows:
-            win.landlord.LandlordWin.see_window_right(win_frame[0], user, win_frame[1])
-        for win_frame in user.landlord_win.show_windows:
-            Widget.scroll_button_list(win_frame[0], win_frame[1], user, 'landlord')
-        # properties
-        for win_frame in user.property_win.see_windows:
-            win.property.PropertyWin.see_window_right(win_frame[0], user, win_frame[1])
+        Widget.refresh(user)
 
     # Action Buttons
 

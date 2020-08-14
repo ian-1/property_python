@@ -13,6 +13,7 @@ class User():
     def __init__(self, name):
         self.name = name
         self.root = False
+        self.class_types = ['property', 'landlord', 'contact', 'task', 'action']
         self.property_list = []
         self.property_win = win.property.PropertyWin()
         self.landlord_list = []

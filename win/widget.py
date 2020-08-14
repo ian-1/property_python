@@ -54,6 +54,15 @@ def close_window(window, window_type, user, class_type):
             getattr(class_type_win, window_type + '_windows').remove(win_frame)
     window.destroy()
 
+def refresh(user):
+    # Refreshes windows refresh lists
+    for class_type in user.class_types:
+        ClassTypeWin = import_ClassTypeWin(class_type)
+        for win_frame in getattr(user, class_type + '_win').see_windows:
+            ClassTypeWin.see_window_right(win_frame[0], user, win_frame[1])
+        for win_frame in getattr(user, class_type + '_win').show_windows:
+            scroll_button_list(win_frame[0], win_frame[1], user, class_type, win_frame[2])
+
 # Frames
 
 def side_frame(window, user, side):

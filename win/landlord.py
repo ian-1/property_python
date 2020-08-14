@@ -190,6 +190,6 @@ class LandlordWin:
         Widget.close_button(window, 'show', bottom_frame, user, 'landlord')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
-        user.landlord_win.show_windows.insert(0, [window, scroll_frame])
+        user.landlord_win.show_windows.insert(0, [window, scroll_frame, False])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'show', user, 'landlord'))
