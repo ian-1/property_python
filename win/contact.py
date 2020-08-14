@@ -3,10 +3,6 @@ from wincon.contact import WinConContact as WinCon
 from lib.contact import Contact
 
 class ContactWin:
-    def __init__(self):
-        self.see_windows = []
-        self.show_windows = []
-
     def see_window_left(window, user, number):
         row = 0
 
@@ -63,7 +59,7 @@ class ContactWin:
         ContactWin.see_window_right(window, user, number)
 
         # Add window and number to user so see_window_right can be called from outside of method
-        user.contact_win.see_windows.insert(0, [window, number])
+        user.contact_see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'contact'))
 
@@ -95,7 +91,7 @@ class ContactWin:
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 
-    def add_window(user, number):
+    def add_window(user, number=False):
         # Set up window
         window =  Widget.window(user.root, user, 'Add Contact', 'small')
         row = 0
@@ -141,6 +137,6 @@ class ContactWin:
         Widget.close_button(window, 'show', bottom_frame, user, 'contact')
 
         # Add window and scroll frame to user so can be refreshed from outside of method
-        user.contact_win.show_windows.insert(0, [window, scroll_frame, False])
+        user.contact_show_windows.insert(0, [window, scroll_frame, False])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'show', user, 'contact'))

@@ -48,19 +48,19 @@ def window(toplevel, user, name, size, alert=False):
 
 def close_window(window, window_type, user, class_type):
     # Closes window and removes window from refresh list
-    class_type_win = getattr(user, class_type + '_win')
-    for win_frame in getattr(class_type_win, window_type + '_windows')[:]:
+    win_frame_list = getattr(user, class_type + '_' + window_type + '_windows')
+    for win_frame in win_frame_list[:]:
         if win_frame[0] == window:
-            getattr(class_type_win, window_type + '_windows').remove(win_frame)
+            win_frame_list.remove(win_frame)
     window.destroy()
 
 def refresh(user):
     # Refreshes windows refresh lists
     for class_type in user.class_types:
         ClassTypeWin = import_ClassTypeWin(class_type)
-        for win_frame in getattr(user, class_type + '_win').see_windows:
+        for win_frame in getattr(user, class_type + '_see_windows'):
             ClassTypeWin.see_window_right(win_frame[0], user, win_frame[1])
-        for win_frame in getattr(user, class_type + '_win').show_windows:
+        for win_frame in getattr(user, class_type + '_show_windows'):
             scroll_button_list(win_frame[0], win_frame[1], user, class_type, win_frame[2])
 
 # Frames

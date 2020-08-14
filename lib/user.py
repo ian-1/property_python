@@ -14,26 +14,19 @@ class User():
         self.name = name
         self.root = False
         self.class_types = ['property', 'landlord', 'contact', 'task', 'action']
-        self.property_list = []
-        self.property_win = win.property.PropertyWin()
-        self.landlord_list = []
-        self.landlord_win = win.landlord.LandlordWin()
-        self.contact_list = []
-        self.contact_win = win.contact.ContactWin()
-        self.task_list = []
-        self.task_win = win.task.TaskWin()
-        self.action_list = []
-        self.action_win = win.action.ActionWin()
-        # Load in data from files for above
-        self.load_class_type('property')
-        self.load_class_type('landlord')
-        self.load_class_type('contact')
-        self.load_class_type('task')
-        self.load_class_type('action')
-        # company attributes:
+        # SET UP EACH CLASS
+        for class_type in self.class_types:
+            # Set up empty list of objects for each class type
+            setattr(self, class_type + '_list', [])
+            # Load data to populate above lists of objects
+            self.load_class_type(class_type)
+            # Set up empty refresh list for each class type
+            setattr(self, class_type + '_see_windows', [])
+            setattr(self, class_type + '_show_windows', [])
+        # COMPANY ATTRIBUTES:
         self.company_name = 'Property Python'
         self.company_icon = 'icon.ico'
-        # style attributes:
+        # STYLE ATTRIBUTES:
         # window sizes:
         self.root_window_width = 950
         self.root_window_height = 150
