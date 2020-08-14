@@ -1,19 +1,21 @@
+import os
 from lib.property import Property
 from lib.landlord import Landlord
 from lib.contact import Contact
 from lib.task import Task
 from lib.action import Action
-import win.property
-import win.landlord
-import win.contact
-import win.task
-import win.action
+
 
 class User():
     def __init__(self, name):
         self.name = name
         self.root = False
-        self.class_types = ['property', 'landlord', 'contact', 'task', 'action']
+        self.class_types = []
+        for root, dirs, file_names in os.walk('.\\lib\\'):
+            for file_name in file_names:
+                if file_name != 'user.py':
+                    self.class_types.append(file_name[0:-3])
+            break
         # SET UP EACH CLASS
         for class_type in self.class_types:
             # Set up empty list of objects for each class type
@@ -83,7 +85,6 @@ class User():
                 file.close()
 
     def codes_from_data_directory(self, class_type):
-        import os
         codes = []
         for root, dirs, file_names in os.walk('.\\data\\' + self.name + '\\' + class_type + '\\'):
             # Check how many characters code is
