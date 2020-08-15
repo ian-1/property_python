@@ -168,12 +168,6 @@ def confirm_window_button(window, user, class_type, text, entries, row):
     button.bind('<Return>', lambda e: ClassTypeWin.confirm_window(window, user, entries))
     button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
-def add_button(add_window, confirm_window, user, class_type, text, data, row, open=False):
-    # Adds object and closes add object window and confirm add object windows
-    button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                    command=lambda: add(add_window, user, class_type, data, open))
-    button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
-
 def show_window_button(window, user, class_type, code, row, column=0, rowspan=1):
     # Directs from the see property window to tasks/actions with that property code
     ClassTypeWin = import_ClassTypeWin(class_type)
@@ -183,6 +177,7 @@ def show_window_button(window, user, class_type, code, row, column=0, rowspan=1)
     button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
 def see_window_button(window, user, class_type, code, row=0, rowspan=1):
+    # Directs ot the see object window
     ClassTypeLib = import_ClassTypeLib(class_type)
     ClassTypeWin = import_ClassTypeWin(class_type)
     object_number = ClassTypeLib.number_from_code(user, code)
@@ -191,6 +186,20 @@ def see_window_button(window, user, class_type, code, row=0, rowspan=1):
         button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
                         command=lambda: ClassTypeWin.see_window(user, object_number))
         button.grid(row=row, column=0, rowspan=rowspan, padx=user.padx, pady=user.pady)
+
+# Action Buttons
+
+def add_button(add_window, confirm_window, user, class_type, text, data, row, open=False):
+    # Adds object, closes add object window & confirm add object windows and refreshes
+    button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
+                    command=lambda: add(add_window, user, class_type, data, open))
+    button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+
+def update_button(frame, user, class_type, number, type, entry, row, rowspan=1):
+    # Updates data for object and refreshes
+    button = Button(frame, text='update', font=user.standard_font,
+                    command=lambda: update(user, class_type, number, type, entry.get()))
+    button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
 
 # Scroll Buttons
 

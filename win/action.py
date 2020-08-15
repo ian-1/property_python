@@ -1,5 +1,4 @@
 import win.widget as Widget
-from wincon.action import WinConAction as WinCon
 from wincon.property import WinConProperty
 from lib.action import Action
 from lib.property import Property
@@ -10,17 +9,17 @@ class ActionWin:
 
         insert = user.action_list[number].date
         entry_date = Widget.entry(window, user, 'Date:', row, 2, insert)
-        WinCon.update_button(window, user, 'action', number, 'date', entry_date, row, 2, insert)
+        Widget.update_button(window, user, 'action', number, 'date', entry_date, row, 2)
         row += 2
 
         insert = user.action_list[number].property
         entry_property = Widget.entry(window, user, 'Property:', row, 2, insert)
-        WinCon.update_button(window, user, 'action', number, 'property', entry_property, row, 2, insert)
+        Widget.update_button(window, user, 'action', number, 'property', entry_property, row, 2)
         row += 2
 
         insert = user.action_list[number].message
         entry_message = Widget.entry(window, user, 'Message:', row, 2, insert)
-        WinCon.update_button(window, user, 'action', number, 'message', entry_message, row, 2, insert)
+        Widget.update_button(window, user, 'action', number, 'message', entry_message, row, 2)
         row += 2
 
         return row

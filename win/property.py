@@ -1,7 +1,6 @@
 from win.action import ActionWin
 import win.widget as Widget
 from wincon.property import WinConProperty as WinCon
-from wincon.action import WinConAction
 from lib.property import Property
 
 class PropertyWin:
@@ -10,12 +9,12 @@ class PropertyWin:
 
         insert = user.property_list[number].code
         entry_code = Widget.entry(window, user, 'Code:', row, 2, insert)
-        WinCon.update_button(window, user, 'property', number, 'code', entry_code, row, 2)
+        Widget.update_button(window, user, 'property', number, 'code', entry_code, row, 2)
         row += 2
 
         insert = user.property_list[number].address
         entry_address = Widget.entry(window, user, 'Address:', row, 2, insert)
-        WinCon.update_button(window, user, 'property', number, 'address', entry_address, row, 2)
+        Widget.update_button(window, user, 'property', number, 'address', entry_address, row, 2)
         row += 2
 
         entry_landlord = Widget.entry(window, user, 'Landlord:', row, 2)
@@ -55,7 +54,6 @@ class PropertyWin:
         row += 1
 
     def see_window(user, number):
-        import wincon.task
         # Set up window
         window =  Widget.window(user.root, user, 'See Property', 'medium')
 

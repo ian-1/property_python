@@ -13,11 +13,6 @@ class WinConProperty():
 
     # Action Buttons
 
-    def update_button(frame, user, class_type, number, type, entry, row, rowspan=1):
-        button = Button(frame, text='update', font=user.standard_font,
-                             command=lambda: Widget.update(user, class_type, number, type, entry.get()))
-        button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)
-
     def add_landlord_button(frame, user, number, entry, row, rowspan=1):
         button = Button(frame, text='add', font=user.standard_font,
                              command=lambda: WinConProperty.add_landlord(user, number, entry.get()))

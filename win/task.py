@@ -1,5 +1,4 @@
 import win.widget as Widget
-from wincon.task import WinConTask as WinCon
 from wincon.property import WinConProperty
 from lib.task import Task
 from lib.property import Property
@@ -11,22 +10,22 @@ class TaskWin:
 
         insert = user.task_list[number].date
         entry_date = Widget.entry(window, user, 'Start date:', row, 2, insert)
-        WinCon.update_button(window, user, 'task', number, 'date', entry_date, row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'date', entry_date, row, 2)
         row += 2
 
         insert = user.task_list[number].property
         entry_property = Widget.entry(window, user, 'Property:', row, 2, insert)
-        WinCon.update_button(window, user, 'task', number, 'property', entry_property, row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'property', entry_property, row, 2)
         row += 2
 
         insert = user.task_list[number].due
         entry_due = Widget.entry(window, user, 'Due date:', row, 2, insert)
-        WinCon.update_button(window, user, 'task', number, 'due', entry_due, row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'due', entry_due, row, 2)
         row += 2
 
         insert = user.task_list[number].message
         entry_message = Widget.entry(window, user, 'Message:', row, 2, insert)
-        WinCon.update_button(window, user, 'task', number, 'message', entry_message, row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'message', entry_message, row, 2)
         row += 2
 
         return row

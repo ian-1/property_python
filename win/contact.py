@@ -1,5 +1,4 @@
 import win.widget as Widget
-from wincon.contact import WinConContact as WinCon
 from lib.contact import Contact
 
 class ContactWin:
@@ -8,19 +7,19 @@ class ContactWin:
 
         insert = user.contact_list[number].type
         entry_type = Widget.drop_down(window, user, 'Type', ['Address', 'Phone Number', 'Email'], row, 2, insert)
-        WinCon.update_button(window, user, 'contact', number, 'type', entry_type, row, 2, insert)
+        Widget.update_button(window, user, 'contact', number, 'type', entry_type, row, 2)
         row += 2
 
         insert = user.contact_list[number].address
         text = 'Address'
         if user.contact_list[number].type == 'phone': text = 'Number'
         entry_address = Widget.entry(window, user, text, row, 2, insert)
-        WinCon.update_button(window, user, 'contact', number, 'address', entry_address, row, 2, insert)
+        Widget.update_button(window, user, 'contact', number, 'address', entry_address, row, 2)
         row += 2
 
         insert = user.contact_list[number].note
         entry_note = Widget.entry(window, user, 'Note:', row, 2, insert)
-        WinCon.update_button(window, user, 'contact', number, 'note', entry_note, row, 2, insert)
+        Widget.update_button(window, user, 'contact', number, 'note', entry_note, row, 2)
         row += 2
 
         return row
