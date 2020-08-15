@@ -10,12 +10,12 @@ class PropertyWin:
 
         insert = user.property_list[number].code
         entry_code = Widget.entry(window, user, 'Code:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'code', entry_code, row, 2)
+        WinCon.update_button(window, user, 'property', number, 'code', entry_code, row, 2)
         row += 2
 
         insert = user.property_list[number].address
         entry_address = Widget.entry(window, user, 'Address:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'address', entry_address, row, 2)
+        WinCon.update_button(window, user, 'property', number, 'address', entry_address, row, 2)
         row += 2
 
         entry_landlord = Widget.entry(window, user, 'Landlord:', row, 2)
@@ -97,7 +97,9 @@ class PropertyWin:
 
         text = 'CONFIRM (as ' + user.name + ')'
         data = {'code': code, 'address': address}
-        WinCon.add_button(add_window, window, user, text, data, row)
+        # Open the new property's see window after adding
+        open = True
+        Widget.add_button(add_window, window, user, 'property', text, data, row, open)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

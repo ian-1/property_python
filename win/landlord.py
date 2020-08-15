@@ -12,22 +12,22 @@ class LandlordWin:
 
         insert = user.landlord_list[number].title
         entry_title = Widget.entry(window, user, 'Title', row, 2, insert)
-        WinCon.update_button(window, user, number, 'title', entry_title, row, 2, insert)
+        WinCon.update_button(window, user, 'landlord', number, 'title', entry_title, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].first_names
         entry_first_names = Widget.entry(window, user, 'First name(s)', row, 2, insert)
-        WinCon.update_button(window, user, number, 'first_names', entry_first_names, row, 2, insert)
+        WinCon.update_button(window, user, 'landlord', number, 'first_names', entry_first_names, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].surname
         entry_surname = Widget.entry(window, user, 'Surname', row, 2, insert)
-        WinCon.update_button(window, user, number, 'surname', entry_surname, row, 2, insert)
+        WinCon.update_button(window, user, 'landlord', number, 'surname', entry_surname, row, 2, insert)
         row += 2
 
         insert = user.landlord_list[number].note
         entry_note = Widget.entry(window, user, 'Note:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'note', entry_note, row, 2, insert)
+        WinCon.update_button(window, user, 'landlord', number, 'note', entry_note, row, 2, insert)
         row += 2
 
         return row
@@ -135,7 +135,7 @@ class LandlordWin:
 
         text = 'CONFIRM (as ' + user.name + ')'
         data = {'title': title, 'first_names': first_names, 'surname': surname, 'note': note}
-        WinCon.add_button(add_window, window, user, text, data, row)
+        Widget.add_button(add_window, window, user, 'landlord', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

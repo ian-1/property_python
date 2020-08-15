@@ -11,22 +11,22 @@ class TaskWin:
 
         insert = user.task_list[number].date
         entry_date = Widget.entry(window, user, 'Start date:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'date', entry_date, row, 2, insert)
+        WinCon.update_button(window, user, 'task', number, 'date', entry_date, row, 2, insert)
         row += 2
 
         insert = user.task_list[number].property
         entry_property = Widget.entry(window, user, 'Property:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'property', entry_property, row, 2, insert)
+        WinCon.update_button(window, user, 'task', number, 'property', entry_property, row, 2, insert)
         row += 2
 
         insert = user.task_list[number].due
         entry_due = Widget.entry(window, user, 'Due date:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'due', entry_due, row, 2, insert)
+        WinCon.update_button(window, user, 'task', number, 'due', entry_due, row, 2, insert)
         row += 2
 
         insert = user.task_list[number].message
         entry_message = Widget.entry(window, user, 'Message:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'message', entry_message, row, 2, insert)
+        WinCon.update_button(window, user, 'task', number, 'message', entry_message, row, 2, insert)
         row += 2
 
         return row
@@ -107,7 +107,7 @@ class TaskWin:
 
         text = 'CONFIRM (as ' + user.name + ')'
         data = {'property': property_code, 'message': message}
-        WinCon.add_button(add_window, window, user, text, data, row)
+        Widget.add_button(add_window, window, user, 'task', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

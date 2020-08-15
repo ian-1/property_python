@@ -8,19 +8,19 @@ class ContactWin:
 
         insert = user.contact_list[number].type
         entry_type = Widget.drop_down(window, user, 'Type', ['Address', 'Phone Number', 'Email'], row, 2, insert)
-        WinCon.update_button(window, user, number, 'type', entry_type, row, 2, insert)
+        WinCon.update_button(window, user, 'contact', number, 'type', entry_type, row, 2, insert)
         row += 2
 
         insert = user.contact_list[number].address
         text = 'Address'
         if user.contact_list[number].type == 'phone': text = 'Number'
         entry_address = Widget.entry(window, user, text, row, 2, insert)
-        WinCon.update_button(window, user, number, 'address', entry_address, row, 2, insert)
+        WinCon.update_button(window, user, 'contact', number, 'address', entry_address, row, 2, insert)
         row += 2
 
         insert = user.contact_list[number].note
         entry_note = Widget.entry(window, user, 'Note:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'note', entry_note, row, 2, insert)
+        WinCon.update_button(window, user, 'contact', number, 'note', entry_note, row, 2, insert)
         row += 2
 
         return row
@@ -88,8 +88,7 @@ class ContactWin:
 
         text = 'CONFIRM (as ' + user.name + ')'
         data = {'type': type, 'address': address, 'note': note, 'number': number}
-        print(data)
-        WinCon.add_button(add_window, window, user, text, data, row)
+        Widget.add_button(add_window, window, user, 'contact', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

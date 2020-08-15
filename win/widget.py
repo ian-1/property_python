@@ -38,6 +38,12 @@ def add(add_window, user, class_type, data, open=False):
         number = Property.number_from_code(user, data['code'])
         win.property.PropertyWin.see_window(user, number)
 
+def update(user, class_type, number, type, new):
+    class_list = getattr(user, class_type + '_list')
+    class_list[number].update(type, new)
+    user.save_all_class_type(class_type)
+    refresh(user)
+
 # Windows
 
 def bg_set(user, alert):
@@ -162,6 +168,12 @@ def confirm_window_button(window, user, class_type, text, entries, row):
     button.bind('<Return>', lambda e: ClassTypeWin.confirm_window(window, user, entries))
     button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
+def add_button(add_window, confirm_window, user, class_type, text, data, row, open=False):
+    # Adds object and closes add object window and confirm add object windows
+    button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
+                    command=lambda: add(add_window, user, class_type, data, open))
+    button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
+
 def show_window_button(window, user, class_type, code, row, column=0, rowspan=1):
     # Directs from the see property window to tasks/actions with that property code
     ClassTypeWin = import_ClassTypeWin(class_type)
@@ -183,7 +195,7 @@ def see_window_button(window, user, class_type, code, row=0, rowspan=1):
 # Scroll Buttons
 
 def scroll_button_display(object, class_type):
-    text = 'NOT SET UP FOR CLASS TYPE'
+    text = 'scroll_button_display NOT SET UP FOR CLASS TYPE'
     bg="gray99"
     if class_type == 'task':
         from datetime import date

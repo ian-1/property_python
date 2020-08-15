@@ -10,17 +10,17 @@ class ActionWin:
 
         insert = user.action_list[number].date
         entry_date = Widget.entry(window, user, 'Date:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'date', entry_date, row, 2, insert)
+        WinCon.update_button(window, user, 'action', number, 'date', entry_date, row, 2, insert)
         row += 2
 
         insert = user.action_list[number].property
         entry_property = Widget.entry(window, user, 'Property:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'property', entry_property, row, 2, insert)
+        WinCon.update_button(window, user, 'action', number, 'property', entry_property, row, 2, insert)
         row += 2
 
         insert = user.action_list[number].message
         entry_message = Widget.entry(window, user, 'Message:', row, 2, insert)
-        WinCon.update_button(window, user, number, 'message', entry_message, row, 2, insert)
+        WinCon.update_button(window, user, 'action', number, 'message', entry_message, row, 2, insert)
         row += 2
 
         return row
@@ -93,7 +93,7 @@ class ActionWin:
 
         text = 'CONFIRM (as ' + user.name + ')'
         data = {'property': property_code, 'message': message}
-        WinCon.add_button(add_window, window, user, text, data, row)
+        Widget.add_button(add_window, window, user, 'action', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 
