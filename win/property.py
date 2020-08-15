@@ -81,8 +81,8 @@ class PropertyWin:
         row = 0
 
         # open entries array
-        code = entries[0].get()
-        address = entries[1].get()
+        code = entries.get('code', '').get()
+        address = entries.get('address', '').get()
 
         text = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
         Widget.title(window, user, text, row, 0, alert)
@@ -99,22 +99,3 @@ class PropertyWin:
         Widget.add_button(add_window, window, user, 'property', text, data, row, open)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
-
-    def add_window(user, number=False):
-        # Set up window
-        window =  Widget.window(user.root, user, 'Add property', 'small')
-        row = 0
-
-        text = 'Add property as ' + user.name
-        Widget.title(window, user, text)
-        row += 1
-
-        entry_code = Widget.entry(window, user, 'Code:', row)
-        row += 1
-        entry_address = Widget.entry(window, user, 'Address:', row)
-        row += 1
-
-        text = 'SUBMIT (as ' + user.name + ')'
-        entries = [entry_code, entry_address]
-        Widget.confirm_window_button(window, user, 'property', text, entries, row)
-        Widget.close_button(window, False, window, user, False, row, 2)

@@ -68,10 +68,10 @@ class ContactWin:
         row = 0
 
         # open entries array
-        type = entries[0].get()
-        address = entries[1].get()
-        note = entries[2].get()
-        number = entries[3]
+        type = entries.get('type', '').get()
+        address = entries.get('enter', '').get()
+        note = entries.get('note', '').get()
+        number = entries.get('number', '')
 
         text = 'Check and confirm contact:'
         Widget.title(window, user, text)
@@ -90,25 +90,3 @@ class ContactWin:
         Widget.add_button(add_window, window, user, 'contact', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
-
-    def add_window(user, number=False):
-        # Set up window
-        window =  Widget.window(user.root, user, 'Add Contact', 'small')
-        row = 0
-
-        text = 'Add contact as ' + user.name
-        Widget.title(window, user, text)
-        row += 1
-
-        entry_type = Widget.drop_down(window, user, 'Type:', ['Address', 'Phone Number', 'Email'], row)
-        row += 1
-        entry_address = Widget.entry(window, user, 'Enter:', row)
-        row += 1
-        entry_note = Widget.entry(window, user, 'Note (optional):', row)
-        row += 1
-
-        text = 'SUBMIT (as ' + user.name + ')'
-
-        entries = [entry_type, entry_address, entry_note, number]
-        Widget.confirm_window_button(window, user, 'contact', text, entries, row)
-        Widget.close_button(window, False, window, user, False, row, 2)

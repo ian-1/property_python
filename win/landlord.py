@@ -118,10 +118,10 @@ class LandlordWin:
         row = 0
 
         # open entries array
-        title = entries[0].get()
-        first_names = entries[1].get()
-        surname = entries[2].get()
-        note = entries[3].get()
+        title = entries.get('title', '').get()
+        first_names = entries.get('first_names', '').get()
+        surname = entries.get('surname', '').get()
+        note = entries.get('note', '').get()
 
         text = 'Check and confirm landlord:'
         Widget.title(window, user, text)
@@ -136,27 +136,3 @@ class LandlordWin:
         Widget.add_button(add_window, window, user, 'landlord', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
-
-    def add_window(user, number=False):
-        # Set up window
-        window =  Widget.window(user.root, user, 'Add Landlord', 'small')
-        row = 0
-
-        text = 'Add landlord as ' + user.name
-        Widget.title(window, user, text)
-        row += 1
-
-        entry_title = Widget.entry(window, user, 'Title:', row)
-        row += 1
-        entry_first_names = Widget.entry(window, user, 'First name(s):', row)
-        row += 1
-        entry_surname = Widget.entry(window, user, 'Surname:', row)
-        row += 1
-        entry_note = Widget.entry(window, user, 'Note:', row)
-        row += 1
-
-        text = 'SUBMIT (as ' + user.name + ')'
-
-        entries = [entry_title, entry_first_names, entry_surname, entry_note]
-        Widget.confirm_window_button(window, user, 'landlord', text, entries, row)
-        Widget.close_button(window, False, window, user, False, row, 2)

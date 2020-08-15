@@ -72,9 +72,9 @@ class ActionWin:
         row = 0
 
         # open entries array
-        property_code_address = entries[0].get()
+        property_code_address = entries.get('property', '').get()
         property_code = property_code_address[0:6]
-        message = entries[1].get()
+        message = entries.get('message', '').get()
 
         text = 'Check and confirm action:'
         Widget.line(window, user, text)
@@ -94,26 +94,3 @@ class ActionWin:
         Widget.add_button(add_window, window, user, 'action', text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
-
-    def add_window(user, number=False):
-        # Set up window
-        window =  Widget.window(user.root, user, 'Add Action', 'small')
-        row = 0
-
-        text = 'Add action as ' + user.name
-        Widget.title(window, user, text)
-        row += 1
-
-        options = []
-        for property in user.property_list:
-            text = property.code + ' - ' + property.address
-            options.append(text)
-        entry_property = Widget.drop_down(window, user, 'Property:', options, row)
-        row += 1
-        entry_message = Widget.entry(window, user, 'Message:', row)
-        row += 1
-
-        text = 'SUBMIT (as ' + user.name + ')'
-        entries = [entry_property, entry_message]
-        Widget.confirm_window_button(window, user, 'action', text, entries, row)
-        Widget.close_button(window, False, window, user, False, row, 2)

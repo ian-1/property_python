@@ -1,5 +1,3 @@
-# ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
-
 from tkinter import Menu
 import win.window as Window
 from win.property import PropertyWin
@@ -8,8 +6,6 @@ from win.task import TaskWin
 from win.action import ActionWin
 # Test
 from win.contact import ContactWin
-
-# ~~~~~~~~~~~~~~~~~~~~~~ class ~~~~~~~~~~~~~~~~~~~~~~
 
 class MainPage:
     # view items used on main window
@@ -29,7 +25,7 @@ class MainPage:
         # properties menu
         property_menu = Menu(menubar, tearoff=0)
         property_menu.add_command(label="View Properties", command=lambda: Window.show_window(user, 'property'))
-        property_menu.add_command(label="Add Property", command=lambda: PropertyWin.add_window(user))
+        property_menu.add_command(label="Add Property", command=lambda: Window.add_window(user, 'property'))
         property_menu.add_separator()
         property_menu.add_command(label="View Tenancies", command=MainPage.donothing)
         property_menu.add_command(label="Add Tenancy", command=MainPage.donothing)
@@ -37,7 +33,7 @@ class MainPage:
         # People menu
         people_menu = Menu(menubar, tearoff=0)
         people_menu.add_command(label="View Landlords", command=lambda: Window.show_window(user, 'landlord'))
-        people_menu.add_command(label="Add Landlord", command=lambda: LandlordWin.add_window(user))
+        people_menu.add_command(label="Add Landlord", command=lambda: Window.add_window(user, 'landlord'))
         people_menu.add_separator()
         people_menu.add_command(label="View Additional Contacts", command=MainPage.donothing)
         people_menu.add_command(label="Add Additional Contact", command=MainPage.donothing)
@@ -59,7 +55,7 @@ class MainPage:
         # Tasks menu
         task_menu = Menu(menubar, tearoff=0)
         task_menu.add_command(label="View All Tasks", command=lambda: Window.show_window(user, 'task'))
-        task_menu.add_command(label="Add General Task", command=lambda: TaskWin.add_window(user))
+        task_menu.add_command(label="Add General Task", command=lambda: Window.add_window(user, 'task'))
         task_menu.add_separator()
         task_menu.add_command(label="View Maintenance Jobs", command=MainPage.donothing)
         task_menu.add_command(label="Add Maintenance Job", command=MainPage.donothing)
@@ -78,10 +74,10 @@ class MainPage:
         # actions menu
         action_menu = Menu(menubar, tearoff=0)
         action_menu.add_command(label="View Actions", command=lambda: Window.show_window(user, 'action'))
-        action_menu.add_command(label="Add Action", command=lambda: ActionWin.add_window(user))
+        action_menu.add_command(label="Add Action", command=lambda: Window.add_window(user, 'action'))
         menubar.add_cascade(label="Actions", menu=action_menu)
         # test menu
         test_menu = Menu(menubar, tearoff=0)
         test_menu.add_command(label="View Contacts", command=lambda: Window.show_window(user, 'contact'))
-        test_menu.add_command(label="Add Contact", command=lambda: ContactWin.add_window(user))
+        test_menu.add_command(label="Add Contact", command=lambda: Window.add_window(user, 'contact'))
         menubar.add_cascade(label="Test", menu=test_menu)

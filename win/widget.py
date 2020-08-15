@@ -160,7 +160,7 @@ def add_window_button(frame, user, class_type, number=False, row=0, column=0):
     ClassTypeWin = import_ClassTypeWin(class_type)
     text = 'Add ' + class_type.title()
     button = Button(frame, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: ClassTypeWin.add_window(user, number))
+                        command=lambda: Window.add_window(user, class_type, number))
     button.grid(row=row, column=column, sticky='nsew', padx=user.padx, pady=user.pady)
 
 def confirm_window_button(window, user, class_type, text, entries, row):
