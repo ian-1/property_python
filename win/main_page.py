@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~ import modules ~~~~~~~~~~~~~~~~~~~~~~
 
 from tkinter import Menu
+import win.window as Window
 from win.property import PropertyWin
 from win.landlord import LandlordWin
 from win.task import TaskWin
@@ -27,7 +28,7 @@ class MainPage:
         menubar.add_cascade(label="File", menu=file_menu)
         # properties menu
         property_menu = Menu(menubar, tearoff=0)
-        property_menu.add_command(label="View Properties", command=lambda: PropertyWin.show_window(user))
+        property_menu.add_command(label="View Properties", command=lambda: Window.show_window(user, 'property'))
         property_menu.add_command(label="Add Property", command=lambda: PropertyWin.add_window(user))
         property_menu.add_separator()
         property_menu.add_command(label="View Tenancies", command=MainPage.donothing)
@@ -35,7 +36,7 @@ class MainPage:
         menubar.add_cascade(label="Properties", menu=property_menu)
         # People menu
         people_menu = Menu(menubar, tearoff=0)
-        people_menu.add_command(label="View Landlords", command=lambda: LandlordWin.show_window(user))
+        people_menu.add_command(label="View Landlords", command=lambda: Window.show_window(user, 'landlord'))
         people_menu.add_command(label="Add Landlord", command=lambda: LandlordWin.add_window(user))
         people_menu.add_separator()
         people_menu.add_command(label="View Additional Contacts", command=MainPage.donothing)
@@ -57,7 +58,7 @@ class MainPage:
         menubar.add_cascade(label="Objects", menu=object_menu)
         # Tasks menu
         task_menu = Menu(menubar, tearoff=0)
-        task_menu.add_command(label="View All Tasks", command=lambda: TaskWin.show_window(user))
+        task_menu.add_command(label="View All Tasks", command=lambda: Window.show_window(user, 'task'))
         task_menu.add_command(label="Add General Task", command=lambda: TaskWin.add_window(user))
         task_menu.add_separator()
         task_menu.add_command(label="View Maintenance Jobs", command=MainPage.donothing)
@@ -76,11 +77,11 @@ class MainPage:
         menubar.add_cascade(label="Tasks", menu=task_menu)
         # actions menu
         action_menu = Menu(menubar, tearoff=0)
-        action_menu.add_command(label="View Actions", command=lambda: ActionWin.show_window(user))
+        action_menu.add_command(label="View Actions", command=lambda: Window.show_window(user, 'action'))
         action_menu.add_command(label="Add Action", command=lambda: ActionWin.add_window(user))
         menubar.add_cascade(label="Actions", menu=action_menu)
         # test menu
-        #test_menu = Menu(menubar, tearoff=0)
-        #test_menu.add_command(label="View Contacts", command=lambda: ContactWin.show_window(user))
-        #test_menu.add_command(label="Add Contact", command=lambda: ContactWin.add_window(user))
-        #menubar.add_cascade(label="Test", menu=test_menu)
+        test_menu = Menu(menubar, tearoff=0)
+        test_menu.add_command(label="View Contacts", command=lambda: Window.show_window(user, 'contact'))
+        test_menu.add_command(label="Add Contact", command=lambda: ContactWin.add_window(user))
+        menubar.add_cascade(label="Test", menu=test_menu)

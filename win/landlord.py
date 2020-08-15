@@ -160,31 +160,3 @@ class LandlordWin:
         entries = [entry_title, entry_first_names, entry_surname, entry_note]
         Widget.confirm_window_button(window, user, 'landlord', text, entries, row)
         Widget.close_button(window, False, window, user, False, row, 2)
-
-    def print_temp():
-        print('closed')
-
-    def show_window(user):
-        # Set up window
-        window =  Widget.window(user.root, user, 'Show Landlords', 'medium')
-
-        # Set up frames
-        top_frame = Widget.side_frame(window, user, 'top')
-        scroll_frame = Widget.scroll_frame(window, user)
-        bottom_frame = Widget.side_frame(window, user, 'bottom')
-
-        # Top Frame
-        text = 'Landlords for ' + user.name + ':'
-        Widget.title(top_frame, user, text)
-
-        # Scroll Frame
-        Widget.scroll_button_list(window, scroll_frame, user, 'landlord')
-
-        # Bottom Frame
-        Widget.add_window_button(bottom_frame, user, 'landlord')
-        Widget.close_button(window, 'show', bottom_frame, user, 'landlord')
-
-        # Add window and scroll frame to user so can be refreshed from outside of method
-        user.landlord_show_windows.insert(0, [window, scroll_frame, False])
-        # Close window sent through method so can be removed from user
-        window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'show', user, 'landlord'))

@@ -7,6 +7,7 @@ from tkinter import Toplevel,\
                     Button,\
                     StringVar
 from win.vertical_scrolled_frame import VerticalScrolledFrame
+import win.window as Window
 
 # GENERAL WIDGETS
 
@@ -172,10 +173,9 @@ def confirm_window_button(window, user, class_type, text, entries, row):
 
 def show_window_button(window, user, class_type, code, row, column=0, rowspan=1):
     # Directs from the see property window to tasks/actions with that property code
-    ClassTypeWin = import_ClassTypeWin(class_type)
     text = 'View ' + class_type.title() + 's'
     button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                    command=lambda: ClassTypeWin.show_window(user, code))
+                    command=lambda: Window.show_window(user, class_type, code))
     button.grid(row=row, column=column, rowspan=rowspan, sticky='nsew', padx=user.padx, pady=user.pady)
 
 def see_window_button(window, user, class_type, code, row=0, rowspan=1):
