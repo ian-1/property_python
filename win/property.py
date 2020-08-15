@@ -1,6 +1,5 @@
 from win.action import ActionWin
 import win.widget as Widget
-from wincon.property import WinConProperty as WinCon
 from lib.property import Property
 
 class PropertyWin:
@@ -18,7 +17,7 @@ class PropertyWin:
         row += 2
 
         entry_landlord = Widget.entry(window, user, 'Landlord:', row, 2)
-        WinCon.add_landlord_button(window, user, number, entry_landlord, row, 2)
+        Widget.link_landlord_to_property_button(window, user, number, entry_landlord, row, 2)
         row += 2
 
         return row

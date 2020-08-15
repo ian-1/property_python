@@ -1,5 +1,4 @@
 import win.widget as Widget
-from wincon.property import WinConProperty
 from lib.action import Action
 from lib.property import Property
 

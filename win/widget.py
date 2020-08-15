@@ -8,6 +8,8 @@ from tkinter import Toplevel,\
                     StringVar
 from win.vertical_scrolled_frame import VerticalScrolledFrame
 
+# GENERAL WIDGETS
+
 # Widget sub-methods
 
 def import_ClassTypeLib(class_type):
@@ -238,3 +240,17 @@ def scroll_button_list(window, frame, user, class_type, code=False):
                 command=lambda number=counter: ClassTypeWin.see_window(user, number))
             button.grid(row=counter, column = 0, sticky='nsew', padx=user.padx, pady=user.pady)
         counter += 1
+
+# CLASS SPECIFIC WIDGETS
+
+# property
+
+def link_landlord_to_property(user, number, landlord_code):
+    user.property_list[number].add_landlord(user, landlord_code)
+    user.save_all_class_type('property')
+    refresh(user)
+
+def link_landlord_to_property_button(frame, user, number, entry, row, rowspan=1):
+    button = Button(frame, text='add', font=user.standard_font,
+                    command=lambda: link_landlord_to_property(user, number, entry.get()))
+    button.grid(row=row, column=3, rowspan=rowspan, padx=user.padx, pady=user.pady)

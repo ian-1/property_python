@@ -1,5 +1,4 @@
 import win.widget as Widget
-from wincon.property import WinConProperty
 from lib.task import Task
 from lib.property import Property
 from datetime import date
