@@ -87,7 +87,9 @@ class ContactWin:
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
-        WinCon.add_button(add_window, window, user, text, type, address, note, number, row)
+        data = {'type': type, 'address': address, 'note': note, 'number': number}
+        print(data)
+        WinCon.add_button(add_window, window, user, text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

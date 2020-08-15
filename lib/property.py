@@ -1,9 +1,9 @@
 from datetime import date
 
 class Property():
-    def __init__(self, code='', address=''):
-        self.code = code
-        self.address = address
+    def __init__(self, user=False, data={}):
+        self.code = data.get('code', '')
+        self.address = data.get('address', '')
         self.date = str(date.today())
         self.landlords = []
 

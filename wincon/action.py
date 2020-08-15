@@ -5,12 +5,6 @@ import win.widget as Widget
 
 class WinConAction():
 
-    def add(add_window, user, property, message):
-        user.add_action(user, property, message)
-        add_window.destroy()
-        user.save_all_class_type('action')
-        Widget.refresh(user)
-
     def update(user, number, type, new):
         user.action_list[number].update(type, new)
         user.save_all_class_type('action')
@@ -18,9 +12,9 @@ class WinConAction():
 
     # Action Buttons
 
-    def add_button(add_window, confirm_window, user, text, property, message, row):
+    def add_button(add_window, confirm_window, user, text, data, row):
         button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConAction.add(add_window, user, property, message))
+                        command=lambda: Widget.add(add_window, user, 'action', data))
         button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def update_button(frame, user, number, type, entry, row, rowspan, insert):

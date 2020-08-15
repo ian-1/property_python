@@ -5,18 +5,19 @@ from lib.contact import Contact
 from lib.task import Task
 from lib.action import Action
 
-
 class User():
     def __init__(self, name):
         self.name = name
         self.root = False
+        # SET UP CLASSES
+        # get list of class types
         self.class_types = []
         for root, dirs, file_names in os.walk('.\\lib\\'):
             for file_name in file_names:
                 if file_name != 'user.py':
                     self.class_types.append(file_name[0:-3])
             break
-        # SET UP EACH CLASS
+        # set up each class type
         for class_type in self.class_types:
             # Set up empty list of objects for each class type
             setattr(self, class_type + '_list', [])
@@ -135,17 +136,8 @@ class User():
         code_number += str(number)
         return class_type.upper() + code_number
 
-    def add_property(self, code, address):
-        self.property_list.append(Property(code, address))
-
-    def add_landlord(self, user, title, first_names, surname, note):
-        self.landlord_list.append(Landlord(user, title, first_names, surname, note))
-
-    def add_contact(self, user, type, address, note, number):
-        self.contact_list.append(Contact(user, type, address, note, number))
-
-    def add_task(self, user, property, message):
-        self.task_list.append(Task(user, property, message))
-
-    def add_action(self, user, property, message):
-        self.action_list.append(Action(user, property, message))
+    def add(self, user, class_type, data):
+        list = getattr(self, class_type + '_list')
+        class_name = class_type.title()
+        object = globals()[class_name](user, data)
+        list.append(object)

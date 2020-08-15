@@ -106,7 +106,8 @@ class TaskWin:
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
-        WinCon.add_button(add_window, window, user, text, property_code, message, row)
+        data = {'property': property_code, 'message': message}
+        WinCon.add_button(add_window, window, user, text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

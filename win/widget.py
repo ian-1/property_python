@@ -8,6 +8,8 @@ from tkinter import Toplevel,\
                     StringVar
 from win.vertical_scrolled_frame import VerticalScrolledFrame
 
+# Widget sub-methods
+
 def import_ClassTypeLib(class_type):
     # Method imports relevant class module for object class type
     from importlib import import_module
@@ -23,6 +25,18 @@ def import_ClassTypeWin(class_type):
     win_dot_class_type = import_module('.' + class_type, 'win')
     # returns ClassTypeWin class
     return getattr(win_dot_class_type, class_type.title() + 'Win')
+
+def add(add_window, user, class_type, data, open=False):
+    user.add(user, class_type, data)
+    add_window.destroy()
+    user.save_all_class_type(class_type)
+    refresh(user)
+    if open:
+        # Currently only used by property, needs to be generalised if to be used elsewhere
+        from lib.property import Property
+        import win.property
+        number = Property.number_from_code(user, data['code'])
+        win.property.PropertyWin.see_window(user, number)
 
 # Windows
 

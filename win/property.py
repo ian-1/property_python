@@ -96,7 +96,8 @@ class PropertyWin:
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
-        WinCon.add_button(add_window, window, user, text, code, address, row)
+        data = {'code': code, 'address': address}
+        WinCon.add_button(add_window, window, user, text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

@@ -6,12 +6,6 @@ import win.widget as Widget
 
 class WinConContact():
 
-    def add(add_window, user, type, address, note, number):
-        user.add_contact(user, type, address, note, number)
-        add_window.destroy()
-        user.save_all_class_type('contact')
-        Widget.refresh(user)
-
     def update(user, number, type, new):
         user.contact_list[number].update(type, new)
         user.save_all_class_type('contact')
@@ -19,9 +13,9 @@ class WinConContact():
 
     # Action Buttons
 
-    def add_button(add_window, confirm_window, user, text, type, address, note, number, row):
+    def add_button(add_window, confirm_window, user, text, data, row):
         button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConContact.add(add_window, user, type, address, note, number))
+                        command=lambda: Widget.add(add_window, user, 'contact', data))
         button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def update_button(frame, user, number, type, entry, row, rowspan, insert):

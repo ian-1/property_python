@@ -6,14 +6,6 @@ import win.widget as Widget
 
 class WinConProperty():
 
-    def add(add_window, user, code, address):
-        user.add_property(code, address)
-        add_window.destroy()
-        user.save_all_class_type('property')
-        Widget.refresh(user)
-        number = Property.number_from_code(user, code)
-        win.property.PropertyWin.see_window(user, number)
-
     def update(user, number, type, new):
         user.property_list[number].update(type, new)
         user.save_all_class_type('property')
@@ -26,9 +18,9 @@ class WinConProperty():
 
     # Action Buttons
 
-    def add_button(add_window, confirm_window, user, text, code, address, row):
+    def add_button(add_window, confirm_window, user, text, data, row):
         button = Button(confirm_window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                        command=lambda: WinConProperty.add(add_window, user, code, address))
+                        command=lambda: Widget.add(add_window, user, 'property', data, True))
         button.grid(row=row, column=0, sticky='nsew', padx=user.padx, pady=user.pady)
 
     def update_button(frame, user, number, type, entry, row, rowspan=1):

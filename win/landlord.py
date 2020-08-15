@@ -134,7 +134,8 @@ class LandlordWin:
         row += 1
 
         text = 'CONFIRM (as ' + user.name + ')'
-        WinCon.add_button(add_window, window, user, text, title, first_names, surname, note, row)
+        data = {'title': title, 'first_names': first_names, 'surname': surname, 'note': note}
+        WinCon.add_button(add_window, window, user, text, data, row)
         text = "Cancel (don't confirm)"
         Widget.close_button(window, False, window, user, False, row, 1, text)
 

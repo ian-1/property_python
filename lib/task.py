@@ -1,7 +1,7 @@
 from datetime import date
 
 class Task():
-    def __init__(self, user=False, property='', message=''):
+    def __init__(self, user=False, data={}):
         self.date = str(date.today())
         # For dummy generation without user
         if user == False:
@@ -10,8 +10,8 @@ class Task():
         else:
             self.code = user.generate_code('task', 6)
         self.due = str(date.today())
-        self.property = property
-        self.message = message
+        self.property = data.get('property', '')
+        self.message = data.get('message', '')
 
     # Class methods:
 
