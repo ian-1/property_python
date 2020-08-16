@@ -61,32 +61,3 @@ class ContactWin:
         user.contact_see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'contact'))
-
-    def confirm_window(add_window, user, entries):
-        # Set up window
-        window =  Widget.window(add_window, user, 'Confirm Contact', 'small')
-        row = 0
-
-        # open entries array
-        type = entries.get('type', '').get()
-        address = entries.get('enter', '').get()
-        note = entries.get('note', '').get()
-        number = entries.get('number', '')
-
-        text = 'Check and confirm contact:'
-        Widget.title(window, user, text)
-        row += 1
-
-        text = type + ' - ' + address
-        Widget.content(window, user, text, row)
-        row += 1
-
-        text = note
-        Widget.content(window, user, text, row)
-        row += 1
-
-        text = 'CONFIRM (as ' + user.name + ')'
-        data = {'type': type, 'address': address, 'note': note, 'number': number}
-        Widget.add_button(add_window, window, user, 'contact', text, data, row)
-        text = "Cancel (don't confirm)"
-        Widget.close_button(window, False, window, user, False, row, 1, text)

@@ -11,7 +11,7 @@ class Contact():
             self.code = user.generate_code('contact', 4)
             user.landlord_list[data.get('number', '')].contacts.append(self.code)
         self.type = data.get('type', '')
-        self.address = data.get('address', '')
+        self.address = data.get('enter', '')
         self.note = data.get('note', '')
 
     def update(self, type, value):

@@ -111,28 +111,3 @@ class LandlordWin:
         user.landlord_see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'landlord'))
-
-    def confirm_window(add_window, user, entries):
-        # Set up window
-        window =  Widget.window(add_window, user, 'Confirm Landlord', 'small')
-        row = 0
-
-        # open entries array
-        title = entries.get('title', '').get()
-        first_names = entries.get('first_names', '').get()
-        surname = entries.get('surname', '').get()
-        note = entries.get('note', '').get()
-
-        text = 'Check and confirm landlord:'
-        Widget.title(window, user, text)
-        row += 1
-
-        text = title + ' ' + first_names + ' ' + surname + ' - ' + note
-        Widget.content(window, user, text)
-        row += 1
-
-        text = 'CONFIRM (as ' + user.name + ')'
-        data = {'title': title, 'first_names': first_names, 'surname': surname, 'note': note}
-        Widget.add_button(add_window, window, user, 'landlord', text, data, row)
-        text = "Cancel (don't confirm)"
-        Widget.close_button(window, False, window, user, False, row, 1, text)

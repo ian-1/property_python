@@ -141,6 +141,10 @@ def drop_down(window, user, text, options, row, rowspan=1, insert=False):
         entry.set(insert)
     return entry
 
+def blank_entry():
+    entry = Entry()
+    return entry
+
 # Window Buttons
 
 def close_button(window, window_type, frame, user, class_type, row=0, column=1, text='Close Window'):
@@ -167,8 +171,8 @@ def confirm_window_button(window, user, class_type, text, entries, row):
     ClassTypeWin = import_ClassTypeWin(class_type)
     # Directs from the add object window to the confirm add object window
     button = Button(window, text=text, font=user.large_font, bg=user.button_bg_colour,
-                    command=lambda: ClassTypeWin.confirm_window(window, user, entries))
-    button.bind('<Return>', lambda e: ClassTypeWin.confirm_window(window, user, entries))
+                    command=lambda: Window.confirm_window(window, user, class_type, entries))
+    button.bind('<Return>', lambda e: Window.confirm_window(window, user, class_type, entries))
     button.grid(row=row, column=0, columnspan=2, sticky='nsew', padx=user.padx, pady=user.pady)
 
 def show_window_button(window, user, class_type, code, row, column=0, rowspan=1):

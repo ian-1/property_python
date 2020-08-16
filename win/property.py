@@ -73,29 +73,3 @@ class PropertyWin:
         user.property_see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'property'))
-
-    def confirm_window(add_window, user, entries):
-        # Set up window
-        alert = True
-        window =  Widget.window(add_window, user, 'Confirm Property', 'small', alert)
-        row = 0
-
-        # open entries array
-        code = entries.get('code', '').get()
-        address = entries.get('address', '').get()
-
-        text = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
-        Widget.title(window, user, text, row, 0, alert)
-        row += 1
-
-        text = code + ' - ' + address
-        Widget.content(window, user, text, row, 0, alert)
-        row += 1
-
-        text = 'CONFIRM (as ' + user.name + ')'
-        data = {'code': code, 'address': address}
-        # Open the new property's see window after adding
-        open = True
-        Widget.add_button(add_window, window, user, 'property', text, data, row, open)
-        text = "Cancel (don't confirm)"
-        Widget.close_button(window, False, window, user, False, row, 1, text)

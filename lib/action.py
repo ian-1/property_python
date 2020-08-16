@@ -9,7 +9,7 @@ class Action():
         # For non-dummy generation
         else:
             self.code = user.generate_code('action', 7)
-        self.property = data.get('property', '')
+        self.property = data.get('property_code', '')
         self.message = data.get('message', '')
 
     def update(self, type, value):

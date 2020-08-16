@@ -79,32 +79,3 @@ class TaskWin:
         user.task_see_windows.insert(0, [window, number])
         # Close window sent through method so can be removed from user
         window.protocol("WM_DELETE_WINDOW", lambda: Widget.close_window(window, 'see', user, 'task'))
-
-    def confirm_window(add_window, user, entries):
-        # Set up window
-        window =  Widget.window(add_window, user, 'Confirm Task', 'small')
-        row = 0
-
-        # open entries array
-        property_code_address = entries.get('property', '').get()
-        property_code = property_code_address[0:6]
-        message = entries.get('message', '').get()
-
-        text = 'Check and confirm task:'
-        Widget.line(window, user, text)
-        row += 1
-
-        address = Property.address_from_code(user, property_code)
-        text = 'Address: ' + address
-        Widget.title(window, user, text, row)
-        row += 1
-
-        text = message
-        Widget.content(window, user, text, row)
-        row += 1
-
-        text = 'CONFIRM (as ' + user.name + ')'
-        data = {'property': property_code, 'message': message}
-        Widget.add_button(add_window, window, user, 'task', text, data, row)
-        text = "Cancel (don't confirm)"
-        Widget.close_button(window, False, window, user, False, row, 1, text)

@@ -1,4 +1,105 @@
 import win.widget as Widget
+from lib.property import Property
+
+def confirm_window(add_window, user, class_type, entries):
+    # Set up window
+    alert = False
+    if class_type == 'property': alert = True
+    text = 'Confirm ' + class_type.title()
+    window =  Widget.window(add_window, user, text, 'small', alert)
+    row = 0
+    column = 0
+
+    # Get data from entries dictionary
+    data = {}
+    number = entries.get('number', '')
+    data.update({'number': number})
+
+    data_types = ['message', 'code', 'address', 'title', 'first_names', 'surname', 'note', 'type', 'enter']
+    for data_type in data_types:
+        data_item = entries.get(data_type, Widget.blank_entry()).get()
+        data.update({data_type: data_item})
+
+    if class_type == 'action' or class_type == 'task':
+        # Retrieve address from dropdown list
+        property_code_address = entries.get('property', Widget.blank_entry()).get()
+        property_code = property_code_address[0:6]
+        data.update({'property_code': property_code})
+        address = Property.address_from_code(user, property_code)
+        data.update({'address': address})
+
+    # Intro line
+    text = 'Check and confirm ' + class_type + ':'
+    if class_type == 'property': text = 'ARE YOU SURE YOU WANT TO ADD PROPERTY?'
+    Widget.line(window, user, text, row, column, alert)
+    row += 1
+
+    # Main data display: property (code)
+    if data['code'] != '':
+        text = 'Code: ' + data['code']
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+    elif class_type == 'property':
+        text = 'NO PROPERTY CODE ADDED'
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+
+    # Main data display: property, action & task (address)
+    if data['address'] != '':
+        text = 'Property: '
+        if class_type == 'property': text = 'Address: '
+        text += data['address']
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+    elif class_type == 'property':
+        text = 'NO ADDRESS ADDED'
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+
+    # Main data: action & task (message) - if exists displayed below in sub-data
+    if data['message'] == '':
+        if class_type == 'action' or class_type == 'task':
+            text = 'NO MESSAGE ADDED'
+            Widget.title(window, user, text, row, column, alert)
+            row += 1
+
+    # Main data display: landlord (full name)
+    if data['surname'] != '':
+        text = data['title'] + ' ' + data['first_names'] + ' ' + data['surname']
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+    elif class_type == 'landlord':
+        text = 'NO SURNAME ADDED'
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+
+    # Main data display: contact (email/phone/address)
+    if data['type'] != '':
+        text = data['type'] + ': ' + data['enter']
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+    elif class_type == 'contact':
+        text = 'NO TYPE SELECTED'
+        Widget.title(window, user, text, row, column, alert)
+        row += 1
+
+    # Sub-data display
+    data_types = ['message', 'note'] # Action & Task
+    for data_type in data_types:
+        if data[data_type] != '':
+            text = data[data_type]
+            Widget.content(window, user, text, row, column, alert)
+            row += 1
+
+    # Open the new objects's see window after adding
+    open = False
+    if class_type == 'property': open = True
+
+    # Submit
+    text = 'CONFIRM (as ' + user.name + ')'
+    Widget.add_button(add_window, window, user, class_type, text, data, row, open)
+    text = "Cancel (don't confirm)"
+    Widget.close_button(window, False, window, user, False, row, 1, text)
 
 def add_window(user, class_type, number=''):
     # Set up window

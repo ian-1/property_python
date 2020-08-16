@@ -10,7 +10,7 @@ class Task():
         else:
             self.code = user.generate_code('task', 6)
         self.due = str(date.today())
-        self.property = data.get('property', '')
+        self.property = data.get('property_code', '')
         self.message = data.get('message', '')
 
     # Class methods:
