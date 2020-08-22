@@ -216,8 +216,16 @@ def scroll_button_display(object, class_type):
         from datetime import date
         from lib.task import Task
         till_due = Task.date_length(str(date.today()), object.due)
-        text = object.due + ' (' + str(till_due) + ') - ' + object.property + ' - ' + object.message
-        if till_due > 30: bg = 'grey97'
+        till_deadline = ''
+        text_deadline = ''
+        if object.deadline != '':
+            till_deadline = Task.date_length(str(date.today()), object.deadline)
+            text_deadline = '[' + object.deadline + ' (' + str(till_deadline) + ')] '
+        text = '[' + object.staff + '] '
+        text += object.due + ' (' + str(till_due) + ')'
+        text += ' - ' + object.property + ' - ' + text_deadline + object.message
+        text += ' {' + object.next + '}'
+        if till_due > 30: bg = 'grey'
         if till_due < 1: bg = 'orange'
         if till_due < 0: bg = 'tomato'
         if till_due < -5: bg = 'firebrick'

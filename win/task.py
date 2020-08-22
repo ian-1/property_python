@@ -7,24 +7,34 @@ class TaskWin:
     def see_window_left(window, user, number):
         row = 0
 
-        insert = user.task_list[number].date
-        entry_date = Widget.entry(window, user, 'Start date:', row, 2, insert)
-        Widget.update_button(window, user, 'task', number, 'date', entry_date, row, 2)
-        row += 2
-
         insert = user.task_list[number].property
         entry_property = Widget.entry(window, user, 'Property:', row, 2, insert)
         Widget.update_button(window, user, 'task', number, 'property', entry_property, row, 2)
         row += 2
 
-        insert = user.task_list[number].due
-        entry_due = Widget.entry(window, user, 'Due date:', row, 2, insert)
-        Widget.update_button(window, user, 'task', number, 'due', entry_due, row, 2)
+        insert = user.task_list[number].staff
+        entry_due = Widget.entry(window, user, 'Allocated to:', row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'staff', entry_due, row, 2)
+        row += 2
+
+        insert = user.task_list[number].deadline
+        entry_due = Widget.entry(window, user, 'Deadline date:', row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'deadline', entry_due, row, 2)
         row += 2
 
         insert = user.task_list[number].message
-        entry_message = Widget.entry(window, user, 'Message:', row, 2, insert)
+        entry_message = Widget.entry(window, user, 'Description:', row, 2, insert)
         Widget.update_button(window, user, 'task', number, 'message', entry_message, row, 2)
+        row += 2
+
+        insert = user.task_list[number].due
+        entry_due = Widget.entry(window, user, 'Next action due:', row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'due', entry_due, row, 2)
+        row += 2
+
+        insert = user.task_list[number].next
+        entry_message = Widget.entry(window, user, 'Next action:', row, 2, insert)
+        Widget.update_button(window, user, 'task', number, 'next', entry_message, row, 2)
         row += 2
 
         return row
@@ -35,11 +45,33 @@ class TaskWin:
         Widget.line(window, user, '', row, column)
         column += 1
 
-        break_line = '------------------------------------------------------------------------------------------------------'
+        break_line = ''
+        for i in range(102): break_line += '-'
 
-        length = Task.date_length(user.task_list[number].date, str(date.today()))
-        line = 'Days running: ' + str(length)
-        Widget.line(window, user, line, row, column)
+        text = '[' + user.task_list[number].staff + ']'
+        text += ' (Startdate: ' + user.task_list[number].date + ')'
+        text += ' Deadline: ' + user.task_list[number].deadline
+        Widget.line(window, user, text, row, column)
+        row += 1
+
+        line = Property.address_from_code(user, user.task_list[number].property)
+        Widget.title(window, user, line, row, column)
+        row += 1
+
+        text = 'Description: ' + user.task_list[number].message
+        Widget.content(window, user, text, row, column)
+        row += 1
+
+        Widget.line(window, user, break_line, row, column)
+        row += 1
+
+        till_deadline = ''
+        alert = False
+        if user.task_list[number].deadline != '':
+            till_deadline = Task.date_length(str(date.today()), user.task_list[number].deadline)
+            if till_deadline < 1: alert = True
+        line = 'Days till deadline: ' + str(till_deadline)
+        Widget.line(window, user, line, row, column, alert)
         row += 1
 
         till_due = Task.date_length(str(date.today()), user.task_list[number].due)
@@ -49,15 +81,9 @@ class TaskWin:
         Widget.title(window, user, line, row, column, alert)
         row += 1
 
-        Widget.line(window, user, break_line, row, column)
-        row += 1
-
-        line = Property.address_from_code(user, user.task_list[number].property)
-        Widget.title(window, user, line, row, column)
-        row += 1
-
-        text = user.task_list[number].message
+        text = 'Next Action: ' + user.task_list[number].next
         Widget.content(window, user, text, row, column)
+        row += 1
 
     def see_window(user, number):
         # Set up window

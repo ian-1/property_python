@@ -9,9 +9,13 @@ class Task():
         # For non-dummy generation
         else:
             self.code = user.generate_code('task', 6)
+        self.active = True
+        self.staff = ''
         self.due = str(date.today())
+        self.deadline = ''
         self.property = data.get('property_code', '')
         self.message = data.get('message', '')
+        self.next = ''
 
     # Class methods:
 
